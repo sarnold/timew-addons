@@ -28,8 +28,8 @@
 '''
 
 import sys
+from datetime import timedelta
 from typing import Dict, List
-from datetime import datetime, timedelta
 
 from timewreport.parser import TimeWarriorParser
 
@@ -85,10 +85,14 @@ for job_tag in sorted(job_tags):
     print(f'-- {job_tag}')
     tracked_total = timedelta(hours=0)
     for job_day in sorted(job_days):
-        job_intervals = [x for x in parser.get_intervals() if x.get_start_date() == job_day]
+        job_intervals = [
+            x for x in parser.get_intervals() if x.get_start_date() == job_day
+        ]
         for interval in job_intervals:
             tracked_hrs = interval.get_duration()
-            tags = [x for x in interval.get_tags() if x.split(',', maxsplit=1)[0] == job_tag]
+            tags = [
+                x for x in interval.get_tags() if x.split(',', maxsplit=1)[0] == job_tag
+            ]
             for tag in tags:
                 if tag in totals:
                     totals[tag] += tracked_hrs
