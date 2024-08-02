@@ -96,6 +96,12 @@ and MacOS.
 .. _on your platform: https://timewarrior.net/docs/install/
 
 
+PyGObject references
+--------------------
+
+* https://github.com/candidtim/vagrant-appindicator  (old)
+
+
 .. |CI| image:: https://github.com/sarnold/timewarrior-addons/actions/workflows/main.yml/badge.svg
     :target: https://github.com/sarnold/timewarrior-addons/actions/workflows/main.yml
     :alt: CI test status
