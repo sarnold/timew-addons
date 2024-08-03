@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+
+import signal
+import time
+from threading import Thread
+
+import gi
+
+gi.require_version('Notify', '0.7')
+
+try:
+    gi.require_version('AyatanaAppIndicator3', '0.1')
+    from gi.repository import AyatanaAppIndicator3 as appindicator
+except ValueError:
+    gi.require_version('AppIndicator3', '0.1')
+    from gi.repository import AppIndicator3 as appindicator
+
+from gi.repository import Gtk, Notify
+
+from timew_status import (
+    fetch_geoip,
+    get_state_icon,
+    get_status,
+    run_cmd,
+)
+
+APP_VERSION = '0.0.1'
+APPINDICATOR_ID = 'timewindicator'
+
+
+class Indicator:
+    def __init__(self):
+        self.app_id = APPINDICATOR_ID
+        icon_name = get_state_icon('INACTIVE')
+        self.indicator = appindicator.Indicator.new(
+            self.app_id, icon_name, appindicator.IndicatorCategory.APPLICATION_STATUS
+        )
+
+        self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
+        self.indicator.set_menu(self.create_menu())
+        # setup the state updater thread
+        self.update = Thread(target=self.check_for_new_state)
+        self.update.setDaemon(True)
+        self.update.start()
+
+    def check_for_new_state(self):
+        """
+        Check for new state msg and update icon if new.
+        """
+        old_state = 'INACTIVE'
+        new_state = 'INACTIVE'
+        guide = '99999999'
+
+        while True:
+            time.sleep(10)
+            msg = get_status()
+            Notify.Notification.new("Timew status", msg, None).show()
+            if msg.retcode == 0:
+                new_state = 'ACTIVE'
+            # if there is a change in state, update the icon
+            if old_state != new_state:
+                self.indicator.set_icon_full(get_state_icon(new_state), new_state)
+                # note the second label arg should be the longest possible label str
+                self.indicator.set_label(new_state.format().center(8), guide)
+            old_state = new_state
+
+    def create_menu(self):
+        menu = Gtk.Menu()
+        item_start = Gtk.MenuItem(label='Start')
+        item_start.connect('activate', self.startd)
+        menu.append(item_start)
+
+        item_stop = Gtk.MenuItem(label='Stop')
+        item_stop.connect('activate', self.stopd)
+        menu.append(item_stop)
+
+        item_status = Gtk.MenuItem(label='Status')
+        item_status.connect('activate', self.statusd)
+        menu.append(item_status)
+
+        item_geoip = Gtk.MenuItem(label='Geoip')
+        item_geoip.connect('activate', self.geoip)
+        menu.append(item_geoip)
+
+        item_separator = Gtk.SeparatorMenuItem()
+        menu.append(item_separator)
+
+        item_about = Gtk.MenuItem(label='About Timew Indicator')
+        item_about.connect('activate', self.about)
+        menu.append(item_about)
+
+        item_quit = Gtk.MenuItem(label='Quit')
+        item_quit.connect('activate', self.stop)
+        menu.append(item_quit)
+
+        menu.show_all()
+        return menu
+
+    def about(self, source):
+        dlg = Gtk.AboutDialog()
+        dlg.set_name('About...')
+        dlg.set_program_name('Timew Indicator')
+        dlg.set_version(APP_VERSION)
+        dlg.set_copyright('© 2024 Stephen L Arnold')
+        dlg.set_license_type(Gtk.License.GPL_3_0)
+        dlg.set_logo_icon_name('timew')
+        dlg.set_website('https://github.com/sarnold')
+        dlg.set_website_label('github.com')
+        dlg.set_comments(
+            """
+Timew monitoring control and status tool.
+                         """
+        )
+        dlg.set_authors(['Stephen L Arnold <stephen.arnold42@gmail.com>'])
+        dlg.set_artists(['Stephen L Arnold <stephen.arnold42@gmail.com>'])
+        dlg.run()
+        dlg.hide()
+
+    def stop(self, source):
+        Notify.uninit()
+        Gtk.main_quit()
+
+    def geoip(self, source):
+        Notify.Notification.new("Geoip", fetch_geoip(), None).show()
+
+    def startd(self, source):
+        svc_msg = run_cmd(action='start')
+        if not svc_msg:
+            svc_msg = 'Starting...'
+        self.indicator.set_icon_full(get_state_icon('ACTIVE'), 'ACTIVE')
+        Notify.Notification.new("Timew status", svc_msg, None).show()
+
+    def statusd(self, source):
+        svc_msg = run_cmd()
+        Notify.Notification.new("Timew status", svc_msg, None).show()
+
+    def stopd(self, source):
+        svc_msg = run_cmd(action='stop')
+        if not svc_msg:
+            svc_msg = 'Stopping...'
+        self.indicator.set_icon_full(get_state_icon('INACTIVE'), 'INACTIVE')
+        # self.indicator.set_label('NONE'.format().center(9), '99999')
+        Notify.Notification.new("Timew status", svc_msg, None).show()
+
+
+def main():
+    Indicator()
+    Notify.init(APPINDICATOR_ID)
+    Gtk.main()
+
+
+if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    main()
