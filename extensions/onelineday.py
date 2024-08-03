@@ -27,6 +27,7 @@
     2. a single timew interval should not span multiple days
 '''
 
+import os
 import sys
 from datetime import timedelta
 from typing import Dict, List
@@ -40,6 +41,9 @@ job_days: List[str] = list()
 job_tags: List[str] = list()
 formatted = timedelta(0)
 final_total = timedelta(hours=0)
+
+# indicator format is extremely terse
+TERSE_OUTPUT = os.getenv('INDICATOR_FMT')
 
 
 def strf_delta(td):
@@ -77,12 +81,14 @@ for interval in parser.get_intervals():
         update_job_tags(tag)
 
 
-print(f'Duration has {len(job_days)} days with tags and {len(job_tags)} total job tags:')
-print(sorted(job_tags))
-print('')
+if not TERSE_OUTPUT:
+    print(f'Duration has {len(job_days)} days and {len(job_tags)} total job tags:')
+    print(sorted(job_tags))
+    print('')
 
 for job_tag in sorted(job_tags):
-    print(f'-- {job_tag}')
+    if not TERSE_OUTPUT:
+        print(f'-- {job_tag}')
     tracked_total = timedelta(hours=0)
     for job_day in sorted(job_days):
         job_intervals = [
@@ -100,11 +106,18 @@ for job_tag in sorted(job_tags):
                     totals[tag] = tracked_hrs
                 tracked_total += tracked_hrs
 
-        for tag in sorted(totals):
-            print(f'{job_day} {totals[tag]} {tag}')
+        if not TERSE_OUTPUT:
+            for tag in sorted(totals):
+                print(f'{job_day} {totals[tag]} {tag}')
         totals.clear()
-    print('')
     final_total += tracked_total
 
-    print(f'Total for {job_tag}: {strf_delta(tracked_total)} hrs\n')
-print(f'Final total for all jobs in duration: {strf_delta(final_total)} hrs\n\n')
+    if TERSE_OUTPUT:
+        print(f'{job_tag},{strf_delta(tracked_total)}')
+    else:
+        print(f'\nTotal for {job_tag}: {strf_delta(tracked_total)} hrs\n')
+
+if TERSE_OUTPUT:
+    print(f'total,{strf_delta(final_total)}')
+else:
+    print(f'Final total for all jobs in duration: {strf_delta(final_total)} hrs\n\n')
