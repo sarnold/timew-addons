@@ -25,21 +25,23 @@ def get_state_icon(state):
     """
     Look up the state msg and return the icon name.
     """
-    install_path = '/usr/share/icons/hicolor/48x48/apps'
+    install_path = '/usr/share/icons/hicolor/scalable/apps'
     icon_name = 'timew.svg'
 
     fallback_dict = {
-        'INACTIVE': 'dialog-question-symbolic.svg',
-        'ACTIVE': 'dialog-information-symbolic.svg',
-        'WARNING': 'dialog-warning-symbolic.svg',
-        'ERROR': 'dialog-error-symbolic.svg',
+        'APP': 'dialog-information-symbolic',
+        'INACTIVE': 'dialog-question-symbolic',
+        'ACTIVE': 'dialog-information-symbolic',
+        'WARNING': 'dialog-warning-symbolic',
+        'ERROR': 'dialog-error-symbolic',
     }
 
     timew_dict = {
-        'INACTIVE': 'timew.svg',
-        'ACTIVE': 'green.svg',
-        'WARNING': 'yellow.svg',
-        'ERROR': 'red.svg',
+        'APP': 'timew',
+        'INACTIVE': 'timew',
+        'ACTIVE': 'green',
+        'WARNING': 'yellow',
+        'ERROR': 'red',
     }
 
     state_dict = timew_dict
@@ -107,7 +109,7 @@ def run_cmd(action='status'):
     Run timew command subject to the given action.
 
     :param action: one of <start|stop|status>
-    :return: cmd result or nothing
+    :return: completed proc obj and result msg
     """
 
     actions = ['start', 'stop', 'status']
@@ -127,14 +129,10 @@ def run_cmd(action='status'):
 
     try:
         result = subprocess.run(cmd, capture_output=True)
-        result_msg = result.stdout.decode().strip()
-        if result.returncode == 1:
-            print('return code not equal zero')
-        else:
-            print(f'{action} return code: {result.returncode}')
-        print(f'result msg: {result_msg}')
+        print(f'{action} return code: {result.returncode}')
+        print(f'{action} result msg: {result.stdout.decode().strip()}')
 
-        return result, result_msg
+        return result, result.stdout.decode().strip()
 
     except Exception as exc:
         print(f'run_cmd exception: {exc}')
