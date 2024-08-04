@@ -2,6 +2,7 @@
 """
 import json
 import subprocess
+from datetime import timedelta
 from pathlib import Path
 
 import requests
@@ -10,9 +11,12 @@ from requests.exceptions import Timeout
 
 CFG = {
     "day_max": "07:30",
-    "day_max_snooze": "01:00",
+    "day_snooze": "01:00",
     "seat_max": "01:30",
-    "seat_max_snooze": "01:00",
+    "seat_snooze": "01:00",
+    "default_jtag_str": 'vct-sw,"implement skeleton timew indicator"',
+    "jtag_separator": ",",
+    "show_state_label": False,
 }
 
 
@@ -45,15 +49,40 @@ def get_state_icon(state):
     return state_dict.get(state, state_dict['INACTIVE'])
 
 
+def get_state_str(cmproc):
+    """
+    Return timew tracking state, ei, the key for dict with icons.
+
+    :param cmproc: completed timew process obj
+    :type cmproc: CompletedProcess
+    """
+    DAY_SUM = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
+    SEAT_SUM = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
+    DAY_LIMIT = str(sum(map(to_td, DAY_SUM), timedelta()))  # noqa:
+    SEAT_LIMIT = str(sum(map(to_td, SEAT_SUM), timedelta()))  # noqa:
+
+    state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
+    msg = cmproc.stdout.decode('utf8')
+    lines = msg.splitlines()
+    for x in [x for x in lines if x.split(',')[0] == 'total']:
+        day_total = x.split(',')[1]
+    if day_total == '00:00:00':
+        return msg, state
+    if DAY_LIMIT > day_total > CFG["day_max"]:
+        state = 'WARNING'
+    if day_total > DAY_LIMIT:
+        state = 'ERROR'
+    return msg, state
+
+
 def get_status():
     """
     Return timew tracking status.
     """
     try:
-        result = subprocess.run(["timew"], capture_output=True)
-    except Exception as exc:
+        return subprocess.run(["timew"], capture_output=True)
+    except FileNotFoundError as exc:
         print(f'Timew status error: {exc}')
-    return result
 
 
 def fetch_geoip():
@@ -80,6 +109,7 @@ def run_cmd(action='status'):
 
     actions = ['start', 'stop', 'status']
     svc_list = ['timew']
+    sts_list = ["one", "today"]
     cmd = svc_list
     act_list = [action]
 
@@ -88,16 +118,28 @@ def run_cmd(action='status'):
         return
     if action != 'status':
         cmd = svc_list + act_list
+    else:
+        cmd = cmd + sts_list
     print(f'Running {cmd}')
 
     try:
         result = subprocess.run(cmd, capture_output=True)
-        if result.retcode == 1:
+        result_msg = result.stdout.decode().strip()
+        if result.returncode == 1:
             print('return code not equal zero')
         else:
-            print(f'{action} return code: {result.retcode}')
+            print(f'{action} return code: {result.returncode}')
+        print(f'result msg: {result_msg}')
 
-        return result.stdout.decode('utf8')
+        return result, result_msg
 
     except Exception as exc:
         print(f'run_cmd exception: {exc}')
+
+
+def to_td(h):
+    """
+    Convert a time string in HH:MM:SS format to a timedelta object.
+    """
+    hrs, mins, secs = h.split(':')
+    return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
