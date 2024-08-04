@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Timew Status Tool
+Comment=Control and status tool for timew
+Exec=timew-status-indicator
+Icon=timew
+Terminal=false
+Type=Application
+StartupNotify=false
+Categories=GNOME;GTK;Utility;
