@@ -2,6 +2,7 @@
 
 import os
 import signal
+import subprocess
 import time
 from threading import Thread
 
@@ -19,6 +20,8 @@ except ValueError:
 from gi.repository import Gtk, Notify
 
 from timew_status import (
+    CFG,
+    __version__,
     fetch_geoip,
     get_state_icon,
     get_state_str,
@@ -26,7 +29,7 @@ from timew_status import (
     run_cmd,
 )
 
-APP_VERSION = '0.0.1'
+APP_VERSION = __version__
 APPINDICATOR_ID = 'timewindicator'
 
 
@@ -56,18 +59,23 @@ class Indicator:
         while True:
             res = get_status()
             # Notify.Notification.new("Timew status", res.stdout.decode('utf8'), None).show()
-            if res.returncode == 0:
-                print(f'Timew status: {res.stdout.decode().strip()}')
+            # print(f'Timew status: {res.stdout.decode().strip()}')
+            if res.returncode == 1:
+                new_state = 'INACTIVE'
+                print(f'State {new_state} msg: {res.stdout.decode().strip()}')
+            else:
                 proc, _ = run_cmd()
                 msg, new_state = get_state_str(proc)
+                print(f'State {new_state} msg: {msg.strip()}')
             # if there is a change in state, update the icon
             if old_state != new_state:
                 self.indicator.set_icon_full(get_state_icon(new_state), new_state)
-                # note the second label arg should be the longest possible label str
-                self.indicator.set_label(new_state.format().center(8), guide)
+                if CFG['show_state_label']:
+                    # note the second label arg should be the longest possible label str
+                    self.indicator.set_label(new_state.format().center(8), guide)
                 Notify.Notification.new("Timew state", msg, None).show()
             old_state = new_state
-            time.sleep(30)
+            time.sleep(20)
 
     def create_menu(self):
         menu = Gtk.Menu()
@@ -90,6 +98,10 @@ class Indicator:
         item_separator = Gtk.SeparatorMenuItem()
         menu.append(item_separator)
 
+        item_terminal = Gtk.MenuItem(label='Open default terminal')
+        item_terminal.connect('activate', self.open_terminal)
+        menu.append(item_terminal)
+
         item_about = Gtk.MenuItem(label='About Timew Status Indicator')
         item_about.connect('activate', self.about)
         menu.append(item_about)
@@ -108,8 +120,8 @@ class Indicator:
         dlg.set_version(APP_VERSION)
         dlg.set_copyright('© 2024 Stephen L Arnold')
         dlg.set_license_type(Gtk.License.GPL_3_0)
-        dlg.set_logo_icon_name('dialog-information-symbolic')
-        dlg.set_website('https://github.com/sarnold')
+        dlg.set_logo_icon_name('timew')
+        dlg.set_website('https://github.com/sarnold/timewarrior-addons')
         dlg.set_website_label('github.com')
         dlg.set_comments(
             """
@@ -120,6 +132,10 @@ Timew monitoring control and status tool.
         dlg.set_artists(['Stephen L Arnold <stephen.arnold42@gmail.com>'])
         dlg.run()
         dlg.hide()
+
+    def open_terminal(self, source):
+        """Simply opens a new terminal window"""
+        subprocess.Popen([CFG["terminal_emulator"]])
 
     def stop(self, source):
         Notify.uninit()
@@ -144,7 +160,8 @@ Timew monitoring control and status tool.
         if not svc_msg:
             svc_msg = 'Stopping...'
         self.indicator.set_icon_full(get_state_icon('INACTIVE'), 'INACTIVE')
-        self.indicator.set_label('INACTIVE'.format().center(9), '99999999')
+        if CFG['show_state_label']:
+            self.indicator.set_label('INACTIVE'.format().center(9), '99999999')
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
 

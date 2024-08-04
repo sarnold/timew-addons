@@ -10,13 +10,14 @@ import xmltodict
 from requests.exceptions import Timeout
 
 CFG = {
-    "day_max": "07:30",
+    "day_max": "08:00",
     "day_snooze": "01:00",
     "seat_max": "01:30",
     "seat_snooze": "01:00",
     "default_jtag_str": 'vct-sw,"implement skeleton timew indicator"',
     "jtag_separator": ",",
     "show_state_label": False,
+    "terminal_emulator": "gnome-terminal",
 }
 
 
@@ -24,8 +25,8 @@ def get_state_icon(state):
     """
     Look up the state msg and return the icon name.
     """
-    install_path = '/usr/share/icons/hicolor/scalable/status'
-    icon_name = 'green.svg'
+    install_path = '/usr/share/icons/hicolor/48x48/apps'
+    icon_name = 'timew.svg'
 
     fallback_dict = {
         'INACTIVE': 'dialog-question-symbolic.svg',
@@ -35,7 +36,7 @@ def get_state_icon(state):
     }
 
     timew_dict = {
-        'INACTIVE': 'notifications-disabled-symbolic.svg',
+        'INACTIVE': 'timew.svg',
         'ACTIVE': 'green.svg',
         'WARNING': 'yellow.svg',
         'ERROR': 'red.svg',
@@ -58,8 +59,10 @@ def get_state_str(cmproc):
     """
     DAY_SUM = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
     SEAT_SUM = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
-    DAY_LIMIT = str(sum(map(to_td, DAY_SUM), timedelta()))  # noqa:
-    SEAT_LIMIT = str(sum(map(to_td, SEAT_SUM), timedelta()))  # noqa:
+    DAY_LIMIT = sum(map(to_td, DAY_SUM), timedelta())  # noqa:
+    SEAT_LIMIT = sum(map(to_td, SEAT_SUM), timedelta())  # noqa:
+    DAY_MAX = to_td(CFG["day_max"] + ':00')
+    # SEAT_MAX = to_td(CFG["seat_max"] + ':00')
 
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
@@ -68,9 +71,9 @@ def get_state_str(cmproc):
         day_total = x.split(',')[1]
     if day_total == '00:00:00':
         return msg, state
-    if DAY_LIMIT > day_total > CFG["day_max"]:
+    if DAY_MAX < to_td(day_total) < DAY_LIMIT:
         state = 'WARNING'
-    if day_total > DAY_LIMIT:
+    if to_td(day_total) > DAY_LIMIT:
         state = 'ERROR'
     return msg, state
 
