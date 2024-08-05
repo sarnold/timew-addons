@@ -2,23 +2,45 @@
 """
 import json
 import subprocess
+import sys
 from datetime import timedelta
 from pathlib import Path
 
 import requests
 import xmltodict
+from munch import Munch
+from platformdirs import PlatformDirs
 from requests.exceptions import Timeout
 
-CFG = {
-    "day_max": "08:00",
-    "day_snooze": "01:00",
-    "seat_max": "01:30",
-    "seat_snooze": "01:00",
-    "default_jtag_str": 'vct-sw,"implement skeleton timew indicator"',
-    "jtag_separator": ",",
-    "show_state_label": False,
-    "terminal_emulator": "gnome-terminal",
-}
+if sys.version_info < (3, 10):
+    import importlib_resources
+else:
+    import importlib.resources as importlib_resources
+
+APP_NAME = 'timew_status_indicator'
+APP_AUTHOR = "nerdboy"
+
+
+def get_config(file_encoding='utf-8'):
+    """
+    Load configuration file and munchify the data. If local file is not
+    found in current directory, the default will be loaded.  Return a
+    Munch cfg obj and corresponding Path obj.
+
+    :param file_encoding: file encoding of config file
+    :type file_encoding: str
+    :return: Munch cfg obj and cfg file as Path obj
+    :rtype tuple:
+    """
+    dirs = get_userdirs()
+    cfgfile = dirs[1].joinpath('config.yaml')
+    if not cfgfile.exists():
+        default = importlib_resources.files('timew_status.data').joinpath('config.yaml')
+        defcfg = Munch.fromYAML(default.read_text(encoding=file_encoding))
+        cfgfile.write_text(Munch.toYAML(defcfg), encoding=file_encoding)
+    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
+
+    return cfgobj, cfgfile
 
 
 def get_state_icon(state):
@@ -90,6 +112,21 @@ def get_status():
         print(f'Timew status error: {exc}')
 
 
+def get_userdirs():
+    """
+    Get platform-agnostic user directory paths via platformdirs.
+
+    :return tuple: Path objs
+    """
+    dirs = PlatformDirs(appname=APP_NAME, appauthor=APP_AUTHOR, ensure_exists=True)
+    cachedir = dirs.user_cache_path
+    configdir = dirs.user_config_path
+    datadir = dirs.user_data_path
+    logdir = dirs.user_log_path
+
+    return cachedir, configdir, datadir, logdir
+
+
 def fetch_geoip():
     """
     Fetch location info from ubuntu.com geoip server and transform the
@@ -144,3 +181,6 @@ def to_td(h):
     """
     hrs, mins, secs = h.split(':')
     return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
+
+
+CFG, _ = Munch.toDict(get_config())

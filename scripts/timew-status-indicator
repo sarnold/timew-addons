@@ -30,7 +30,7 @@ from timew_status import (
 )
 
 APP_VERSION = __version__
-APPINDICATOR_ID = 'timewindicator'
+APPINDICATOR_ID = 'timew_status_indicator'
 
 
 class Indicator:

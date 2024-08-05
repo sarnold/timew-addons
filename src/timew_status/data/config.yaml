@@ -1,0 +1,9 @@
+# default config options
+day_max: "08:00"
+day_snooze: "01:00"
+seat_max: "01:30"
+seat_snooze: "01:00"
+default_jtag_str: vct-sw,"implement skeleton timew indicator"
+jtag_separator: ","
+show_state_label: False
+terminal_emulator: "gnome-terminal"

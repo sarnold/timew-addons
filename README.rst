@@ -36,9 +36,13 @@ way to get started is probably the (JSON) export interface::
 Reporting examples
 ==================
 
+The following extension examples can be found in the ``extensions`` folder
+in the top-level of the sdist or repository:
+
 * ``csv_rpt.py`` - a simple CSV report based on the `upstream example`_
 * ``onelineday.py`` - a real-world custom report example
 
+They must be manually installed to the location shown below.
 
 .. _upstream example: https://github.com/lauft/timew-report/?tab=readme-ov-file#examples
 
