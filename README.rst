@@ -2,7 +2,9 @@
  Timewarrior addon bits
 ========================
 
-|CI| |pre|
+|CI|
+
+|pre|
 
 |tag| |license|
 
@@ -68,17 +70,17 @@ something like::
 
 Finally, copy the desired extension(s) into the extensions folder::
 
-  $ cp path/to/csv_rpt.py ~/.timewarrior/extensions/
+  $ cp path/to/onelineday.py ~/.timewarrior/extensions/
 
 Run the extension by substituting the extension name for the usual "summary"
 command, eg, instead of ``timew summary june``, use something like::
 
-  $ timew csv_rpt june
+  $ timew onelineday june
 
 Extension names can also be aliases of the full extension filename, so
 using::
 
-  $ timew csv june
+  $ timew one today
 
 should also work.
 
@@ -86,10 +88,13 @@ should also work.
 Operating System Support
 ------------------------
 
-Most of these tools require a basic console environment with timewarrior
-installed (usually via system package manager). Installing with ``[gui]``
-enabled requires both Python_ and a modern Gtk+ windowing environment
-with PyGObject_.
+Most of these tools require a basic console environment with both
+timewarrior and Python_ installed (usually via system package manager).
+Running the indicator GUI script requires both Python_ and a modern
+Gtk+ windowing environment with Gtk3+_ and PyGObject_.
+
+.. note:: The GUI script also requires the ``onelineday.py`` extension to
+          be installed (as shown above) in order to interact with ``timew``.
 
 The above platform link shows package support for several Linux distributions
 and MacOS.
@@ -103,6 +108,8 @@ and MacOS.
 PyGObject references
 --------------------
 
+* https://lazka.github.io/pgi-docs/  PyGObject API Reference
+* https://pygobject-tutorial.readthedocs.io/en/latest/index.html  Tutorial
 * https://github.com/candidtim/vagrant-appindicator  (old)
 
 
