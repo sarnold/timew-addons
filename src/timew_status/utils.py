@@ -1,16 +1,12 @@
 """
 """
-import json
 import subprocess
 import sys
 from datetime import timedelta
 from pathlib import Path
 
-import requests
-import xmltodict
 from munch import Munch
 from platformdirs import PlatformDirs
-from requests.exceptions import Timeout
 
 if sys.version_info < (3, 10):
     import importlib_resources
@@ -19,20 +15,6 @@ else:
 
 APP_NAME = 'timew_status_indicator'
 APP_AUTHOR = "nerdboy"
-
-
-def fetch_geoip():
-    """
-    Fetch location info from ubuntu.com geoip server and transform the
-    xml payload to json.
-    """
-    try:
-        response = requests.get("https://geoip.ubuntu.com/lookup", timeout=(1, 3))
-    except Timeout:
-        print("The request timed out")
-        return
-    payload = xmltodict.parse(response.text)
-    return json.dumps(payload, indent=4, separators=(',', ': '))
 
 
 def get_config(file_encoding='utf-8'):
@@ -74,10 +56,10 @@ def get_state_icon(state):
 
     timew_dict = {
         'APP': 'timew',
-        'INACTIVE': 'white',
-        'ACTIVE': 'green',
-        'WARNING': 'yellow',
-        'ERROR': 'red',
+        'INACTIVE': 'timew_inactive',
+        'ACTIVE': 'timew_info',
+        'WARNING': 'timew_warning',
+        'ERROR': 'timew_error',
     }
 
     state_dict = timew_dict

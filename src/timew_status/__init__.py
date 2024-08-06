@@ -6,7 +6,6 @@ import sys
 
 from .utils import (
     CFG,
-    fetch_geoip,
     get_state_icon,
     get_state_str,
     get_status,
@@ -27,7 +26,6 @@ __all__ = [
     "__description__",
     "__version__",
     "CFG",
-    "fetch_geoip",
     "get_state_icon",
     "get_state_str",
     "get_status",
