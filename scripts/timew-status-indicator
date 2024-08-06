@@ -7,6 +7,8 @@ import os
 import signal
 import subprocess
 import time
+import typing
+from collections import Counter
 from threading import Thread
 
 import gi
@@ -35,6 +37,46 @@ from timew_status import (
 
 APP_VERSION = __version__
 APPINDICATOR_ID = 'timew_status_indicator'
+COUNT: typing.Counter[str] = Counter()
+SLEEP_SEC = CFG['loop_idle_seconds']
+
+
+class TextWindow(Gtk.Window):
+    def __init__(self, tag_text):
+        Gtk.Window.__init__(self, title="Edit timew tag")
+        self.set_icon_name('timew')
+        self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_size_request(400, 100)
+
+        self.timeout_id = None
+
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self.add(vbox)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text(tag_text)
+        vbox.pack_start(self.entry, True, True, 0)
+
+        hbox = Gtk.Box(spacing=6)
+        vbox.pack_start(hbox, True, True, 0)
+
+        button = Gtk.Button.new_with_mnemonic("_Save")
+        button.connect("clicked", self.on_save_clicked)
+        hbox.pack_start(button, True, True, 0)
+
+        button = Gtk.Button.new_with_mnemonic("_Cancel")
+        button.connect("clicked", self.on_cancel_clicked)
+        hbox.pack_start(button, True, True, 0)
+
+    def on_save_clicked(self, button):
+        new_text = self.entry.get_text()
+        CFG['default_jtag_str'] = new_text
+        print(f'new tag text: {new_text}')
+        self.destroy()
+
+    def on_cancel_clicked(self, button):
+        print("Closing window")
+        self.destroy()
 
 
 class Indicator:
@@ -46,6 +88,8 @@ class Indicator:
 
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_menu(self.create_menu())
+        self.last_tag = CFG['default_jtag_str']
+
         # setup the state updater thread
         self.update = Thread(target=self.check_for_new_state)
         self.update.daemon = True
@@ -76,7 +120,8 @@ class Indicator:
                     self.indicator.set_label(new_state.format().center(8), guide)
                 Notify.Notification.new("Timew state", msg, None).show()
             old_state = new_state
-            time.sleep(20)
+            COUNT['SeatTick'] += SLEEP_SEC
+            time.sleep(SLEEP_SEC)
 
     def create_menu(self):
         menu = Gtk.Menu()
@@ -95,6 +140,10 @@ class Indicator:
         item_geoip = Gtk.MenuItem(label='Geoip')
         item_geoip.connect('activate', self.geoip)
         menu.append(item_geoip)
+
+        item_entry = Gtk.MenuItem(label='Edit  start  tag')
+        item_entry.connect('activate', self.open_entry)
+        menu.append(item_entry)
 
         item_terminal = Gtk.MenuItem(label='Open  terminal')
         item_terminal.connect('activate', self.open_terminal)
@@ -134,6 +183,11 @@ class Indicator:
         dlg.run()
         dlg.hide()
 
+    def open_entry(self, source):
+        """Open the text entry window"""
+        win = TextWindow(tag_text=self.last_tag)
+        win.show_all()
+
     def open_terminal(self, source):
         """Simply opens a new terminal window"""
         subprocess.Popen([CFG["terminal_emulator"]])
@@ -146,9 +200,7 @@ class Indicator:
         Notify.Notification.new("Geoip", fetch_geoip(), None).show()
 
     def startd(self, source):
-        _, svc_msg = run_cmd(action='start')
-        if not svc_msg:
-            svc_msg = 'Starting...'
+        _, svc_msg = run_cmd(action='start', tag=self.last_tag)
         self.indicator.set_icon_full(get_state_icon('ACTIVE'), 'ACTIVE')
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
@@ -158,8 +210,8 @@ class Indicator:
 
     def stopd(self, source):
         _, svc_msg = run_cmd(action='stop')
-        if not svc_msg:
-            svc_msg = 'Stopping...'
+        if CFG['use_last_tag']:
+            self.last_tag = svc_msg
         self.indicator.set_icon_full(get_state_icon('INACTIVE'), 'INACTIVE')
         if CFG['show_state_label']:
             self.indicator.set_label('INACTIVE'.format().center(9), '99999999')

@@ -1,9 +1,11 @@
-# default config options
+# time strings are HH:MM (no seconds)
 day_max: "08:00"
 day_snooze: "01:00"
 seat_max: "01:30"
-seat_snooze: "01:00"
+seat_snooze: "00:40"
+use_last_tag: false
 default_jtag_str: vct-sw,"implement skeleton timew indicator"
 jtag_separator: ","
-show_state_label: False
+loop_idle_seconds: 20
+show_state_label: false
 terminal_emulator: "gnome-terminal"

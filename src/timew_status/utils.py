@@ -21,6 +21,20 @@ APP_NAME = 'timew_status_indicator'
 APP_AUTHOR = "nerdboy"
 
 
+def fetch_geoip():
+    """
+    Fetch location info from ubuntu.com geoip server and transform the
+    xml payload to json.
+    """
+    try:
+        response = requests.get("https://geoip.ubuntu.com/lookup", timeout=(1, 3))
+    except Timeout:
+        print("The request timed out")
+        return
+    payload = xmltodict.parse(response.text)
+    return json.dumps(payload, indent=4, separators=(',', ': '))
+
+
 def get_config(file_encoding='utf-8'):
     """
     Load configuration file and munchify the data. If local file is not
@@ -97,8 +111,10 @@ def get_state_str(cmproc):
         return msg, state
     if DAY_MAX < to_td(day_total) < DAY_LIMIT:
         state = 'WARNING'
+        msg = f'WARNING: day max of {DAY_MAX} has been exceeded\n' + msg
     if to_td(day_total) > DAY_LIMIT:
         state = 'ERROR'
+        msg = f'ERROR: day limit of {DAY_LIMIT} has been exceeded\n' + msg
     return msg, state
 
 
@@ -127,21 +143,18 @@ def get_userdirs():
     return cachedir, configdir, datadir, logdir
 
 
-def fetch_geoip():
+def parse_for_tag(text):
     """
-    Fetch location info from ubuntu.com geoip server and transform the
-    xml payload to json.
+    Parse the output of timew start/stop commands for the tag string.
     """
-    try:
-        response = requests.get("https://geoip.ubuntu.com/lookup", timeout=(1, 3))
-    except Timeout:
-        print("The request timed out")
-        return
-    payload = xmltodict.parse(response.text)
-    return json.dumps(payload, indent=4, separators=(',', ': '))
+    sep = CFG["jtag_separator"]
+    for line in text.splitlines():
+        if line.startswith(("Tracking", "Recorded")):
+            data = line.split('"')[1].split(sep)
+            return f'{data[0]}{sep}"{data[1]}"'
 
 
-def run_cmd(action='status'):
+def run_cmd(action='status', tag=None):
     """
     Run timew command subject to the given action.
 
@@ -158,6 +171,8 @@ def run_cmd(action='status'):
     if action not in actions:
         print(f'Invalid action: {action}')
         return
+    if action == 'start' and tag:
+        act_list.append(tag)
     if action != 'status':
         cmd = svc_list + act_list
     else:
@@ -166,6 +181,10 @@ def run_cmd(action='status'):
 
     try:
         result = subprocess.run(cmd, capture_output=True)
+        if action == 'stop':
+            tag = parse_for_tag(result.stdout.decode())
+            print(f'{action} result tag: {tag}')
+            return result, tag
         print(f'{action} return code: {result.returncode}')
         print(f'{action} result msg: {result.stdout.decode().strip()}')
 
