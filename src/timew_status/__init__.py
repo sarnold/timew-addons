@@ -1,6 +1,6 @@
 """
-Appindicator monitoring tool for displaying Timew tracking intervals
-with optional alerts for too much keyboard time.
+Monitoring and reporting tools for Timew tracking intervals with optional
+appindicator alerts for keyboard time and daily hours.
 """
 import sys
 
@@ -19,7 +19,7 @@ if sys.version_info < (3, 8):
 else:
     from importlib.metadata import version
 
-__description__ = "A Timew status indicator for monitoring work hours"
+__description__ = "Timew addons for reporting and monitoring tracked hours"
 
 __version__ = version('timew_addons')
 

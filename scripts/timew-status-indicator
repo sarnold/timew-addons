@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+A Timew status indicator for monitoring tracked hours.
+"""
 
 import os
 import signal
@@ -8,6 +11,7 @@ from threading import Thread
 
 import gi
 
+gi.require_version("Gtk", "3.0")
 gi.require_version('Notify', '0.7')
 
 try:
@@ -36,10 +40,9 @@ APPINDICATOR_ID = 'timew_status_indicator'
 class Indicator:
     def __init__(self):
         self.app_id = APPINDICATOR_ID
+        app_category = appindicator.IndicatorCategory.APPLICATION_STATUS
         icon_name = get_state_icon('INACTIVE')
-        self.indicator = appindicator.Indicator.new(
-            self.app_id, icon_name, appindicator.IndicatorCategory.APPLICATION_STATUS
-        )
+        self.indicator = appindicator.Indicator.new(self.app_id, icon_name, app_category)
 
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_menu(self.create_menu())
@@ -58,8 +61,6 @@ class Indicator:
 
         while True:
             res = get_status()
-            # Notify.Notification.new("Timew status", res.stdout.decode('utf8'), None).show()
-            # print(f'Timew status: {res.stdout.decode().strip()}')
             if res.returncode == 1:
                 new_state = 'INACTIVE'
                 print(f'State {new_state} msg: {res.stdout.decode().strip()}')
@@ -95,14 +96,14 @@ class Indicator:
         item_geoip.connect('activate', self.geoip)
         menu.append(item_geoip)
 
-        item_separator = Gtk.SeparatorMenuItem()
-        menu.append(item_separator)
-
-        item_terminal = Gtk.MenuItem(label='Open default terminal')
+        item_terminal = Gtk.MenuItem(label='Open  terminal')
         item_terminal.connect('activate', self.open_terminal)
         menu.append(item_terminal)
 
-        item_about = Gtk.MenuItem(label='About Timew Status Indicator')
+        item_separator = Gtk.SeparatorMenuItem()
+        menu.append(item_separator)
+
+        item_about = Gtk.MenuItem(label='About ...')
         item_about.connect('activate', self.about)
         menu.append(item_about)
 
@@ -125,8 +126,8 @@ class Indicator:
         dlg.set_website_label('github.com')
         dlg.set_comments(
             """
-Timew monitoring control and status tool.
-                         """
+            A timewarrior monitoring control and status tool.
+            """
         )
         dlg.set_authors(['Stephen L Arnold <stephen.arnold42@gmail.com>'])
         dlg.set_artists(['Stephen L Arnold <stephen.arnold42@gmail.com>'])

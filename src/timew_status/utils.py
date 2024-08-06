@@ -60,7 +60,7 @@ def get_state_icon(state):
 
     timew_dict = {
         'APP': 'timew',
-        'INACTIVE': 'timew',
+        'INACTIVE': 'white',
         'ACTIVE': 'green',
         'WARNING': 'yellow',
         'ERROR': 'red',
