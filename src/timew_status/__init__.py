@@ -19,13 +19,14 @@ else:
     from importlib.metadata import version
 
 __description__ = "Timew addons for reporting and monitoring tracked hours"
-
 __version__ = version('timew_addons')
+TAG = {'text': ''}
 
 __all__ = [
     "__description__",
     "__version__",
     "CFG",
+    "TAG",
     "get_state_icon",
     "get_state_str",
     "get_status",
