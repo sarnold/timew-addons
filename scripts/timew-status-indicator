@@ -9,6 +9,7 @@ import subprocess
 import time
 import typing
 from collections import Counter
+from datetime import timedelta
 from threading import Thread
 
 import gi
@@ -103,13 +104,14 @@ class Indicator:
         guide = '99999999'
 
         while True:
-            res = get_status()
-            if res.returncode == 1:
+            current_tick_count = timedelta(seconds=COUNT['SeatTick'])
+            result = get_status()
+            if result.returncode == 1:
                 new_state = 'INACTIVE'
-                print(f'State {new_state} msg: {res.stdout.decode().strip()}')
+                print(f'State {new_state} msg: {result.stdout.decode().strip()}')
             else:
                 proc, _ = run_cmd()
-                msg, new_state = get_state_str(proc)
+                msg, new_state = get_state_str(proc, current_tick_count)
                 print(f'State {new_state} msg: {msg.strip()}')
             # if there is a change in state, update the icon
             if old_state != new_state:

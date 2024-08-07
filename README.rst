@@ -25,8 +25,8 @@ any programming language.
 .. _Timewarrior: https://timewarrior.net/docs/
 
 This repository is mainly a place for some example report extensions (where
-in this case "example" means things I actually use for reporting work hrs)
-and some experimental (at least for now) UI ideas.
+in this case "example" means things actually used for reporting work hrs)
+and some experimental UI ideas.
 
 The report extensions here use an existing `Python binding`_ but the easiest
 way to get started is probably the (JSON) export interface::
@@ -113,18 +113,18 @@ PyGObject references
 * https://github.com/candidtim/vagrant-appindicator  (old)
 
 
-.. |CI| image:: https://github.com/sarnold/timewarrior-addons/actions/workflows/main.yml/badge.svg
-    :target: https://github.com/sarnold/timewarrior-addons/actions/workflows/main.yml
+.. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/main.yml/badge.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/main.yml
     :alt: CI test status
 
 .. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
 
-.. |tag| image:: https://img.shields.io/github/v/tag/sarnold/timewarrior-addons?color=green&include_prereleases&label=latest%20release
-    :target: https://github.com/sarnold/timewarrior-addons/releases
+.. |tag| image:: https://img.shields.io/github/v/tag/sarnold/timew-addons?color=green&include_prereleases&label=latest%20release
+    :target: https://github.com/sarnold/timew-addons/releases
     :alt: GitHub tag
 
-.. |license| image:: https://img.shields.io/github/license/sarnold/timewarrior-addons
-    :target: https://github.com/sarnold/timewarrior-addons/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/sarnold/timew-addons
+    :target: https://github.com/sarnold/timew-addons/blob/master/LICENSE
     :alt: License

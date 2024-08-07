@@ -70,19 +70,21 @@ def get_state_icon(state):
     return state_dict.get(state, state_dict['INACTIVE'])
 
 
-def get_state_str(cmproc):
+def get_state_str(cmproc, count):
     """
     Return timew tracking state, ei, the key for dict with icons.
 
     :param cmproc: completed timew process obj
     :type cmproc: CompletedProcess
+    :param count: seat time counter value
+    :type count: timedelta
     """
     DAY_SUM = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
     SEAT_SUM = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
     DAY_LIMIT = sum(map(to_td, DAY_SUM), timedelta())  # noqa:
     SEAT_LIMIT = sum(map(to_td, SEAT_SUM), timedelta())  # noqa:
     DAY_MAX = to_td(CFG["day_max"] + ':00')
-    # SEAT_MAX = to_td(CFG["seat_max"] + ':00')
+    SEAT_MAX = to_td(CFG["seat_max"] + ':00')
 
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
@@ -97,6 +99,12 @@ def get_state_str(cmproc):
     if to_td(day_total) > DAY_LIMIT:
         state = 'ERROR'
         msg = f'ERROR: day limit of {DAY_LIMIT} has been exceeded\n' + msg
+    if SEAT_MAX < count < SEAT_LIMIT:
+        state = 'WARNING'
+        msg = f'WARNING: seat max of {SEAT_MAX} has been exceeded\n' + msg
+    if count > SEAT_LIMIT:
+        state = 'ERROR'
+        msg = f'ERROR: seat limit of {SEAT_LIMIT} has been exceeded\n' + msg
     return msg, state
 
 
