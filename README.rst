@@ -113,8 +113,8 @@ PyGObject references
 * https://github.com/candidtim/vagrant-appindicator  (old)
 
 
-.. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/main.yml/badge.svg
-    :target: https://github.com/sarnold/timew-addons/actions/workflows/main.yml
+.. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml
     :alt: CI test status
 
 .. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white

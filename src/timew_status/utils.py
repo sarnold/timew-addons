@@ -1,5 +1,6 @@
 """
 """
+import os
 import subprocess
 import sys
 from datetime import timedelta
@@ -37,6 +38,23 @@ def get_config(file_encoding='utf-8'):
     cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
 
     return cfgobj, cfgfile
+
+
+def get_delta_limits():
+    """
+    Return config max/snooze limits as timedeltas. Everything comes from
+    static config values and gets padded with seconds.
+
+    :return: tuple of timedeltas
+    """
+    day_sum = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
+    seat_sum = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
+    day_limit = sum(map(to_td, day_sum), timedelta())  # noqa:
+    seat_limit = sum(map(to_td, seat_sum), timedelta())  # noqa:
+    day_max = to_td(CFG["day_max"] + ':00')
+    seat_max = to_td(CFG["seat_max"] + ':00')
+
+    return day_max, day_limit, seat_max, seat_limit
 
 
 def get_state_icon(state):
@@ -79,20 +97,14 @@ def get_state_str(cmproc, count):
     :param count: seat time counter value
     :type count: timedelta
     """
-    DAY_SUM = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
-    SEAT_SUM = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
-    DAY_LIMIT = sum(map(to_td, DAY_SUM), timedelta())  # noqa:
-    SEAT_LIMIT = sum(map(to_td, SEAT_SUM), timedelta())  # noqa:
-    DAY_MAX = to_td(CFG["day_max"] + ':00')
-    SEAT_MAX = to_td(CFG["seat_max"] + ':00')
+    DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT = get_delta_limits()
 
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
     lines = msg.splitlines()
+
     for x in [x for x in lines if x.split(',')[0] == 'total']:
         day_total = x.split(',')[1]
-    if day_total == '00:00:00':
-        return msg, state
     if DAY_MAX < to_td(day_total) < DAY_LIMIT:
         state = 'WARNING'
         msg = f'WARNING: day max of {DAY_MAX} has been exceeded\n' + msg
@@ -173,10 +185,12 @@ def run_cmd(action='status', tag=None):
         result = subprocess.run(cmd, capture_output=True)
         if action == 'stop':
             tag = parse_for_tag(result.stdout.decode())
-            print(f'{action} result tag: {tag}')
+            if DEBUG:
+                print(f'run_cmd {action} result tag: {tag}')
             return result, tag
-        print(f'{action} return code: {result.returncode}')
-        print(f'{action} result msg: {result.stdout.decode().strip()}')
+        if DEBUG:
+            print(f'run_cmd {action} return code: {result.returncode}')
+            print(f'run_cmd {action} result msg: {result.stdout.decode().strip()}')
 
         return result, result.stdout.decode().strip()
 
@@ -193,3 +207,4 @@ def to_td(h):
 
 
 CFG, _ = Munch.toDict(get_config())
+DEBUG = os.getenv('DEBUG', default=None)

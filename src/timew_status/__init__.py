@@ -6,6 +6,8 @@ import sys
 
 from .utils import (
     CFG,
+    DEBUG,
+    get_delta_limits,
     get_state_icon,
     get_state_str,
     get_status,
@@ -26,7 +28,9 @@ __all__ = [
     "__description__",
     "__version__",
     "CFG",
+    "DEBUG",
     "TAG",
+    "get_delta_limits",
     "get_state_icon",
     "get_state_str",
     "get_status",

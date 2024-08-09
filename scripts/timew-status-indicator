@@ -28,8 +28,10 @@ from gi.repository import Gtk, Notify
 
 from timew_status import (
     CFG,
+    DEBUG,
     TAG,
     __version__,
+    get_delta_limits,
     get_state_icon,
     get_state_str,
     get_status,
@@ -124,7 +126,9 @@ class Indicator:
                 Notify.Notification.new("Timew state", msg, None).show()
             old_state = new_state
             COUNT['SeatTick'] += SLEEP_SEC
-            print(f'My tag text: {TAG["text"]}')
+            if DEBUG:
+                print(f'My tag text: {TAG["text"]}')
+                print(f'My tick count: {current_tick_count}')
             time.sleep(SLEEP_SEC)
 
     def create_menu(self):
@@ -214,6 +218,9 @@ class Indicator:
         if CFG['show_state_label']:
             self.indicator.set_label('INACTIVE'.format().center(9), '99999999')
         Notify.Notification.new("Timew status", svc_msg, None).show()
+        _, _, _, seat_limit = get_delta_limits()
+        if seat_limit < timedelta(seconds=COUNT['SeatTick']):
+            COUNT.clear()
 
 
 def main():
