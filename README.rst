@@ -2,7 +2,9 @@
  Timewarrior addon bits
 ========================
 
-|CI| |pre|
+|CI|
+
+|pre|
 
 |tag| |license|
 
@@ -23,8 +25,8 @@ any programming language.
 .. _Timewarrior: https://timewarrior.net/docs/
 
 This repository is mainly a place for some example report extensions (where
-in this case "example" means things I actually use for reporting work hrs)
-and some experimental (at least for now) UI ideas.
+in this case "example" means things actually used for reporting work hrs)
+and some experimental UI ideas.
 
 The report extensions here use an existing `Python binding`_ but the easiest
 way to get started is probably the (JSON) export interface::
@@ -36,9 +38,13 @@ way to get started is probably the (JSON) export interface::
 Reporting examples
 ==================
 
+The following extension examples can be found in the ``extensions`` folder
+in the top-level of the sdist or repository:
+
 * ``csv_rpt.py`` - a simple CSV report based on the `upstream example`_
 * ``onelineday.py`` - a real-world custom report example
 
+They must be manually installed to the location shown below.
 
 .. _upstream example: https://github.com/lauft/timew-report/?tab=readme-ov-file#examples
 
@@ -64,17 +70,17 @@ something like::
 
 Finally, copy the desired extension(s) into the extensions folder::
 
-  $ cp path/to/csv_rpt.py ~/.timewarrior/extensions/
+  $ cp path/to/onelineday.py ~/.timewarrior/extensions/
 
 Run the extension by substituting the extension name for the usual "summary"
 command, eg, instead of ``timew summary june``, use something like::
 
-  $ timew csv_rpt june
+  $ timew onelineday june
 
 Extension names can also be aliases of the full extension filename, so
 using::
 
-  $ timew csv june
+  $ timew one today
 
 should also work.
 
@@ -82,10 +88,13 @@ should also work.
 Operating System Support
 ------------------------
 
-Most of these tools require a basic console environment with timewarrior
-installed (usually via system package manager). Installing with ``[gui]``
-enabled requires both Python_ and a modern Gtk+ windowing environment
-with PyGObject_.
+Most of these tools require a basic console environment with both
+timewarrior and Python_ installed (usually via system package manager).
+Running the indicator GUI script requires both Python_ and a modern
+Gtk+ windowing environment with Gtk3+_ and PyGObject_.
+
+.. note:: The GUI script also requires the ``onelineday.py`` extension to
+          be installed (as shown above) in order to interact with ``timew``.
 
 The above platform link shows package support for several Linux distributions
 and MacOS.
@@ -99,21 +108,23 @@ and MacOS.
 PyGObject references
 --------------------
 
+* https://lazka.github.io/pgi-docs/  PyGObject API Reference
+* https://pygobject-tutorial.readthedocs.io/en/latest/index.html  Tutorial
 * https://github.com/candidtim/vagrant-appindicator  (old)
 
 
-.. |CI| image:: https://github.com/sarnold/timewarrior-addons/actions/workflows/main.yml/badge.svg
-    :target: https://github.com/sarnold/timewarrior-addons/actions/workflows/main.yml
+.. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml
     :alt: CI test status
 
 .. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
 
-.. |tag| image:: https://img.shields.io/github/v/tag/sarnold/timewarrior-addons?color=green&include_prereleases&label=latest%20release
-    :target: https://github.com/sarnold/timewarrior-addons/releases
+.. |tag| image:: https://img.shields.io/github/v/tag/sarnold/timew-addons?color=green&include_prereleases&label=latest%20release
+    :target: https://github.com/sarnold/timew-addons/releases
     :alt: GitHub tag
 
-.. |license| image:: https://img.shields.io/github/license/sarnold/timewarrior-addons
-    :target: https://github.com/sarnold/timewarrior-addons/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/sarnold/timew-addons
+    :target: https://github.com/sarnold/timew-addons/blob/master/LICENSE
     :alt: License
