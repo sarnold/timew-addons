@@ -29,7 +29,7 @@ in this case "example" means things actually used for reporting work hrs)
 and some experimental UI ideas.
 
 The report extensions here use an existing `Python binding`_ but the easiest
-way to get started is probably the (JSON) export interface::
+way to get started massaging report data is probably the (JSON) export interface::
 
   $ timew export
 
@@ -48,8 +48,8 @@ They must be manually installed to the location shown below.
 
 .. _upstream example: https://github.com/lauft/timew-report/?tab=readme-ov-file#examples
 
-Usage
-=====
+Extension usage
+---------------
 
 In general, report extension scripts are installed under ``$HOME`` in the
 timewarrior extensions folder, which on Linux equates to::
@@ -84,14 +84,37 @@ using::
 
 should also work.
 
+Appindicator GUI
+================
+
+timew-status-indicator is a control and status application for timew that
+runs from the system tray on XDG-compliant Linux desktops.
+
+And by "application" we mean a simple appindicator-based GUI which is
+basically just an icon with a menu. It loads in the indicator area or the
+system tray (whatever is available in your desktop environment). The icon's
+menu allows you to start and stop time tracking, as well as get status
+and edit the timew tag string. The tray icon appearance will
+update to show the current state of timew vs configurable limits.
+
+GUI usage
+---------
+
+Select Timew Status Tool from the Applications View or the Internet menu in
+your desktop of choice, eg, Gnome, Unity, Xfce, etc.  You can also add it to
+your session startup or run it from an X terminal to get some debug output::
+
+  $ timew-status-indicator
+
 
 Operating System Support
-------------------------
+========================
 
-Most of these tools require a basic console environment with both
-timewarrior and Python_ installed (usually via system package manager).
-Running the indicator GUI script requires both Python_ and a modern
-Gtk+ windowing environment with Gtk3+_ and PyGObject_.
+The extension scripts require a basic console environment with both
+timewarrior and the timew-report packages installed (usually via system
+package manager). Running the indicator GUI script requires both
+Python_ and a modern Gtk+ windowing environment with Gtk3+_ and
+PyGObject_.
 
 .. note:: The GUI script also requires the ``onelineday.py`` extension to
           be installed (as shown above) in order to interact with ``timew``.

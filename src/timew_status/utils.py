@@ -7,7 +7,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from munch import Munch
-from platformdirs import PlatformDirs
+from xdg import BaseDirectory
 
 if sys.version_info < (3, 10):
     import importlib_resources
@@ -29,8 +29,8 @@ def get_config(file_encoding='utf-8'):
     :return: Munch cfg obj and cfg file as Path obj
     :rtype tuple:
     """
-    dirs = get_userdirs()
-    cfgfile = dirs[1].joinpath('config.yaml')
+    cfgdir = get_userdirs()
+    cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
         default = importlib_resources.files('timew_status.data').joinpath('config.yaml')
         defcfg = Munch.fromYAML(default.read_text(encoding=file_encoding))
@@ -132,17 +132,14 @@ def get_status():
 
 def get_userdirs():
     """
-    Get platform-agnostic user directory paths via platformdirs.
+    Get platform-agnostic user config path via pyxdg. This may grow if
+    needed.
 
-    :return tuple: Path objs
+    :return configdir: Path obj
     """
-    dirs = PlatformDirs(appname=APP_NAME, appauthor=APP_AUTHOR, ensure_exists=True)
-    cachedir = dirs.user_cache_path
-    configdir = dirs.user_config_path
-    datadir = dirs.user_data_path
-    logdir = dirs.user_log_path
+    configdir = BaseDirectory.save_config_path(APP_NAME)
 
-    return cachedir, configdir, datadir, logdir
+    return Path(configdir)
 
 
 def parse_for_tag(text):
