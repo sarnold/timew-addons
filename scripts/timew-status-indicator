@@ -11,6 +11,7 @@ import typing
 from collections import Counter
 from datetime import timedelta
 from threading import Thread
+from typing import cast
 
 import gi
 
@@ -25,12 +26,14 @@ except ValueError:
     from gi.repository import AppIndicator3 as appindicator
 
 from gi.repository import Gtk, Notify
+from munch import Munch
 
 from timew_status import (
     CFG,
     DEBUG,
     TAG,
     __version__,
+    get_config,
     get_state_icon,
     get_state_str,
     get_status,
@@ -44,10 +47,9 @@ SLEEP_SEC = CFG['loop_idle_seconds']
 
 
 class TextWindow(Gtk.Window):
-    def __init__(self):
-        Gtk.Window.__init__(self, title="Edit timew tag")
+    def __init__(self, title="Edit timew tag"):
+        super().__init__()
         self.set_icon_name('timew')
-        self.set_position(Gtk.WindowPosition.CENTER)
         self.set_size_request(400, 100)
 
         self.timeout_id = None
@@ -79,6 +81,7 @@ class TextWindow(Gtk.Window):
 
     def on_cancel_clicked(self, button):
         print("Closing window")
+        self.show_all()
         self.destroy()
 
 
@@ -92,11 +95,16 @@ class Indicator:
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_menu(self.create_menu())
         self.last_tag = ''
+        self.load_config()
 
         # setup the state updater thread
         self.update = Thread(target=self.check_for_new_state)
         self.update.daemon = True
         self.update.start()
+
+    def load_config(self):
+        config_from_file, _ = get_config()
+        CFG.update(Munch.toDict(config_from_file))
 
     def check_for_new_state(self):
         """
@@ -193,6 +201,7 @@ class Indicator:
     def open_entry(self, source):
         """Open the text entry window"""
         win = TextWindow()
+        win.set_position(Gtk.WindowPosition.MOUSE)
         win.show_all()
 
     def open_terminal(self, source):
@@ -242,6 +251,7 @@ def main():
 
 if __name__ == "__main__":
     os.environ["INDICATOR_FMT"] = "1"
-    os.environ["JTAG_SEPARATOR"] = CFG['jtag_separator']
+    str_sep = cast(str, CFG['jtag_separator'])
+    os.environ["JTAG_SEPARATOR"] = str_sep
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     main()

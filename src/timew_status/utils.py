@@ -2,20 +2,26 @@
 """
 import os
 import subprocess
-import sys
 from datetime import timedelta
 from pathlib import Path
 
 from munch import Munch
-from xdg import BaseDirectory
-
-if sys.version_info < (3, 10):
-    import importlib_resources
-else:
-    import importlib.resources as importlib_resources
 
 APP_NAME = 'timew_status_indicator'
-APP_AUTHOR = "nerdboy"
+CFG = {
+    # time strings are HH:MM (no seconds)
+    "day_max": "08:00",
+    "day_snooze": "01:00",
+    "seat_max": "01:30",
+    "seat_snooze": "00:40",
+    "seat_reset_on_stop": False,
+    "use_last_tag": False,
+    "default_jtag_str": "vct-sw,implement skeleton timew indicator",
+    "jtag_separator": ",",
+    "loop_idle_seconds": 20,
+    "show_state_label": False,
+    "terminal_emulator": "gnome-terminal",
+}
 
 
 def get_config(file_encoding='utf-8'):
@@ -32,9 +38,7 @@ def get_config(file_encoding='utf-8'):
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
-        default = importlib_resources.files('timew_status.data').joinpath('config.yaml')
-        defcfg = Munch.fromYAML(default.read_text(encoding=file_encoding))
-        cfgfile.write_text(Munch.toYAML(defcfg), encoding=file_encoding)
+        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)
     cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
 
     return cfgobj, cfgfile
@@ -138,9 +142,12 @@ def get_userdirs():
 
     :return configdir: Path obj
     """
-    configdir = BaseDirectory.save_config_path(APP_NAME)
+    xdg_path = os.getenv('XDG_CONFIG_HOME')
+    config_home = Path(xdg_path) if xdg_path else Path.home().joinpath('.config')
+    configdir = config_home.joinpath(APP_NAME)
+    configdir.mkdir(parents=True, exist_ok=True)
 
-    return Path(configdir)
+    return configdir
 
 
 def parse_for_tag(text):
@@ -202,5 +209,4 @@ def to_td(h):
     return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
 
 
-CFG, _ = Munch.toDict(get_config())
 DEBUG = os.getenv('DEBUG', default=None)

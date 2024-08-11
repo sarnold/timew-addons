@@ -52,15 +52,13 @@ Installing using system package manager is currently only supported on
 Gentoo_ and requires `this portage overlay`_. Use one of the overlay
 install methods shown in the readme and sync the overlay.
 
-Following the overlay install, use the portage_ package manager to
-install the package and dependencies:
+Following the overlay sync, install the package and dependencies:
 
 * Gentoo - ``sudo emerge timew-addons -v --ask``
 
 .. .. _Ubuntu: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
 .. _Gentoo: https://www.gentoo.org/
 .. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
-.. _portage: https://wiki.gentoo.org/wiki/Portage
 
 Install with pip
 ----------------
