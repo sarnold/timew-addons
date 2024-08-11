@@ -81,8 +81,8 @@ def get_state_icon(state):
     }
 
     state_dict = timew_dict
-    connected_icon = Path(install_path).joinpath(icon_name)
-    if not connected_icon.exists():
+    app_icon = Path(install_path).joinpath(icon_name)
+    if not app_icon.exists():
         state_dict = fallback_dict
 
     return state_dict.get(state, state_dict['INACTIVE'])
@@ -102,9 +102,10 @@ def get_state_str(cmproc, count):
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
     lines = msg.splitlines()
+    day_total = '00:00:00'
 
-    for x in [x for x in lines if x.split(',')[0] == 'total']:
-        day_total = x.split(',')[1]
+    for x in [x for x in lines if x.split(';')[0] == 'total']:
+        day_total = x.split(';')[1]
     if DAY_MAX < to_td(day_total) < DAY_LIMIT:
         state = 'WARNING'
         msg = f'WARNING: day max of {DAY_MAX} has been exceeded\n' + msg
@@ -146,11 +147,9 @@ def parse_for_tag(text):
     """
     Parse the output of timew start/stop commands for the tag string.
     """
-    sep = CFG["jtag_separator"]
     for line in text.splitlines():
         if line.startswith(("Tracking", "Recorded")):
-            data = line.split('"')[1].split(sep)
-            return f'{data[0]}{sep}"{data[1]}"'
+            return line.split('"')[1]
 
 
 def run_cmd(action='status', tag=None):

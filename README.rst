@@ -24,16 +24,78 @@ any programming language.
 
 .. _Timewarrior: https://timewarrior.net/docs/
 
+But what are the addons?
+========================
+
 This repository is mainly a place for some example report extensions (where
 in this case "example" means things actually used for reporting work hrs)
 and some experimental UI ideas.
 
-The report extensions here use an existing `Python binding`_ but the easiest
-way to get started massaging report data is probably the (JSON) export interface::
+The report extensions here use an existing `Python binding`_ that
+parses stdout from ``timew`` so the extension scripts must parse stdin
+using the timew-report classes. See `Reporting examples`_ for details.
 
-  $ timew export
+The current UI script uses the PyGObject_ introspection interface to
+import bindings for things like Gtk_, Notify_, and Appindicator_ to render a
+simple tray icon/menu and send desktop notifications. See `Appindicator GUI`_
+for details.
 
+.. _Gtk: https://pygobject.gnome.org/tutorials/gtk3.html
+.. _Notify: https://lazka.github.io/pgi-docs/#Notify-0.7
+.. _Appindicator: https://lazka.github.io/pgi-docs/#AyatanaAppIndicator3-0.1
 .. _Python binding: https://github.com/lauft/timew-report/
+
+Quick start install
+===================
+
+Installing using system package manager is currently only supported on
+Gentoo_ and requires `this portage overlay`_. Use one of the overlay
+install methods shown in the readme and sync the overlay.
+
+Following the overlay install, use the portage_ package manager to
+install the package and dependencies:
+
+* Gentoo - ``sudo emerge timew-addons -v --ask``
+
+.. .. _Ubuntu: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
+.. _Gentoo: https://www.gentoo.org/
+.. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
+.. _portage: https://wiki.gentoo.org/wiki/Portage
+
+Install with pip
+----------------
+
+This projectn is *not* published on PyPI, thus use one of the
+following commands to install the latest version in a Python
+virtual environment.
+
+From source::
+
+  $ python3 -m venv .venv
+  $ source .venv/bin/activate
+  (.venv) $ pip install git+https://github.com/sarnold/timew-addons.git
+
+The alternative to python venv is the Tox_ test driver.  If you have it
+installed already, clone this repository and try the following commands
+from the top-level source directory.
+
+To create a "dev" environment::
+
+  $ tox -e dev
+
+To run the tests::
+
+  $ tox -e py
+
+.. note:: After installing in dev mode, use the environment created by
+          Tox just like any other Python virtual environment.  The dev
+          install mode of Pip allows you to edit the script and run it
+          again while inside the virtual environment. By default Tox
+          environments are created under ``.tox/`` and named after the
+          env argument (eg, dev).
+
+.. _Tox: https://github.com/tox-dev/tox
+
 
 Reporting examples
 ==================
