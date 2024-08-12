@@ -10,6 +10,7 @@ import time
 import typing
 from collections import Counter
 from datetime import timedelta
+from decimal import Decimal
 from threading import Thread
 from typing import cast
 
@@ -210,7 +211,8 @@ class Indicator:
 
     def reset_counter(self, source):
         """Reset the seat_time counter"""
-        seat_minutes = COUNT["SeatTick"] / 60
+        seat_time = COUNT["SeatTick"] / 60
+        seat_minutes = round(Decimal(seat_time), 1)
         COUNT.clear()
         msg = f'INFO: seat timer reset from {seat_minutes} to 0 min'
         Notify.Notification.new("Timew status", msg, None).show()
@@ -227,6 +229,8 @@ class Indicator:
 
     def statusd(self, source):
         _, svc_msg = run_cmd()
+        seat_minutes = round(Decimal(COUNT["SeatTick"] / 60), 1)
+        svc_msg = f'INFO: current seat time is {seat_minutes} mins \n' + svc_msg
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
     def stopd(self, source):

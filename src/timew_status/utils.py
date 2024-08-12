@@ -195,7 +195,7 @@ def run_cmd(action='status', tag=None):
             print(f'run_cmd {action} return code: {result.returncode}')
             print(f'run_cmd {action} result msg: {result.stdout.decode().strip()}')
 
-        return result, result.stdout.decode().strip()
+        return result, result.stdout.decode()
 
     except Exception as exc:
         print(f'run_cmd exception: {exc}')
