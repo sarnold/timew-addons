@@ -26,7 +26,7 @@ except ValueError:
     gi.require_version('AppIndicator3', '0.1')
     from gi.repository import AppIndicator3 as appindicator
 
-from gi.repository import Gtk, Notify
+from gi.repository import Gdk, Gtk, Notify
 from munch import Munch
 
 from timew_status import (
@@ -48,12 +48,12 @@ SLEEP_SEC = CFG['loop_idle_seconds']
 
 
 class TextWindow(Gtk.Window):
-    def __init__(self, title="Edit timew tag"):
-        super().__init__()
+    def __init__(self):
+        super().__init__(title="Edit timew tag")
         self.set_icon_name('timew')
         self.set_size_request(400, 100)
-
-        self.timeout_id = None
+        self.set_gravity(Gdk.Gravity.CENTER)
+        self.set_position(Gtk.WindowPosition.CENTER)
 
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.add(vbox)
@@ -78,12 +78,12 @@ class TextWindow(Gtk.Window):
         self.entry_text = self.entry.get_text()
         TAG["text"] = self.entry_text
         print(f'new tag text: {TAG["text"]}')
-        self.destroy()
+        self.hide()
 
     def on_cancel_clicked(self, button):
-        print("Closing window")
-        self.show_all()
-        self.destroy()
+        scr_loc = self.get_position()
+        print(f"window: {scr_loc}")
+        self.hide()
 
 
 class Indicator:
@@ -202,7 +202,6 @@ class Indicator:
     def open_entry(self, source):
         """Open the text entry window"""
         win = TextWindow()
-        win.set_position(Gtk.WindowPosition.MOUSE)
         win.show_all()
 
     def open_terminal(self, source):
