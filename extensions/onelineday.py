@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-    Modified from upstream example; extract a Job tag from the first
+    Modified from upstream example; extract a Job name from the first
     comma-separated split of the full tag string and produce subtotals
     for each <jobname> where <jobname> is a short mnemonic for customer
     and/or task, for example::
@@ -44,6 +44,7 @@ final_total = timedelta(hours=0)
 
 # indicator format is extremely terse
 TERSE_OUTPUT = os.getenv('INDICATOR_FMT')
+TAG_SEP = os.getenv('JTAG_SEPARATOR', default=',')
 
 
 def strf_delta(td):
@@ -60,7 +61,7 @@ def update_job_tags(tag):
     '''
     Extract job tags from full tag string
     '''
-    job_tag = tag.split(',', maxsplit=1)
+    job_tag = tag.split(f'{TAG_SEP}', maxsplit=1)
     if job_tag[0] not in job_tags:
         job_tags.append(job_tag[0])
 
@@ -81,7 +82,7 @@ for interval in parser.get_intervals():
         update_job_tags(tag)
 
 
-if not TERSE_OUTPUT:
+if not TERSE_OUTPUT:  # print a nice header for humans
     print(f'Duration has {len(job_days)} days and {len(job_tags)} total job tags:')
     print(sorted(job_tags))
     print('')
@@ -96,9 +97,9 @@ for job_tag in sorted(job_tags):
         ]
         for interval in job_intervals:
             tracked_hrs = interval.get_duration()
-            tags = [
+            tags = [  # fmt: off
                 x for x in interval.get_tags() if x.split(',', maxsplit=1)[0] == job_tag
-            ]
+            ]  # fmt: on
             for tag in tags:
                 if tag in totals:
                     totals[tag] += tracked_hrs
@@ -113,11 +114,11 @@ for job_tag in sorted(job_tags):
     final_total += tracked_total
 
     if TERSE_OUTPUT:
-        print(f'{job_tag},{strf_delta(tracked_total)}')
+        print(f'{job_tag};{strf_delta(tracked_total)}')
     else:
         print(f'\nTotal for {job_tag}: {strf_delta(tracked_total)} hrs\n')
 
 if TERSE_OUTPUT:
-    print(f'total,{strf_delta(final_total)}')
+    print(f'total;{strf_delta(final_total)}')
 else:
     print(f'Final total for all jobs in duration: {strf_delta(final_total)} hrs\n\n')
