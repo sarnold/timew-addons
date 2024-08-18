@@ -28,7 +28,7 @@ CFG = {
 def get_config(file_encoding='utf-8'):
     """
     Load configuration file and munchify the data. If local file is not
-    found in current directory, the default will be loaded.  Return a
+    found in config directory, the default will be loaded.  Return a
     Munch cfg obj and corresponding Path obj.
 
     :param file_encoding: file encoding of config file

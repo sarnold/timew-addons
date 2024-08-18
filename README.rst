@@ -212,7 +212,7 @@ PyGObject_.
                They have been modified to check an environment variable
                and output a summary CSV format.
 
-Install either ``onelineday.py`` or ``totals.py`` as shown above. depending
+Install either ``onelineday.py`` or ``totals.py`` as shown above, depending
 on preferred tag format:
 
 onelineday
@@ -224,7 +224,9 @@ totals
 
 Set the extension script in the config file with the following key, using
 either "onelineday" or "totals" for the value. Similarly set the job-tag
-separator if needed::
+separator if needed:
+
+.. code-block:: yaml
 
   extension_script: onelineday
   jtag_separator: ";"

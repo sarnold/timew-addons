@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.abspath('../../src/timew_status'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'timew-status-indicator'
+project = 'timew-addons'
 year = datetime.now().year
 copyright = f"{year}, Stephen L Arnold"
 author = 'Stephen L Arnold'
@@ -81,7 +81,7 @@ description = 'Timewarrior addon bits including report extensions and a status G
 
 pdf_documents = [
     #('filename', u'output filename', 'Title', 'author(s)'),
-    ('index', u'timew-status-indicator', u'Timew Addons', u"Stephen L Arnold"),
+    ('index', u'timew_status', u'Timew Addons', u"Stephen L Arnold"),
 ]
 
 # A comma-separated list of custom stylesheets. Example:

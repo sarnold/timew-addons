@@ -3,8 +3,8 @@ Documentation for timew-addons
 
 The primary timewarrior_ addon bits included here are written in Python_:
 
-* a pygobject_ appindicator GUI
-* some report extesnsions for timewarrior using timew-report_
+* ``timew-status-indicator`` - a pygobject_ appindicator GUI
+* related report extesnsions for timewarrior using timew-report_
 
 .. _Python: https://docs.python.org/3/contents.html
 .. _pygobject: https://pygobject.gnome.org/index.html
