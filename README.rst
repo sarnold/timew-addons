@@ -40,8 +40,8 @@ simple tray icon/menu and send desktop notifications. See `Appindicator GUI`_
 for details.
 
 .. _Gtk: https://pygobject.gnome.org/tutorials/gtk3.html
-.. _Notify: https://lazka.github.io/pgi-docs/#Notify-0.7
-.. _Appindicator: https://lazka.github.io/pgi-docs/#AyatanaAppIndicator3-0.1
+.. _Notify: https://lazka.github.io/pgi-docs/Notify-0.7/index.html
+.. _Appindicator: https://lazka.github.io/pgi-docs/AyatanaAppIndicator3-0.1/index.html
 .. _Python binding: https://github.com/lauft/timew-report/
 
 Quick start install
@@ -88,7 +88,7 @@ See `Adding this PPA to your system`_ for more info.
 
 .. _Gentoo: https://www.gentoo.org/
 .. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
-.. _readme: https://github.com/VCTLabs/embedded-overlay?tab=readme-ov-file#install-the-overlay-without-layman
+.. _readme: https://github.com/VCTLabs/embedded-overlay/blob/master/README.rst#install-the-overlay-without-layman
 
 Install with pip
 ----------------
@@ -136,7 +136,7 @@ in the top-level of the sdist or repository:
 
 They must be manually installed to the location shown below.
 
-.. _upstream example: https://github.com/lauft/timew-report/?tab=readme-ov-file#examples
+.. _upstream example: https://github.com/lauft/timew-report/blob/master/README.md#examples
 
 Extension usage
 ---------------
