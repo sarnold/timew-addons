@@ -1,0 +1,5 @@
+importlib-metadata; python_version < '3.8'
+munch[yaml]
+timew-report
+pycairo
+PyGObject

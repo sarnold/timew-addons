@@ -1,0 +1,126 @@
+# svd/styles/svd.yaml
+---
+pageSetup: {margin-top: 1cm, size: Letter}
+
+styles:
+  bluetext:
+    parent: bodytext
+    textColor: blue
+  redtext:
+    parent: bodytext
+    fontName: fontSerifBold
+    textColor: red
+
+  heading1:
+    fontSize: 200%
+    parent: heading
+  heading2:
+    fontSize: 175%
+    parent: heading
+  heading3:
+    fontSize: 150%
+    parent: heading
+  heading4:
+    fontSize: 125%
+    parent: heading
+
+  field-list:
+    colWidths:
+    - 3.4cm
+    - null
+
+  item-list:
+    colWidths:
+    - 30pt
+    - null
+    commands:
+    - - VALIGN
+      - - 0
+        - 0
+      - - -1
+        - -1
+      - TOP
+    - - RIGHTPADDING
+      - - 0
+        - 0
+      - - 1
+        - -1
+      - 0
+    parent: bodytext
+
+  normal: {allowOrphans: 6, allowWidows: 5}
+  title-deepbox:
+    commands:
+    - - LINEABOVE
+      - [0, 0]
+      - [-1, 0]
+      - 1
+      - black
+    - - LINEBEFORE
+      - [0, 0]
+      - [0, -1]
+      - 1
+      - black
+    - - LINEAFTER
+      - [-1, 0]
+      - [-1, -1]
+      - 2
+      - black
+    - - LINEBELOW
+      - [0, -1]
+      - [-1, -1]
+      - 2
+      - black
+    - - TOPPADDING
+      - [0, 0]
+      - [-1, 0]
+      - 10
+    - - LEFTPADDING
+      - [0, 0]
+      - [0, -1]
+      - 10
+    - - RIGHTPADDING
+      - [-1, 0]
+      - [-1, -1]
+      - 10
+    - - BOTTOMPADDING
+      - [0, -1]
+      - [-1, -1]
+      - 10
+    - - TOPPADDING
+      - [0, 1]
+      - [-1, -1]
+      - 0
+    - - BOTTOMPADDING
+      - [0, 0]
+      - [-1, -2]
+      - 0
+    comment: padding inside box, but not between table cells
+    parent: table
+  title-info: {alignment: TA_RIGHT, comment: right-aligned text for title page document
+      info, parent: bodytext, spaceBefore: 0}
+  title-logobox:
+    commands:
+    - - BOX
+      - [0, 0]
+      - [-1, -1]
+      - 0.5
+      - black
+    - - TOPPADDING
+      - [0, 0]
+      - [-1, 0]
+      - 0
+    - - LEFTPADDING
+      - [0, 0]
+      - [0, -1]
+      - 8
+    - - BOTTOMPADDING
+      - [0, -1]
+      - [-1, -1]
+      - 3
+    comment: padding to try to even up spacing
+    parent: table
+  title-name: {alignment: TA_RIGHT, comment: 'large, right-aligned text for title
+      page document name', fontName: fontSerifBold, fontSize: 200%, parent: bodytext}
+  title-notice: {alignment: TA_JUSTIFY, comment: 'bold, justified text for title page
+      notice', fontName: fontSerifBold, parent: bodytext}

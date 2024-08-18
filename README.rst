@@ -1,15 +1,14 @@
-========================
- Timewarrior addon bits
-========================
+Timewarrior addon bits
+======================
 
-|CI|
+|CI| |release|
 
 |pre|
 
 |tag| |license|
 
 What is timewarrior?
-====================
+~~~~~~~~~~~~~~~~~~~~
 
 Timewarrior_ is a command line time tracking application, which allows
 you to record time spent on activities. You may be tracking your time
@@ -25,7 +24,7 @@ any programming language.
 .. _Timewarrior: https://timewarrior.net/docs/
 
 But what are the addons?
-========================
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 This repository is mainly a place for some example report extensions (where
 in this case "example" means things actually used for reporting work hrs)
@@ -46,24 +45,55 @@ for details.
 .. _Python binding: https://github.com/lauft/timew-report/
 
 Quick start install
-===================
+~~~~~~~~~~~~~~~~~~~
+
+The appindicator GUI prefers OS package manager over virtual environment
+install due to the icon/desktop file integration with an XDG-compliant
+desktop, eg, Gnome or XFCE.  While the extension scripts should work
+anywhere ``timew`` can be installed, running the appindicator GUI requires
+a real Linux desktop environment.  That said, the GUI script should still
+run from local virtual environment, albeit with a fallback set of icons.
+
+* if on Gentoo, add `this portage overlay`_ and install ``timew-addons``
+* if on recent Ubuntu LTS, add `this PPA`_ and install ``timew-addons``
+
+Install with package manager
+----------------------------
+
+OS packages are deployed via multiple methods, including GH release pages
+and package overlays for Gentoo_ and Ubuntu.
 
 Installing using system package manager is currently only supported on
 Gentoo_ and requires `this portage overlay`_. Use one of the overlay
-install methods shown in the readme and sync the overlay.
+install methods shown in the readme_ file and sync the overlay; following
+the overlay sync, install the package and dependencies::
 
-Following the overlay sync, install the package and dependencies:
+  $ sudo emerge timew-addons -v --ask
 
-* Gentoo - ``sudo emerge timew-addons -v --ask``
+When available, use the following `Ubuntu PPA`_ to install on at least
+Focal and Jammy.  Make sure you have the ``add-apt-repository`` command
+installed and then add the PPA:
 
-.. .. _Ubuntu: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
+::
+
+  $ sudo apt-get install software-properties-common
+  $ sudo add-apt-repository -y -s ppa:nerdboy/embedded
+  $ sudo apt-get install timew-addons
+
+See `Adding this PPA to your system`_ for more info.
+
+.. _Adding this PPA to your system:
+.. _this PPA:
+.. _Ubuntu PPA: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
+
 .. _Gentoo: https://www.gentoo.org/
 .. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
+.. _readme: https://github.com/VCTLabs/embedded-overlay?tab=readme-ov-file#install-the-overlay-without-layman
 
 Install with pip
 ----------------
 
-This projectn is *not* published on PyPI, thus use one of the
+This project is *not* published on PyPI, thus use one of the
 following commands to install the latest version in a Python
 virtual environment.
 
@@ -73,7 +103,7 @@ From source::
   $ source .venv/bin/activate
   (.venv) $ pip install git+https://github.com/sarnold/timew-addons.git
 
-The alternative to python venv is the Tox_ test driver.  If you have it
+The alternative to python venv is the Tox_ automation tool.  If you have it
 installed already, clone this repository and try the following commands
 from the top-level source directory.
 
@@ -96,7 +126,7 @@ To run the tests::
 
 
 Reporting examples
-==================
+~~~~~~~~~~~~~~~~~~
 
 The following extension examples can be found in the ``extensions`` folder
 in the top-level of the sdist or repository:
@@ -145,7 +175,7 @@ using::
 should also work.
 
 Appindicator GUI
-================
+~~~~~~~~~~~~~~~~
 
 timew-status-indicator is a control and status application for timew that
 runs from the system tray on XDG-compliant Linux desktops.
@@ -168,7 +198,7 @@ your session startup or run it from an X terminal to get some debug output::
 
 
 Operating System Support
-========================
+########################
 
 The extension scripts require a basic console environment with both
 timewarrior and the timew-report packages installed (usually via system
@@ -179,8 +209,8 @@ PyGObject_.
 .. note:: The GUI script also requires the ``onelineday.py`` extension to
           be installed (as shown above) in order to interact with ``timew``.
 
-The above platform link shows package support for several Linux distributions
-and MacOS.
+The above (timew) platform support link shows package support for several
+Linux distributions.
 
 
 .. _Python: https://docs.python.org/3/contents.html
@@ -189,7 +219,7 @@ and MacOS.
 
 
 PyGObject references
---------------------
+####################
 
 * https://lazka.github.io/pgi-docs/  PyGObject API Reference
 * https://pygobject-tutorial.readthedocs.io/en/latest/index.html  Tutorial
@@ -198,7 +228,11 @@ PyGObject references
 
 .. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg
     :target: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml
-    :alt: CI test status
+    :alt: CI workflow status
+
+.. |release| image:: https://github.com/sarnold/timew-addons/actions/workflows/release.yml/badge.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/release.yml
+    :alt: Release workflow status
 
 .. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white
    :target: https://github.com/pre-commit/pre-commit

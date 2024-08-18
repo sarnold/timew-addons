@@ -16,6 +16,7 @@ CFG = {
     "seat_snooze": "00:40",
     "seat_reset_on_stop": False,
     "use_last_tag": False,
+    "extension_script": "onelineday",
     "default_jtag_str": "vct-sw,implement skeleton timew indicator",
     "jtag_separator": ",",
     "loop_idle_seconds": 20,
@@ -32,8 +33,7 @@ def get_config(file_encoding='utf-8'):
 
     :param file_encoding: file encoding of config file
     :type file_encoding: str
-    :return: Munch cfg obj and cfg file as Path obj
-    :rtype tuple:
+    :return: tuple of Munch and Path objs
     """
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
@@ -49,7 +49,7 @@ def get_delta_limits():
     Return config max/snooze limits as timedeltas. Everything comes from
     static config values and gets padded with seconds.
 
-    :return: tuple of timedeltas
+    :return: tuple of 4 timedeltas
     """
     day_sum = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
     seat_sum = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
@@ -63,7 +63,12 @@ def get_delta_limits():
 
 def get_state_icon(state):
     """
-    Look up the state msg and return the icon name.
+    Look up the state msg and return the icon name. Use builtin symbolic
+    icons as fallback.
+
+    :param state: name of state key
+    :type state: str
+    :return: matching icon name (str)
     """
     install_path = '/usr/share/icons/hicolor/scalable/apps'
     icon_name = 'timew.svg'
@@ -94,12 +99,15 @@ def get_state_icon(state):
 
 def get_state_str(cmproc, count):
     """
-    Return timew tracking state, ei, the key for dict with icons.
+    Return timew state message and tracking state, ie, the key for dict
+    with icons.
 
     :param cmproc: completed timew process obj
     :type cmproc: CompletedProcess
     :param count: seat time counter value
     :type count: timedelta
+
+    :return: tuple of state msg and state string
     """
     DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT = get_delta_limits()
 
@@ -127,7 +135,10 @@ def get_state_str(cmproc, count):
 
 def get_status():
     """
-    Return timew tracking status.
+    Return timew tracking status (output of ``timew`` with no arguments).
+
+    :param None:
+    :return: timew output str or None
     """
     try:
         return subprocess.run(["timew"], capture_output=True)
@@ -137,10 +148,11 @@ def get_status():
 
 def get_userdirs():
     """
-    Get platform-agnostic user config path via pyxdg. This may grow if
-    needed.
+    Get XDG user configuration path defined as ``XDG_CONFIG_HOME`` plus
+    application name. This may grow if needed.
 
-    :return configdir: Path obj
+    :param None:
+    :return: XDG Path obj
     """
     xdg_path = os.getenv('XDG_CONFIG_HOME')
     config_home = Path(xdg_path) if xdg_path else Path.home().joinpath('.config')
@@ -153,6 +165,9 @@ def get_userdirs():
 def parse_for_tag(text):
     """
     Parse the output of timew start/stop commands for the tag string.
+
+    :param text: start or stop output from ``timew`` (via run_cmd)
+    :return: timew tag string
     """
     for line in text.splitlines():
         if line.startswith(("Tracking", "Recorded")):
@@ -169,7 +184,7 @@ def run_cmd(action='status', tag=None):
 
     actions = ['start', 'stop', 'status']
     svc_list = ['timew']
-    sts_list = ["one", "today"]
+    sts_list = [CFG["extension_script"], "today"]
     cmd = svc_list
     act_list = [action]
 
@@ -201,11 +216,14 @@ def run_cmd(action='status', tag=None):
         print(f'run_cmd exception: {exc}')
 
 
-def to_td(h):
+def to_td(hms):
     """
     Convert a time string in HH:MM:SS format to a timedelta object.
+
+    :param hms: time string
+    :return: timedelta obj
     """
-    hrs, mins, secs = h.split(':')
+    hrs, mins, secs = hms.split(':')
     return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
 
 
