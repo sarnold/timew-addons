@@ -85,10 +85,10 @@ See `Adding this PPA to your system`_ for more info.
 .. _Adding this PPA to your system:
 .. _this PPA:
 .. _Ubuntu PPA: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
-
 .. _Gentoo: https://www.gentoo.org/
+.. _readme:
 .. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
-.. _readme: https://github.com/VCTLabs/embedded-overlay/blob/master/README.rst#install-the-overlay-without-layman
+
 
 Install with pip
 ----------------
@@ -131,12 +131,13 @@ Reporting examples
 The following extension examples can be found in the ``extensions`` folder
 in the top-level of the sdist or repository:
 
-* ``csv_rpt.py`` - a simple CSV report based on the `upstream example`_
 * ``onelineday.py`` - a real-world custom report example
+* ``totals.py`` - a totals-by-tag report based on the `upstream example`_
+* ``csv_rpt.py`` - a simple CSV report also based on the `upstream example`_
 
 They must be manually installed to the location shown below.
 
-.. _upstream example: https://github.com/lauft/timew-report/blob/master/README.md#examples
+.. _upstream example: https://github.com/lauft/timew-report/blob/master/README.md
 
 Extension usage
 ---------------
@@ -145,7 +146,7 @@ In general, report extension scripts are installed under ``$HOME`` in the
 timewarrior extensions folder, which on Linux equates to::
 
   $ ls ~/.timewarrior/extensions
-  csv_rpt.py  onelineday.py
+  csv_rpt.py  onelineday.py totals.py
 
 To use the report extensions, first install timewarrior `on your platform`_
 and run the command from a console prompt, then find the extensions directory,
@@ -206,11 +207,27 @@ package manager). Running the indicator GUI script requires both
 Python_ and a modern Gtk+ windowing environment with Gtk3+_ and
 PyGObject_.
 
-.. note:: The GUI script also requires the ``onelineday.py`` extension to
-          be installed (as shown above) in order to interact with ``timew``.
+.. important:: The GUI script requires one of the following extensions to
+               to parse the current time total from the ``timew`` output.
+               They have been modified to check an environment variable
+               and output a summary CSV format.
 
-The above (timew) platform support link shows package support for several
-Linux distributions.
+Install either ``onelineday.py`` or ``totals.py`` as shown above. depending
+on preferred tag format:
+
+onelineday
+  Use for job-tag prefix format with sub-totals. See the docstring in
+  ``onelineday.py`` for more details.
+
+totals
+  Use for free-form tag format *without* a job-tag prefix.
+
+Set the extension script in the config file with the following key, using
+either "onelineday" or "totals" for the value. Similarly set the job-tag
+separator if needed::
+
+  extension_script: onelineday
+  jtag_separator: ";"
 
 
 .. _Python: https://docs.python.org/3/contents.html

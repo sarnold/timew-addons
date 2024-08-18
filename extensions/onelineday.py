@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-    Modified from upstream example; extract a Job name from the first
+    Modified from upstream example; extract a job-tag from the first
     comma-separated split of the full tag string and produce subtotals
     for each <jobname> where <jobname> is a short mnemonic for customer
     and/or task, for example::
