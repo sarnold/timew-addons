@@ -1,15 +1,14 @@
-========================
- Timewarrior addon bits
-========================
+Timewarrior addon bits
+======================
 
-|CI|
+|CI| |release|
 
 |pre|
 
 |tag| |license|
 
 What is timewarrior?
-====================
+~~~~~~~~~~~~~~~~~~~~
 
 Timewarrior_ is a command line time tracking application, which allows
 you to record time spent on activities. You may be tracking your time
@@ -25,7 +24,7 @@ any programming language.
 .. _Timewarrior: https://timewarrior.net/docs/
 
 But what are the addons?
-========================
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 This repository is mainly a place for some example report extensions (where
 in this case "example" means things actually used for reporting work hrs)
@@ -41,29 +40,60 @@ simple tray icon/menu and send desktop notifications. See `Appindicator GUI`_
 for details.
 
 .. _Gtk: https://pygobject.gnome.org/tutorials/gtk3.html
-.. _Notify: https://lazka.github.io/pgi-docs/#Notify-0.7
-.. _Appindicator: https://lazka.github.io/pgi-docs/#AyatanaAppIndicator3-0.1
+.. _Notify: https://lazka.github.io/pgi-docs/Notify-0.7/index.html
+.. _Appindicator: https://lazka.github.io/pgi-docs/AyatanaAppIndicator3-0.1/index.html
 .. _Python binding: https://github.com/lauft/timew-report/
 
 Quick start install
-===================
+~~~~~~~~~~~~~~~~~~~
+
+The appindicator GUI prefers OS package manager over virtual environment
+install due to the icon/desktop file integration with an XDG-compliant
+desktop, eg, Gnome or XFCE.  While the extension scripts should work
+anywhere ``timew`` can be installed, running the appindicator GUI requires
+a real Linux desktop environment.  That said, the GUI script should still
+run from local virtual environment, albeit with a fallback set of icons.
+
+* if on Gentoo, add `this portage overlay`_ and install ``timew-addons``
+* if on recent Ubuntu LTS, add `this PPA`_ and install ``timew-addons``
+
+Install with package manager
+----------------------------
+
+OS packages are deployed via multiple methods, including GH release pages
+and package overlays for Gentoo_ and Ubuntu.
 
 Installing using system package manager is currently only supported on
 Gentoo_ and requires `this portage overlay`_. Use one of the overlay
-install methods shown in the readme and sync the overlay.
+install methods shown in the readme_ file and sync the overlay; following
+the overlay sync, install the package and dependencies::
 
-Following the overlay sync, install the package and dependencies:
+  $ sudo emerge timew-addons -v --ask
 
-* Gentoo - ``sudo emerge timew-addons -v --ask``
+When available, use the following `Ubuntu PPA`_ to install on at least
+Focal and Jammy.  Make sure you have the ``add-apt-repository`` command
+installed and then add the PPA:
 
-.. .. _Ubuntu: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
+::
+
+  $ sudo apt-get install software-properties-common
+  $ sudo add-apt-repository -y -s ppa:nerdboy/embedded
+  $ sudo apt-get install timew-addons
+
+See `Adding this PPA to your system`_ for more info.
+
+.. _Adding this PPA to your system:
+.. _this PPA:
+.. _Ubuntu PPA: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
 .. _Gentoo: https://www.gentoo.org/
+.. _readme:
 .. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
+
 
 Install with pip
 ----------------
 
-This projectn is *not* published on PyPI, thus use one of the
+This project is *not* published on PyPI, thus use one of the
 following commands to install the latest version in a Python
 virtual environment.
 
@@ -73,7 +103,7 @@ From source::
   $ source .venv/bin/activate
   (.venv) $ pip install git+https://github.com/sarnold/timew-addons.git
 
-The alternative to python venv is the Tox_ test driver.  If you have it
+The alternative to python venv is the Tox_ automation tool.  If you have it
 installed already, clone this repository and try the following commands
 from the top-level source directory.
 
@@ -96,17 +126,18 @@ To run the tests::
 
 
 Reporting examples
-==================
+~~~~~~~~~~~~~~~~~~
 
 The following extension examples can be found in the ``extensions`` folder
 in the top-level of the sdist or repository:
 
-* ``csv_rpt.py`` - a simple CSV report based on the `upstream example`_
 * ``onelineday.py`` - a real-world custom report example
+* ``totals.py`` - a totals-by-tag report based on the `upstream example`_
+* ``csv_rpt.py`` - a simple CSV report also based on the `upstream example`_
 
 They must be manually installed to the location shown below.
 
-.. _upstream example: https://github.com/lauft/timew-report/?tab=readme-ov-file#examples
+.. _upstream example: https://github.com/lauft/timew-report/blob/master/README.md
 
 Extension usage
 ---------------
@@ -115,7 +146,7 @@ In general, report extension scripts are installed under ``$HOME`` in the
 timewarrior extensions folder, which on Linux equates to::
 
   $ ls ~/.timewarrior/extensions
-  csv_rpt.py  onelineday.py
+  csv_rpt.py  onelineday.py totals.py
 
 To use the report extensions, first install timewarrior `on your platform`_
 and run the command from a console prompt, then find the extensions directory,
@@ -145,7 +176,7 @@ using::
 should also work.
 
 Appindicator GUI
-================
+~~~~~~~~~~~~~~~~
 
 timew-status-indicator is a control and status application for timew that
 runs from the system tray on XDG-compliant Linux desktops.
@@ -168,7 +199,7 @@ your session startup or run it from an X terminal to get some debug output::
 
 
 Operating System Support
-========================
+########################
 
 The extension scripts require a basic console environment with both
 timewarrior and the timew-report packages installed (usually via system
@@ -176,11 +207,29 @@ package manager). Running the indicator GUI script requires both
 Python_ and a modern Gtk+ windowing environment with Gtk3+_ and
 PyGObject_.
 
-.. note:: The GUI script also requires the ``onelineday.py`` extension to
-          be installed (as shown above) in order to interact with ``timew``.
+.. important:: The GUI script requires one of the following extensions to
+               to parse the current time total from the ``timew`` output.
+               They have been modified to check an environment variable
+               and output a summary CSV format.
 
-The above platform link shows package support for several Linux distributions
-and MacOS.
+Install either ``onelineday.py`` or ``totals.py`` as shown above, depending
+on preferred tag format:
+
+onelineday
+  Use for job-tag prefix format with sub-totals. See the docstring in
+  ``onelineday.py`` for more details.
+
+totals
+  Use for free-form tag format *without* a job-tag prefix.
+
+Set the extension script in the config file with the following key, using
+either "onelineday" or "totals" for the value. Similarly set the job-tag
+separator if needed:
+
+.. code-block:: yaml
+
+  extension_script: onelineday
+  jtag_separator: ";"
 
 
 .. _Python: https://docs.python.org/3/contents.html
@@ -189,7 +238,7 @@ and MacOS.
 
 
 PyGObject references
---------------------
+####################
 
 * https://lazka.github.io/pgi-docs/  PyGObject API Reference
 * https://pygobject-tutorial.readthedocs.io/en/latest/index.html  Tutorial
@@ -198,7 +247,11 @@ PyGObject references
 
 .. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg
     :target: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml
-    :alt: CI test status
+    :alt: CI workflow status
+
+.. |release| image:: https://github.com/sarnold/timew-addons/actions/workflows/release.yml/badge.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/release.yml
+    :alt: Release workflow status
 
 .. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white
    :target: https://github.com/pre-commit/pre-commit

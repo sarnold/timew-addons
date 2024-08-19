@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-    Modified from upstream example; extract a Job name from the first
+    Modified from upstream example; extract a job-tag from the first
     comma-separated split of the full tag string and produce subtotals
     for each <jobname> where <jobname> is a short mnemonic for customer
     and/or task, for example::
@@ -43,7 +43,7 @@ formatted = timedelta(0)
 final_total = timedelta(hours=0)
 
 # indicator format is extremely terse
-TERSE_OUTPUT = os.getenv('INDICATOR_FMT')
+CSV_OUTPUT = os.getenv('INDICATOR_FMT')
 TAG_SEP = os.getenv('JTAG_SEPARATOR', default=',')
 
 
@@ -82,13 +82,13 @@ for interval in parser.get_intervals():
         update_job_tags(tag)
 
 
-if not TERSE_OUTPUT:  # print a nice header for humans
+if not CSV_OUTPUT:  # print a nice header for humans
     print(f'Duration has {len(job_days)} days and {len(job_tags)} total job tags:')
     print(sorted(job_tags))
     print('')
 
 for job_tag in sorted(job_tags):
-    if not TERSE_OUTPUT:
+    if not CSV_OUTPUT:
         print(f'-- {job_tag}')
     tracked_total = timedelta(hours=0)
     for job_day in sorted(job_days):
@@ -107,18 +107,19 @@ for job_tag in sorted(job_tags):
                     totals[tag] = tracked_hrs
                 tracked_total += tracked_hrs
 
-        if not TERSE_OUTPUT:
+        if not CSV_OUTPUT:
             for tag in sorted(totals):
                 print(f'{job_day} {totals[tag]} {tag}')
         totals.clear()
     final_total += tracked_total
 
-    if TERSE_OUTPUT:
+    if CSV_OUTPUT:
         print(f'{job_tag};{strf_delta(tracked_total)}')
     else:
         print(f'\nTotal for {job_tag}: {strf_delta(tracked_total)} hrs\n')
 
-if TERSE_OUTPUT:
+if CSV_OUTPUT:
+    # preserve this output format for timew-status-indicator, total in HH:MM::SS
     print(f'total;{strf_delta(final_total)}')
 else:
     print(f'Final total for all jobs in duration: {strf_delta(final_total)} hrs\n\n')
