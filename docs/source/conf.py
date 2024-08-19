@@ -61,7 +61,7 @@ html_sidebars = {'**': ['globaltoc.html', 'relations.html', 'sourcelink.html', '
 source_suffix = {'.rst': 'restructuredtext'}
 master_doc = "index"
 
-description = 'Timewarrior addon bits including report extensions and a status GUI.'
+description = 'Timewarrior addons including an appindicator GUI and report extensions.'
 
 # -- Options for PDF output --------------------------------------------------
 
@@ -81,7 +81,7 @@ description = 'Timewarrior addon bits including report extensions and a status G
 
 pdf_documents = [
     #('filename', u'output filename', 'Title', 'author(s)'),
-    ('index', u'timew_status', u'Timew Addons', u"Stephen L Arnold"),
+    ('index_pdf', u'timew_status', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
 ]
 
 # A comma-separated list of custom stylesheets. Example:
