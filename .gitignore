@@ -69,7 +69,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/build/
+docs/_build/
 
 # not-Sphinx documentation (externel)
 docs/sum/

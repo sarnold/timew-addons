@@ -55,7 +55,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv']
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+#html_static_path = ['_static']
 html_sidebars = {'**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']}
 
 source_suffix = {'.rst': 'restructuredtext'}
@@ -81,7 +81,7 @@ description = 'Timewarrior addons including an appindicator GUI and report exten
 
 pdf_documents = [
     #('filename', u'output filename', 'Title', 'author(s)'),
-    ('index_pdf', u'timew_status', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
+    ('index', u'timew_status', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
 ]
 
 # A comma-separated list of custom stylesheets. Example:

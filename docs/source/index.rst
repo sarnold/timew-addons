@@ -1,5 +1,5 @@
-Documentation for timew-addons
-==============================
+Developer/User Overview for Timew-Addons
+========================================
 
 The primary timewarrior_ addon bits included here are written in Python_:
 
@@ -24,7 +24,7 @@ The primary timewarrior_ addon bits included here are written in Python_:
 
   README
   modules
-
+  CHANGELOG
 
 Indices and tables
 ==================

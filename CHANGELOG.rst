@@ -1,11 +1,19 @@
 Changelog
 =========
 
-0.0.1.dev25 (2024-08-16)
-------------------------
+
+0.1.1 (2024-08-19)
+------------------
 
 New
 ~~~
+- Update readme, add sphinx docs build, cleanup docstrings. [Stephen L
+  Arnold]
+
+  * add example extension based on totals for use without jtag split
+  * update base config with extension_script key for script name
+- Add a changelog plus .gitchangelog.rc and update tox env. [Stephen L
+  Arnold]
 - Reset seat counter on stop after err, plus cleanup. [Stephen L Arnold]
 
   * abstract out delta_limits, hide some prints behind DEBUG
@@ -21,6 +29,11 @@ New
 
 Changes
 ~~~~~~~
+- Add config option to select symbolic icons instead of default. [Steve
+  Arnold]
+
+  * revert the .keepdir bits and cleanup sphinx config and index
+- Still more readme updates and a docstring tweak. [Stephen L Arnold]
 - Try setting position and gravity options, cleanup entry window bits.
   [Stephen L Arnold]
 - Try rounding a Decimal for timer status. [Stephen L Arnold]
@@ -43,6 +56,12 @@ Changes
   Arnold]
 
   * prints CSV rows of per-jobtag totals plus total total
+
+Fixes
+~~~~~
+- Even more docstring and readme/rst doc cleanup. [Stephen L Arnold]
+- Cleanup some oddball link anchors flagged by sphinx check. [Stephen L
+  Arnold]
 
 Other
 ~~~~~

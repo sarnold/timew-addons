@@ -16,6 +16,7 @@ CFG = {
     "seat_snooze": "00:40",
     "seat_reset_on_stop": False,
     "use_last_tag": False,
+    "use_symbolic_icons": False,
     "extension_script": "onelineday",
     "default_jtag_str": "vct-sw,implement skeleton timew indicator",
     "jtag_separator": ",",
@@ -91,7 +92,7 @@ def get_state_icon(state):
 
     state_dict = timew_dict
     app_icon = Path(install_path).joinpath(icon_name)
-    if not app_icon.exists():
+    if CFG["use_symbolic_icons"] or not app_icon.exists():
         state_dict = fallback_dict
 
     return state_dict.get(state, state_dict['INACTIVE'])
