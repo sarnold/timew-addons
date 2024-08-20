@@ -130,14 +130,14 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: ApiDocsHTML
-        path: "docs/build/html/"
+        path: "docs/_build/html/"
 
     - name: set nojekyll for github
       run: |
-        sudo touch docs/build/html/.nojekyll
+        sudo touch docs/_build/html/.nojekyll
 
     - name: Deploy docs to gh-pages
       if: ${{ github.event_name == 'push' }}
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: docs/build/html/
+        folder: docs/_build/html/
