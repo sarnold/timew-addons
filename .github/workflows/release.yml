@@ -116,6 +116,17 @@ jobs:
       with:
         fetch-depth: 0
 
+    # sphinx really does need the GObject package deps
+    - name: Deps for system pkgs
+      run: |
+        sudo apt-get -qq update
+        sudo apt-get install -yqq python3-gi python3-gi-cairo gir1.2-gtk-3.0
+        sudo apt-get install -yqq libgirepository1.0-dev libappindicator3-dev
+        sudo apt-get install -yqq software-properties-common
+        sudo add-apt-repository -y -s ppa:nerdboy/embedded
+        sudo apt-get -qq update
+        sudo apt-get install -yqq timew-report
+
     - uses: actions/setup-python@v5
       with:
         python-version: '3.9'
