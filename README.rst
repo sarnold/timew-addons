@@ -161,7 +161,9 @@ something like::
 
 Finally, copy the desired extension(s) into the extensions folder::
 
-  $ cp path/to/onelineday.py ~/.timewarrior/extensions/
+  $ cp /usr/lib/timew-addons/extensions/onelineday.py ~/.timewarrior/extensions/
+
+When using OS packages, extensions should be installed to the above path.
 
 Run the extension by substituting the extension name for the usual "summary"
 command, eg, instead of ``timew summary june``, use something like::
@@ -174,6 +176,47 @@ using::
   $ timew one today
 
 should also work.
+
+Environment
+-----------
+
+The report extensions used by the `Appindicator GUI`_ have 2 output formats:
+
+* the default verbose mode is "human" report output
+* the optional terse mode is consumed and displayed by the GUI
+
+The output mode and job-tag separator are exported as shell environment
+variables by the GUI script on startup, which affects *only the internal*
+runtime environment of the GUI. However, this means the variables are set
+in the shell environment of the terminal launched by the menu option, so
+running ``timew`` commands from this terminal instance will use the "terse"
+output mode unless the environment variable is unset, eg, after launching
+a terminal from the GUI menu, run the following in that terminal window::
+
+  $ timew one yesterday
+  xyz-test;08:39:36
+  vctlabs;00:36:20
+  total;09:15:56
+  $ unset INDICATOR_FMT
+  $ timew one yesterday
+  Duration has 1 days and 2 total job tags:
+  ['xyz-test', 'vctlabs']
+
+  -- xyz-test
+  2024-08-23 3:58:47 xyz-test,continue test case document structure
+  2024-08-23 2:38:37 xyz-test,test doc development
+  2024-08-23 0:18:55 xyz-test,test doc development discussion
+  2024-08-23 1:43:17 xyz-test,test status mtg
+
+  Total for xyz-test: 08:39:36 hrs
+
+  -- vctlabs
+  2024-08-23 0:36:20 vctlabs,project status/planning mtg
+
+  Total for vctlabs: 00:36:20 hrs
+
+  Final total for all jobs in duration: 09:15:56 hrs
+
 
 Appindicator GUI
 ~~~~~~~~~~~~~~~~
@@ -191,20 +234,34 @@ update to show the current state of timew vs configurable limits.
 GUI usage
 ---------
 
-Select Timew Status Tool from the Applications View or the Internet menu in
+Select Timew Status Tool from the Applications View or the Utils menu in
 your desktop of choice, eg, Gnome, Unity, Xfce, etc.  You can also add it to
 your session startup or run it from an X terminal to get some debug output::
 
   $ timew-status-indicator
 
+Indicator states
+################
+
+It would not be an Appindicator_ without icons, so we use icons as one way
+to show current state.
+
+
+PyGObject references
+--------------------
+
+* https://lazka.github.io/pgi-docs/  PyGObject API Reference
+* https://pygobject-tutorial.readthedocs.io/en/latest/index.html  Tutorial
+* https://github.com/candidtim/vagrant-appindicator  (old)
+
 
 Operating System Support
-########################
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The extension scripts require a basic console environment with both
 timewarrior and the timew-report packages installed (usually via system
 package manager). Running the indicator GUI script requires both
-Python_ and a modern Gtk+ windowing environment with Gtk3+_ and
+Python_ and a modern Gtk+ windowing environment with Gtk3_ and
 PyGObject_.
 
 .. important:: The GUI script requires one of the following extensions to
@@ -233,16 +290,9 @@ separator if needed:
 
 
 .. _Python: https://docs.python.org/3/contents.html
+.. _Gtk3: https://pygobject.gnome.org/tutorials/gtk3.html
 .. _PyGObject: https://pygobject.gnome.org/index.html
 .. _on your platform: https://timewarrior.net/docs/install/
-
-
-PyGObject references
-####################
-
-* https://lazka.github.io/pgi-docs/  PyGObject API Reference
-* https://pygobject-tutorial.readthedocs.io/en/latest/index.html  Tutorial
-* https://github.com/candidtim/vagrant-appindicator  (old)
 
 
 .. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg
