@@ -34,6 +34,7 @@ from timew_status import (
     DEBUG,
     TAG,
     __version__,
+    do_install,
     get_config,
     get_state_icon,
     get_state_str,
@@ -90,7 +91,7 @@ class Indicator:
     def __init__(self):
         self.app_id = APPINDICATOR_ID
         app_category = appindicator.IndicatorCategory.APPLICATION_STATUS
-        icon_name = get_state_icon('INACTIVE')
+        icon_name = get_state_icon('INACTIVE', CFG)
         self.indicator = appindicator.Indicator.new(self.app_id, icon_name, app_category)
 
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
@@ -120,14 +121,14 @@ class Indicator:
             result = get_status()
             if result.returncode == 1:
                 new_state = 'INACTIVE'
-                print(f'State {new_state} msg: {result.stdout.decode().strip()}')
+                print(f'{new_state} state msg: {result.stdout.decode().strip()}')
             else:
                 proc, _ = run_cmd()
-                msg, new_state = get_state_str(proc, current_tick_count)
-                print(f'State {new_state} msg: {msg.strip()}')
+                msg, new_state = get_state_str(proc, current_tick_count, CFG)
+                print(f'{new_state} state msg: {msg.strip()}')
             # if there is a change in state, update the icon
             if old_state != new_state:
-                self.indicator.set_icon_full(get_state_icon(new_state), new_state)
+                self.indicator.set_icon_full(get_state_icon(new_state, CFG), new_state)
                 if CFG['show_state_label']:
                     # note the second label arg should be the longest possible label str
                     self.indicator.set_label(new_state.format().center(8), guide)
@@ -168,6 +169,10 @@ class Indicator:
         item_counter.connect('activate', self.reset_counter)
         menu.append(item_counter)
 
+        item_install = Gtk.MenuItem(label='Install  extensions')
+        item_install.connect('activate', self.install_extensions)
+        menu.append(item_install)
+
         item_about = Gtk.MenuItem(label='About ...')
         item_about.connect('activate', self.about)
         menu.append(item_about)
@@ -204,6 +209,16 @@ class Indicator:
         win = TextWindow()
         win.show_all()
 
+    def install_extensions(self, source):
+        """Install report extensions to timew extensions directory"""
+        ret = do_install(CFG)
+        if len(ret) == 2:
+            msg = f'INFO: extensions installed:\nPath: {ret[0]}\nPath:{ret[1]}'
+            Notify.Notification.new("Install status", msg, None).show()
+        else:
+            msg = 'ERROR: check extensions folder'
+            Notify.Notification.new("Install status", msg, None).show()
+
     def open_terminal(self, source):
         """Open a new terminal window"""
         subprocess.Popen([CFG['terminal_emulator']])
@@ -223,7 +238,7 @@ class Indicator:
     def startd(self, source):
         my_tag = TAG["text"]
         _, svc_msg = run_cmd(action='start', tag=my_tag)
-        self.indicator.set_icon_full(get_state_icon('ACTIVE'), 'ACTIVE')
+        self.indicator.set_icon_full(get_state_icon('ACTIVE', CFG), 'ACTIVE')
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
     def statusd(self, source):
@@ -238,7 +253,7 @@ class Indicator:
             self.last_tag = svc_msg
             if CFG['use_last_tag']:
                 TAG["text"] = self.last_tag
-        self.indicator.set_icon_full(get_state_icon('INACTIVE'), 'INACTIVE')
+        self.indicator.set_icon_full(get_state_icon('INACTIVE', CFG), 'INACTIVE')
         if CFG['show_state_label']:
             self.indicator.set_label('INACTIVE'.format().center(9), '99999999')
         Notify.Notification.new("Timew status", svc_msg, None).show()

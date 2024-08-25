@@ -23,7 +23,34 @@ CFG = {
     "loop_idle_seconds": 20,
     "show_state_label": False,
     "terminal_emulator": "gnome-terminal",
+    "extensions_dir": ".timewarrior/extensions",
+    "install_dir": "share/timew-addons/extensions",
+    "install_prefix": "/usr",
 }
+
+
+def do_install(cfg):
+    """
+    Install report extensions to timew extensions directory. The default
+    paths are preconfigured and should probably not be changed unless you
+    know what you are doing, since *they are created during install or setup*.
+    """
+    prefix = cfg["install_prefix"]
+    srcdir = Path(prefix) / cfg["install_dir"]
+    destdir = Path.home() / cfg["extensions_dir"]
+    extensions = ['totals.py', 'onelineday.py']
+    files = []
+
+    for file in extensions:
+        dest = destdir / file
+        src = srcdir / file
+        if DEBUG:
+            print(f"do_install: src is {src}")
+            print(f"do_install: dest is {dest}")
+        dest.write_bytes(src.read_bytes())
+        print(f"{str(file)} written successfully")
+        files.append(str(file))
+    return files
 
 
 def get_config(file_encoding='utf-8'):
@@ -45,24 +72,26 @@ def get_config(file_encoding='utf-8'):
     return cfgobj, cfgfile
 
 
-def get_delta_limits():
+def get_delta_limits(ucfg):
     """
     Return config max/snooze limits as timedeltas. Everything comes from
     static config values and gets padded with seconds.
 
     :return: tuple of 4 timedeltas
     """
-    day_sum = [CFG["day_max"] + ':00', CFG["day_snooze"] + ':00']
-    seat_sum = [CFG["seat_max"] + ':00', CFG["seat_snooze"] + ':00']
+    cfg = Munch.fromDict(ucfg)
+    pad = ':00'
+    day_sum = [cfg.day_max + pad, cfg.day_snooze + pad]
+    seat_sum = [cfg.seat_max + pad, cfg.seat_snooze + pad]
     day_limit = sum(map(to_td, day_sum), timedelta())  # noqa:
     seat_limit = sum(map(to_td, seat_sum), timedelta())  # noqa:
-    day_max = to_td(CFG["day_max"] + ':00')
-    seat_max = to_td(CFG["seat_max"] + ':00')
+    day_max = to_td(cfg.day_max + pad)
+    seat_max = to_td(cfg.seat_max + pad)
 
     return day_max, day_limit, seat_max, seat_limit
 
 
-def get_state_icon(state):
+def get_state_icon(state, cfg):
     """
     Look up the state msg and return the icon name. Use builtin symbolic
     icons as fallback.
@@ -92,13 +121,13 @@ def get_state_icon(state):
 
     state_dict = timew_dict
     app_icon = Path(install_path).joinpath(icon_name)
-    if CFG["use_symbolic_icons"] or not app_icon.exists():
+    if cfg["use_symbolic_icons"] or not app_icon.exists():
         state_dict = fallback_dict
 
     return state_dict.get(state, state_dict['INACTIVE'])
 
 
-def get_state_str(cmproc, count):
+def get_state_str(cmproc, count, cfg):
     """
     Return timew state message and tracking state, ie, the key for dict
     with icons.
@@ -110,7 +139,7 @@ def get_state_str(cmproc, count):
 
     :return: tuple of state msg and state string
     """
-    DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT = get_delta_limits()
+    DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT = get_delta_limits(cfg)
 
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
@@ -125,12 +154,13 @@ def get_state_str(cmproc, count):
     if to_td(day_total) > DAY_LIMIT:
         state = 'ERROR'
         msg = f'ERROR: day limit of {DAY_LIMIT} has been exceeded\n' + msg
-    if SEAT_MAX < count < SEAT_LIMIT:
-        state = 'WARNING'
-        msg = f'WARNING: seat max of {SEAT_MAX} has been exceeded\n' + msg
-    if count > SEAT_LIMIT:
-        state = 'ERROR'
-        msg = f'ERROR: seat limit of {SEAT_LIMIT} has been exceeded\n' + msg
+    if cfg["seat_max"] != "00:00" and cfg["seat_snooze"] != "00:00":
+        if SEAT_MAX < count < SEAT_LIMIT:
+            state = 'WARNING'
+            msg = f'WARNING: seat max of {SEAT_MAX} has been exceeded\n' + msg
+        if count > SEAT_LIMIT:
+            state = 'ERROR'
+            msg = f'ERROR: seat limit of {SEAT_LIMIT} has been exceeded\n' + msg
     return msg, state
 
 
