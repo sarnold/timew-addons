@@ -1,8 +1,26 @@
 Changelog
 =========
 
+0.2.0 (2024-08-25)
+------------------
 
-0.1.1 (2024-08-19)
+New
+~~~
+- Add menu option to install extensions, beef up tests. [Stephen Arnold]
+
+  * add some pytest fixtures and more tests, improve readme
+  * refactor for correctness and testability, cleanup packaging
+
+Changes
+~~~~~~~
+- Respin doc symlinks using vendored copies. [Stephen Arnold]
+- Update docs and packaging, post refactoring cleanup. [Stephen Arnold]
+
+  * add symlinks so icons are available for both sphinx and GH rendering
+  * optionally disable seat-timer by setting params to 00:00
+
+
+0.1.1 (2024-08-20)
 ------------------
 
 New
@@ -33,6 +51,8 @@ Changes
   Arnold]
 
   * revert the .keepdir bits and cleanup sphinx config and index
+  * update changelog and get ready for release version, cleanup
+    docs CI workflows
 - Still more readme updates and a docstring tweak. [Stephen L Arnold]
 - Try setting position and gravity options, cleanup entry window bits.
   [Stephen L Arnold]
@@ -59,6 +79,10 @@ Changes
 
 Fixes
 ~~~~~
+- Update doc deploy workflows per current deploy action docs. [Steve
+  Arnold]
+
+  * use permissions instead of the older github token setting
 - Even more docstring and readme/rst doc cleanup. [Stephen L Arnold]
 - Cleanup some oddball link anchors flagged by sphinx check. [Stephen L
   Arnold]

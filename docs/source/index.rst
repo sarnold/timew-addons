@@ -12,9 +12,6 @@ The primary timewarrior_ addon bits included here are written in Python_:
 .. _timew-report: https://pypi.org/project/timew-report/
 
 .. git_commit_detail::
-  :branch:
-  :commit:
-  :sha_length: 10
   :uncommitted:
   :untracked:
 
