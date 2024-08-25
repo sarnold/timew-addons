@@ -128,7 +128,7 @@ class Indicator:
                 print(f'{new_state} state msg: {msg.strip()}')
             # if there is a change in state, update the icon
             if old_state != new_state:
-                self.indicator.set_icon_full(get_state_icon(new_state), new_state)
+                self.indicator.set_icon_full(get_state_icon(new_state, CFG), new_state)
                 if CFG['show_state_label']:
                     # note the second label arg should be the longest possible label str
                     self.indicator.set_label(new_state.format().center(8), guide)
@@ -238,7 +238,7 @@ class Indicator:
     def startd(self, source):
         my_tag = TAG["text"]
         _, svc_msg = run_cmd(action='start', tag=my_tag)
-        self.indicator.set_icon_full(get_state_icon('ACTIVE'), 'ACTIVE')
+        self.indicator.set_icon_full(get_state_icon('ACTIVE', CFG), 'ACTIVE')
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
     def statusd(self, source):
@@ -253,7 +253,7 @@ class Indicator:
             self.last_tag = svc_msg
             if CFG['use_last_tag']:
                 TAG["text"] = self.last_tag
-        self.indicator.set_icon_full(get_state_icon('INACTIVE'), 'INACTIVE')
+        self.indicator.set_icon_full(get_state_icon('INACTIVE', CFG), 'INACTIVE')
         if CFG['show_state_label']:
             self.indicator.set_label('INACTIVE'.format().center(9), '99999999')
         Notify.Notification.new("Timew status", svc_msg, None).show()

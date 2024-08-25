@@ -124,6 +124,94 @@ To run the tests::
 
 .. _Tox: https://github.com/tox-dev/tox
 
+Installed files
+---------------
+
+Whether installed via OS packages or ``pip``, the installed files are
+essentially the same, other than packaging-specific requirements and
+generated python byte-code. In the latter case, the list of installed
+files can be obtained with the following command::
+
+  $ python -m pip show -f timew-addons
+    Name: timew-addons
+    Version: 0.1.2.dev3+gda11428.d20240825
+    Summary: A collection of timewarrior extensions and experiments
+    Home-page: https://github.com/sarnold/timew-addons
+    Author: Stephen L Arnold
+    Author-email:
+    License:
+    Location: /home/user/src/timew-addons/.tox/check/lib/python3.11/site-packages
+    Requires: munch, pycairo, PyGObject, timew-report
+    Required-by:
+    Files:
+      ../../../bin/timew-status-indicator
+      ../../../share/applications/timew-status-indicator.desktop
+      ../../../share/icons/hicolor/48x48/apps/timew.png
+      ../../../share/icons/hicolor/scalable/apps/timew.svg
+      ../../../share/icons/hicolor/scalable/status/timew_error.svg
+      ../../../share/icons/hicolor/scalable/status/timew_inactive.svg
+      ../../../share/icons/hicolor/scalable/status/timew_info.svg
+      ../../../share/icons/hicolor/scalable/status/timew_warning.svg
+      ../../../share/timew-addons/extensions/csv_rpt.py
+      ../../../share/timew-addons/extensions/onelineday.py
+      ../../../share/timew-addons/extensions/totals.py
+      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/INSTALLER
+      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/METADATA
+      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/RECORD
+      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/REQUESTED
+      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/WHEEL
+      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/top_level.txt
+      timew_status/__init__.py
+      timew_status/utils.py
+
+Generated files
+---------------
+
+On first run, the ``timew-status-indicator`` script will create its YAML
+configuration file in the standard XDG location::
+
+  $HOME/.config/timew_status_indicator/config.yaml
+
+with the following contents:
+
+.. code-block:: yaml
+
+    day_max: 08:00
+    day_snooze: 01:00
+    seat_max: 01:30
+    seat_snooze: 00:40
+    seat_reset_on_stop: false
+    use_last_tag: false
+    use_symbolic_icons: false
+    extension_script: onelineday
+    default_jtag_str: vct-sw,implement skeleton timew indicator
+    jtag_separator: ','
+    loop_idle_seconds: 20
+    show_state_label: false
+    terminal_emulator: gnome-terminal
+
+Edit the above file to set your preferred values. Note the default value
+of ``loop_idle_seconds`` seems to be a happy medium between update rate
+and wasted CPU cycles.
+
+Uninstalling
+------------
+
+Depending on how it was installed, use on or more of the following:
+
+* delete the cloned directory, eg, ``rm -rf src/timew-addons``
+* delete the virtual environment, eg, ``rm -rf ``.venv``
+* remove the OS package, eg, on Ubuntu:
+
+::
+
+    $ sudo apt remove timew-addons
+    $ sudo apt autoremove
+
+Finally, delete the above configuration file::
+
+    $ rm ~/.config/timew_status_indicator/config.yaml
+
 
 Reporting examples
 ~~~~~~~~~~~~~~~~~~
@@ -240,11 +328,55 @@ your session startup or run it from an X terminal to get some debug output::
 
   $ timew-status-indicator
 
-Indicator states
-################
+What exactly are we tracking?
+#############################
+
+Simply put, we want to track work hours and seat time in the context of
+the daily hours tracked via the ``timew`` command. The configuration file
+contains 2 parameters each for setting desired limits, the base max value,
+and an optional "snooze" period:
+
+:day_max: target number of daily work hours
+:day_snooze: additional snooze period appended to daily max
+:seat_max: max number of minutes to stay seated
+:seat_snooze: additional snooze period appended to seat max
+
+Values for the above are given in hours and minutes formatted
+as "time" strings, eg, the following sets an 8-hour max:
+
+.. code-block:: yaml
+
+    day_max: "08:00"
+
+The seat timer can be disabled by setting both *max* and *snooze* to
+zeros, ie, set both values like so::
+
+.. code-block:: yaml
+
+    seat_max: "00:00"
+    seat_snooze: "00:00"
+
+
+Status indicator GUI
+####################
 
 It would not be an Appindicator_ without icons, so we use icons as one way
-to show current state.
+to show current state. This has nothing to do with application state; in
+this case we only care about the state of our *timew tracking interval*;
+note this includes the seat timer warnings when there is an active timew
+tracking interval. The states and corresponding icons are shown below:
+
+:INACTIVE: |inactive| The state when there is no active tracking interval.
+:INFO: |info| The default active state when tracking interval is open.
+:WARNING: |warn| The state when either timer has reached the snooze period.
+:ERROR: |err| The state when either snooze period has expired.
+:APP: |app| While not a state, we use this to retrieve the app icon.
+
+.. |app| image:: images/timew.svg
+.. |inactive| image:: images/timew_inactive.svg
+.. |info| image:: images/timew_info.svg
+.. |warn| image:: images/timew_warning.svg
+.. |err| image:: images/timew_error.svg
 
 
 PyGObject references

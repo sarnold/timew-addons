@@ -154,12 +154,13 @@ def get_state_str(cmproc, count, cfg):
     if to_td(day_total) > DAY_LIMIT:
         state = 'ERROR'
         msg = f'ERROR: day limit of {DAY_LIMIT} has been exceeded\n' + msg
-    if SEAT_MAX < count < SEAT_LIMIT:
-        state = 'WARNING'
-        msg = f'WARNING: seat max of {SEAT_MAX} has been exceeded\n' + msg
-    if count > SEAT_LIMIT:
-        state = 'ERROR'
-        msg = f'ERROR: seat limit of {SEAT_LIMIT} has been exceeded\n' + msg
+    if cfg["seat_max"] != "00:00" and cfg["seat_snooze"] != "00:00":
+        if SEAT_MAX < count < SEAT_LIMIT:
+            state = 'WARNING'
+            msg = f'WARNING: seat max of {SEAT_MAX} has been exceeded\n' + msg
+        if count > SEAT_LIMIT:
+            state = 'ERROR'
+            msg = f'ERROR: seat limit of {SEAT_LIMIT} has been exceeded\n' + msg
     return msg, state
 
 
