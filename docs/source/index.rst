@@ -11,16 +11,12 @@ The primary timewarrior_ addon bits included here are written in Python_:
 .. _timewarrior: https://timewarrior.net/docs/install/
 .. _timew-report: https://pypi.org/project/timew-report/
 
-.. git_commit_detail::
-  :uncommitted:
-  :untracked:
-
 .. toctree::
-  :maxdepth: 3
+  :maxdepth: 2
   :caption: Contents:
 
   README
-  modules
+  api/modules
   CHANGELOG
 
 Indices and tables

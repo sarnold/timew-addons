@@ -1,6 +1,7 @@
 Changelog
 =========
 
+
 0.2.0 (2024-08-25)
 ------------------
 
@@ -13,6 +14,14 @@ New
 
 Changes
 ~~~~~~~
+- Refactor doc extensions to use apidoc, add docs logo icon. [Stephen
+  Arnold]
+
+  * cleanup more docstrings and sphinx modules
+- Update changelog for next version, remove sphinx git hash. [Stephen
+  Arnold]
+
+  * also suppress duplicate label warnings from autosectionlabel
 - Respin doc symlinks using vendored copies. [Stephen Arnold]
 - Update docs and packaging, post refactoring cleanup. [Stephen Arnold]
 

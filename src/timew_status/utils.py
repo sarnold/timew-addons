@@ -34,6 +34,10 @@ def do_install(cfg):
     Install report extensions to timew extensions directory. The default
     paths are preconfigured and should probably not be changed unless you
     know what you are doing, since *they are created during install or setup*.
+    Return a destination path string for each installed extension script.
+
+    :param cfg: runtime CFG dict
+    :return files: list of strings
     """
     prefix = cfg["install_prefix"]
     srcdir = Path(prefix) / cfg["install_dir"]
@@ -56,8 +60,9 @@ def do_install(cfg):
 def get_config(file_encoding='utf-8'):
     """
     Load configuration file and munchify the data. If local file is not
-    found in config directory, the default will be loaded.  Return a
-    Munch cfg obj and corresponding Path obj.
+    found in config directory, the default will be loaded and saved to
+    XDG config directory. Return a Munch cfg obj and corresponding Path
+    obj.
 
     :param file_encoding: file encoding of config file
     :type file_encoding: str
@@ -66,6 +71,7 @@ def get_config(file_encoding='utf-8'):
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
+        print(f"Saving initial config data to {cfgfile}")
         cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)
     cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
 
@@ -77,6 +83,7 @@ def get_delta_limits(ucfg):
     Return config max/snooze limits as timedeltas. Everything comes from
     static config values and gets padded with seconds.
 
+    :param ucfg: runtime CFG dict
     :return: tuple of 4 timedeltas
     """
     cfg = Munch.fromDict(ucfg)
@@ -98,6 +105,8 @@ def get_state_icon(state, cfg):
 
     :param state: name of state key
     :type state: str
+    :param cfg: runtime CFG (dict)
+
     :return: matching icon name (str)
     """
     install_path = '/usr/share/icons/hicolor/scalable/apps'
@@ -136,6 +145,8 @@ def get_state_str(cmproc, count, cfg):
     :type cmproc: CompletedProcess
     :param count: seat time counter value
     :type count: timedelta
+    :param cfg: runtime CFG
+    :type cfg: Dict
 
     :return: tuple of state msg and state string
     """
