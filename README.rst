@@ -349,7 +349,7 @@ as "time" strings, eg, the following sets an 8-hour max:
     day_max: "08:00"
 
 The seat timer can be disabled by setting both *max* and *snooze* to
-zeros, ie, set both values like so::
+zeros, ie, set both values like so:
 
 .. code-block:: yaml
 
@@ -372,11 +372,11 @@ tracking interval. The states and corresponding icons are shown below:
 :ERROR: |err| The state when either snooze period has expired.
 :APP: |app| While not a state, we use this to retrieve the app icon.
 
-.. |app| image:: images/timew.svg
-.. |inactive| image:: images/timew_inactive.svg
-.. |info| image:: images/timew_info.svg
-.. |warn| image:: images/timew_warning.svg
-.. |err| image:: images/timew_error.svg
+.. |app| image:: gh/images/timew.svg
+.. |inactive| image:: gh/images/timew_inactive.svg
+.. |info| image:: gh/images/timew_info.svg
+.. |warn| image:: gh/images/timew_warning.svg
+.. |err| image:: gh/images/timew_error.svg
 
 
 PyGObject references

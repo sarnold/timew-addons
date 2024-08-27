@@ -18,7 +18,8 @@ if sys.version_info < (3, 8):
 else:
     from importlib.metadata import version
 
-sys.path.insert(0, os.path.abspath('../../src/timew_status'))
+sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../src'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -36,27 +37,48 @@ version = '.'.join(release.split('.')[:2])
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx_git',
     'rst2pdf.pdfbuilder',
-    'sphinx.ext.autodoc',
+    'sphinxcontrib.apidoc',
     'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.autosectionlabel',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
 ]
 
+apidoc_module_dir = '../../src/timew_status/'
+apidoc_output_dir = 'api'
+apidoc_excluded_paths = ['tests', 'scripts']
+apidoc_separate_modules = True
+
 templates_path = ['_templates']
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv']
+
+# The name of the Pygments (syntax highlighting) style to use.
+pygments_style = 'sphinx'
+
+# If true, `todo` and `todoList` produce output, else they produce nothing.
+todo_include_todos = True
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
+html_logo = 'gh/images/timew.png'
 #html_static_path = ['_static']
-html_sidebars = {'**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']}
+html_sidebars = {
+    '**': [
+        'relations.html',  # needs 'show_related': True theme option to display
+        'searchbox.html',
+    ]
+}
+
+html_theme_options = {
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+}
 
 source_suffix = {'.rst': 'restructuredtext'}
 master_doc = "index"
