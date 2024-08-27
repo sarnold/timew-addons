@@ -191,12 +191,13 @@ class Indicator:
         dlg.set_version(APP_VERSION)
         dlg.set_copyright('© 2024 Stephen L Arnold')
         dlg.set_license_type(Gtk.License.GPL_3_0)
-        dlg.set_logo_icon_name(get_state_icon('APP'))
-        dlg.set_website('https://github.com/sarnold/timewarrior-addons')
+        dlg.set_logo_icon_name(get_state_icon('APP', CFG))
+        dlg.set_website('https://github.com/sarnold/timew-addons')
         dlg.set_website_label('github.com')
         dlg.set_comments(
             """
-            A timewarrior control and status monitoring tool for Gtk/XDG desktops.
+    A Gtk+ timewarrior control and status monitoring
+          tool for freedesktop environments.
             """
         )
         dlg.set_authors(['Stephen L Arnold <stephen.arnold42@gmail.com>'])
