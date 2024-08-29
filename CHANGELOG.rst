@@ -2,7 +2,20 @@ Changelog
 =========
 
 
-0.2.0 (2024-08-25)
+0.2.1 (2024-08-28)
+------------------
+
+Changes
+~~~~~~~
+- Add yet another misc docstring. [Stephen Arnold]
+
+Fixes
+~~~~~
+- Use correct signature for about dialog, cleanup app string. [Stephen
+  Arnold]
+
+
+0.2.0 (2024-08-27)
 ------------------
 
 New
@@ -17,7 +30,7 @@ Changes
 - Refactor doc extensions to use apidoc, add docs logo icon. [Stephen
   Arnold]
 
-  * cleanup more docstrings and sphinx modules
+  * cleanup more docstrings and sphinx modules, update changelog again
 - Update changelog for next version, remove sphinx git hash. [Stephen
   Arnold]
 
