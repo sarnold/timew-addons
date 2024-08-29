@@ -1,0 +1,18 @@
+timew\_status package
+=====================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   timew_status.utils
+
+Module contents
+---------------
+
+.. automodule:: timew_status
+   :members:
+   :undoc-members:
+   :show-inheritance:
