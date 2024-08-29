@@ -1,4 +1,5 @@
 """
+Base configuration and app helper functions.
 """
 import os
 import subprocess
