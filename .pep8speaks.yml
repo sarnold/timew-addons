@@ -11,7 +11,7 @@ exclude =
     build,
     dist
 
-max-line-length = 99
+max-line-length = 100
 
 ignore =
     # too many leading '#' for block comment

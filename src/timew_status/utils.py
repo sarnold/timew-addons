@@ -1,13 +1,17 @@
 """
 Base configuration and app helper functions.
 """
+
+import datetime
 import os
 import subprocess
 from datetime import timedelta
 from pathlib import Path
+from typing import Dict, NewType, Optional
 
 from munch import Munch
 
+TimeDelta = NewType("TimeDelta", datetime.timedelta)
 APP_NAME = 'timew_status_indicator'
 CFG = {
     # time strings are HH:MM (no seconds)
@@ -30,7 +34,7 @@ CFG = {
 }
 
 
-def do_install(cfg):
+def do_install(cfg: Dict):
     """
     Install report extensions to timew extensions directory. The default src
     paths are preconfigured and should probably not be changed unless you
@@ -60,7 +64,7 @@ def do_install(cfg):
     return files
 
 
-def get_config(file_encoding='utf-8'):
+def get_config(file_encoding: str = 'utf-8'):
     """
     Load configuration file and munchify the data. If local file is not
     found in config directory, the default will be loaded and saved to
@@ -74,14 +78,14 @@ def get_config(file_encoding='utf-8'):
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
-        print(f"Saving initial config data to {cfgfile}")
-        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)
-    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
-
+        print(f"Saving initial config data to {cfgfile}")  # fmt: off
+        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)  # type: ignore[attr-defined]
+    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))  # type: ignore[attr-defined]
+    # fmt: on
     return cfgobj, cfgfile
 
 
-def get_delta_limits(ucfg):
+def get_delta_limits(ucfg: Dict):
     """
     Return config max/snooze limits as timedeltas. Everything comes from
     static config values and gets padded with seconds.
@@ -101,7 +105,7 @@ def get_delta_limits(ucfg):
     return day_max, day_limit, seat_max, seat_limit
 
 
-def get_state_icon(state, cfg):
+def get_state_icon(state: str, cfg: Dict):
     """
     Look up the state msg and return the icon name. Use builtin symbolic
     icons as fallback.
@@ -139,7 +143,9 @@ def get_state_icon(state, cfg):
     return state_dict.get(state, state_dict['INACTIVE'])
 
 
-def get_state_str(cmproc, count, cfg):
+def get_state_str(
+    cmproc: subprocess.CompletedProcess[bytes], count: TimeDelta, cfg: Dict
+):
     """
     Return timew state message and tracking state, ie, the key for dict
     with icons.
@@ -207,7 +213,7 @@ def get_userdirs():
     return configdir
 
 
-def parse_for_tag(text):
+def parse_for_tag(text: str):
     """
     Parse the output of timew start/stop commands for the tag string.
 
@@ -219,17 +225,17 @@ def parse_for_tag(text):
             return line.split('"')[1]
 
 
-def run_cmd(action='status', tag=None):
+def run_cmd(cfg: Dict, action: str = 'status', tag: Optional[str] = None):
     """
     Run timew command subject to the given action.
 
     :param action: one of <start|stop|status>
     :return: completed proc obj and result msg
     """
-
+    extension = cfg["extension_script"]
     actions = ['start', 'stop', 'status']
     svc_list = ['timew']
-    sts_list = [CFG["extension_script"], "today"]
+    sts_list = [extension, "today"]
     cmd = svc_list
     act_list = [action]
 
@@ -261,12 +267,12 @@ def run_cmd(action='status', tag=None):
         print(f'run_cmd exception: {exc}')
 
 
-def to_td(hms):
+def to_td(hms: str):
     """
     Convert a time string in HH:MM:SS format to a timedelta object.
 
     :param hms: time string
-    :return: timedelta obj
+    :return: timedelta
     """
     hrs, mins, secs = hms.split(':')
     return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
