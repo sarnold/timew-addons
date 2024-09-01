@@ -133,36 +133,42 @@ generated python byte-code. In the latter case, the list of installed
 files can be obtained with the following command::
 
   $ python -m pip show -f timew-addons
-    Name: timew-addons
-    Version: 0.1.2.dev3+gda11428.d20240825
-    Summary: A collection of timewarrior extensions and experiments
-    Home-page: https://github.com/sarnold/timew-addons
-    Author: Stephen L Arnold
-    Author-email:
-    License:
-    Location: /home/user/src/timew-addons/.tox/check/lib/python3.11/site-packages
-    Requires: munch, pycairo, PyGObject, timew-report
-    Required-by:
-    Files:
-      ../../../bin/timew-status-indicator
-      ../../../share/applications/timew-status-indicator.desktop
-      ../../../share/icons/hicolor/48x48/apps/timew.png
-      ../../../share/icons/hicolor/scalable/apps/timew.svg
-      ../../../share/icons/hicolor/scalable/status/timew_error.svg
-      ../../../share/icons/hicolor/scalable/status/timew_inactive.svg
-      ../../../share/icons/hicolor/scalable/status/timew_info.svg
-      ../../../share/icons/hicolor/scalable/status/timew_warning.svg
-      ../../../share/timew-addons/extensions/csv_rpt.py
-      ../../../share/timew-addons/extensions/onelineday.py
-      ../../../share/timew-addons/extensions/totals.py
-      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/INSTALLER
-      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/METADATA
-      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/RECORD
-      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/REQUESTED
-      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/WHEEL
-      timew_addons-0.1.2.dev3+gda11428.d20240825.dist-info/top_level.txt
-      timew_status/__init__.py
-      timew_status/utils.py
+  Name: timew-addons
+  Version: 0.2.2.dev0+g4659e21.d20240901
+  Summary: A collection of timewarrior extensions and experiments
+  Home-page: https://github.com/sarnold/timew-addons
+  Author: Stephen L Arnold
+  Author-email: nerdboy@gentoo.org
+  License: GPLv3+
+  Location: /home/nerdboy/src/timew-addons/.tox/py/lib/python3.11/site-packages
+  Requires: munch, pycairo, PyGObject, timew-report
+  Required-by:
+  Files:
+    ../../../bin/timew-status-indicator
+    ../../../share/applications/timew-status-indicator.desktop
+    ../../../share/icons/hicolor/48x48/apps/timew.png
+    ../../../share/icons/hicolor/scalable/apps/timew.svg
+    ../../../share/icons/hicolor/scalable/status/timew_error.svg
+    ../../../share/icons/hicolor/scalable/status/timew_inactive.svg
+    ../../../share/icons/hicolor/scalable/status/timew_info.svg
+    ../../../share/icons/hicolor/scalable/status/timew_warning.svg
+    ../../../share/timew-addons/extensions/__pycache__/csv_rpt.cpython-311.pyc
+    ../../../share/timew-addons/extensions/__pycache__/onelineday.cpython-311.pyc
+    ../../../share/timew-addons/extensions/__pycache__/totals.cpython-311.pyc
+    ../../../share/timew-addons/extensions/csv_rpt.py
+    ../../../share/timew-addons/extensions/onelineday.py
+    ../../../share/timew-addons/extensions/totals.py
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/INSTALLER
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/METADATA
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/RECORD
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/REQUESTED
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/WHEEL
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/direct_url.json
+    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/top_level.txt
+    timew_status/__init__.py
+    timew_status/__pycache__/__init__.cpython-311.pyc
+    timew_status/__pycache__/utils.cpython-311.pyc
+    timew_status/utils.py
 
 Generated files
 ---------------

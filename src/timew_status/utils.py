@@ -32,10 +32,12 @@ CFG = {
 
 def do_install(cfg):
     """
-    Install report extensions to timew extensions directory. The default
+    Install report extensions to timew extensions directory. The default src
     paths are preconfigured and should probably not be changed unless you
     know what you are doing, since *they are created during install or setup*.
-    Return a destination path string for each installed extension script.
+    You should, however, adjust the destination path in ``extensions_dir`` if
+    needed for your platform. Returns the destination path string for each
+    installed extension script.
 
     :param cfg: runtime CFG dict
     :return files: list of strings
