@@ -3,6 +3,7 @@ from datetime import timedelta
 from munch import Munch
 
 from timew_status.utils import (
+    check_for_timew,
     do_install,
     get_config,
     get_delta_limits,
@@ -36,6 +37,14 @@ Recorded "vct-sw,refactor timew indicator config to yaml"
   Ended              12:44:48
   Total               2:33:12
 """
+
+
+def test_timew_check():
+    timew = check_for_timew()
+    print(timew)
+    assert 'timew' in timew
+    assert 'bin' in timew
+    assert isinstance(timew, str)
 
 
 def test_do_install(script_loc, tmpdir_session):

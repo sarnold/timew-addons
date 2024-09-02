@@ -5,8 +5,10 @@ Base configuration and app helper functions.
 import datetime
 import os
 import subprocess
+import sys
 from datetime import timedelta
 from pathlib import Path
+from shutil import which
 from typing import Dict, NewType, Optional
 
 from munch import Munch
@@ -32,6 +34,21 @@ CFG = {
     "install_dir": "share/timew-addons/extensions",
     "install_prefix": "/usr",
 }
+
+
+def check_for_timew():
+    """
+    Make sure we can find the ``timew`` binary in the user environment
+    and return a path string.
+
+    :return timew_path: program path strings
+    :rtype tuple: path to program if found, else None
+    """
+    timew_path = which('timew')
+    if not timew_path:
+        print('Cannot continue, no path found for timew')
+        sys.exit(1)
+    return timew_path
 
 
 def do_install(cfg: Dict):
@@ -232,9 +249,10 @@ def run_cmd(cfg: Dict, action: str = 'status', tag: Optional[str] = None):
     :param action: one of <start|stop|status>
     :return: completed proc obj and result msg
     """
+    timew_cmd = check_for_timew()
     extension = cfg["extension_script"]
     actions = ['start', 'stop', 'status']
-    svc_list = ['timew']
+    svc_list = [timew_cmd]
     sts_list = [extension, "today"]
     cmd = svc_list
     act_list = [action]
