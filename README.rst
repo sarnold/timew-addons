@@ -205,18 +205,23 @@ Uninstalling
 
 Depending on how it was installed, use on or more of the following:
 
-* delete the cloned directory, eg, ``rm -rf src/timew-addons``
+* delete the cloned directory, eg, ``rm -rf path/to/timew-addons``
 * delete the virtual environment, eg, ``rm -rf ``.venv``
-* remove the OS package, eg, on Ubuntu:
+
+If you installed into a local env via ``pip`` then run::
+
+    $ pip uninstall timew-addons
+
+* or, remove the OS package, eg, on Ubuntu:
 
 ::
 
     $ sudo apt remove timew-addons
     $ sudo apt autoremove
 
-Finally, delete the above configuration file::
+Finally, delete the configuration file::
 
-    $ rm ~/.config/timew_status_indicator/config.yaml
+    $ rm $HOME/.config/timew_status_indicator/config.yaml
 
 
 Reporting examples

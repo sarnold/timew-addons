@@ -8,8 +8,11 @@ from timew_status.utils import (
     get_config,
     get_delta_limits,
     get_state_icon,
+    get_state_str,
+    get_status,
     get_userdirs,
     parse_for_tag,
+    run_cmd,
 )
 
 CFG = {
@@ -18,6 +21,9 @@ CFG = {
     "seat_max": "01:30",
     "seat_snooze": "00:40",
     "use_symbolic_icons": False,
+    "extension_script": "onelineday",
+    "default_jtag_str": "vct-sw,implement skeleton timew indicator",
+    "jtag_separator": ",",
     "extensions_dir": "~/.timewarrior/extensions",
     "install_dir": "lib/timew-addons/extensions",
     "install_prefix": "/usr",
@@ -90,9 +96,10 @@ def test_get_state_icon():
 
 def test_get_state_icon_fallback():
     states = ['INACTIVE', 'ACTIVE', 'WARNING', 'ERROR', 'APP']
+    other = ['DEAD', 'PARROTS', 'TINY', 'FISH']
     cfg = Munch.fromDict(CFG)
     cfg.use_symbolic_icons = True
-    for state in states:
+    for state in states + other:
         icon = get_state_icon(state, cfg.toDict())
         assert 'symbolic' in icon
         print(icon)
@@ -100,11 +107,31 @@ def test_get_state_icon_fallback():
 
 def test_get_userdirs():
     udir = get_userdirs()
+    assert '.config' in str(udir) and 'timew_status_indicator' in str(udir)
     print(f'\nuserdir: {udir}')
 
 
 def test_parse_for_tag():
+    expected = "vct-sw,refactor timew indicator config to yaml"
     ret = parse_for_tag(start_txt)
+    assert ret == expected
     print(f'\n{ret}')
     ret = parse_for_tag(stop_text)
+    assert ret == expected
     print(ret)
+
+
+def test_run_cmd():
+    proc, msg = run_cmd(CFG)
+    print(msg)
+
+
+def test_get_state_str():
+    proc, _ = run_cmd(CFG)
+    tick_count = timedelta(seconds=95)
+    msg, new_state = get_state_str(proc, tick_count, CFG)
+
+
+def test_get_status():
+    result = get_status()
+    print(result)
