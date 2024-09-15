@@ -2,6 +2,7 @@
 Monitoring and reporting tools for Timew tracking intervals with optional
 appindicator alerts for keyboard time and daily hours.
 """
+
 import sys
 
 from .utils import (
