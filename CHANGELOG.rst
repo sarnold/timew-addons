@@ -2,7 +2,35 @@ Changelog
 =========
 
 
-0.2.1 (2024-08-28)
+0.3.0 (2024-10-13)
+------------------
+
+Changes
+~~~~~~~
+- Use future annotations workaround on python 3.8. [Stephen Arnold]
+
+  * the above import trick is correct for ``get_state_str()`` signature
+- Cleanup docstrings and desktop file, update pkg metadata and readme.
+  [Stephen Arnold]
+
+Fixes
+~~~~~
+- Add still more annotations, adjust and apply pre-commit fixes.
+  [Stephen Arnold]
+- Complete error fix, more import cleanup, add helper func and a test.
+  [Stephen Arnold]
+
+  * this commit removes support for legacy AppIndicator3 in favor of
+    AyatanaAppIndicator3 only
+- Refactoring cleanup, add type hints/ignores and fix an error. [Stephen
+  Arnold]
+
+  * mypy helped find an error, but we still need to ignore the optional
+    munch YAML attributes
+  * update flake8 config bits to allow one more char of line length
+
+
+0.2.1 (2024-08-29)
 ------------------
 
 Changes
@@ -11,6 +39,8 @@ Changes
 
 Fixes
 ~~~~~
+- Use correct signature for about dialog, cleanup app string. [Stephen
+  Arnold]
 - Use correct signature for about dialog, cleanup app string. [Stephen
   Arnold]
 
