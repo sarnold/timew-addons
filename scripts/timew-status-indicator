@@ -15,19 +15,14 @@ from threading import Thread
 from typing import cast
 
 import gi
+from munch import Munch
 
 gi.require_version("Gtk", "3.0")
 gi.require_version('Notify', '0.7')
+gi.require_version('AyatanaAppIndicator3', '0.1')
 
-try:
-    gi.require_version('AyatanaAppIndicator3', '0.1')
-    from gi.repository import AyatanaAppIndicator3 as appindicator
-except ValueError:
-    gi.require_version('AppIndicator3', '0.1')
-    from gi.repository import AppIndicator3 as appindicator
-
+from gi.repository import AyatanaAppIndicator3 as appindicator
 from gi.repository import Gdk, Gtk, Notify
-from munch import Munch
 
 from timew_status import (
     CFG,
@@ -123,7 +118,7 @@ class Indicator:
                 new_state = 'INACTIVE'
                 print(f'{new_state} state msg: {result.stdout.decode().strip()}')
             else:
-                proc, _ = run_cmd()
+                proc, _ = run_cmd(CFG)
                 msg, new_state = get_state_str(proc, current_tick_count, CFG)
                 print(f'{new_state} state msg: {msg.strip()}')
             # if there is a change in state, update the icon
@@ -238,18 +233,18 @@ class Indicator:
 
     def startd(self, source):
         my_tag = TAG["text"]
-        _, svc_msg = run_cmd(action='start', tag=my_tag)
+        _, svc_msg = run_cmd(CFG, action='start', tag=my_tag)
         self.indicator.set_icon_full(get_state_icon('ACTIVE', CFG), 'ACTIVE')
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
     def statusd(self, source):
-        _, svc_msg = run_cmd()
+        _, svc_msg = run_cmd(CFG)
         seat_minutes = round(Decimal(COUNT["SeatTick"] / 60), 1)
         svc_msg = f'INFO: current seat time is {seat_minutes} mins \n' + svc_msg
         Notify.Notification.new("Timew status", svc_msg, None).show()
 
     def stopd(self, source):
-        _, svc_msg = run_cmd(action='stop')
+        _, svc_msg = run_cmd(CFG, action='stop')
         if svc_msg:
             self.last_tag = svc_msg
             if CFG['use_last_tag']:

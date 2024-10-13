@@ -1,13 +1,21 @@
 """
 Base configuration and app helper functions.
 """
+
+from __future__ import annotations
+
+import datetime
 import os
 import subprocess
+import sys
 from datetime import timedelta
 from pathlib import Path
+from shutil import which
+from typing import Dict, List, NewType, Optional, Tuple
 
 from munch import Munch
 
+TimeDelta = NewType("TimeDelta", datetime.timedelta)
 APP_NAME = 'timew_status_indicator'
 CFG = {
     # time strings are HH:MM (no seconds)
@@ -30,12 +38,29 @@ CFG = {
 }
 
 
-def do_install(cfg):
+def check_for_timew() -> str:
     """
-    Install report extensions to timew extensions directory. The default
+    Make sure we can find the ``timew`` binary in the user environment
+    and return a path string.
+
+    :return timew_path: program path strings
+    :rtype str: path to program if found, else None
+    """
+    timew_path = which('timew')
+    if not timew_path:
+        print('Cannot continue, no path found for timew')
+        sys.exit(1)
+    return timew_path
+
+
+def do_install(cfg: Dict) -> List[str]:
+    """
+    Install report extensions to timew extensions directory. The default src
     paths are preconfigured and should probably not be changed unless you
     know what you are doing, since *they are created during install or setup*.
-    Return a destination path string for each installed extension script.
+    You should, however, adjust the destination path in ``extensions_dir`` if
+    needed for your platform. Returns the destination path string for each
+    installed extension script.
 
     :param cfg: runtime CFG dict
     :return files: list of strings
@@ -58,7 +83,7 @@ def do_install(cfg):
     return files
 
 
-def get_config(file_encoding='utf-8'):
+def get_config(file_encoding: str = 'utf-8') -> Tuple[Munch, Path]:
     """
     Load configuration file and munchify the data. If local file is not
     found in config directory, the default will be loaded and saved to
@@ -72,14 +97,14 @@ def get_config(file_encoding='utf-8'):
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
-        print(f"Saving initial config data to {cfgfile}")
-        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)
-    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
-
+        print(f"Saving initial config data to {cfgfile}")  # fmt: off
+        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)  # type: ignore[attr-defined]
+    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))  # type: ignore[attr-defined]
+    # fmt: on
     return cfgobj, cfgfile
 
 
-def get_delta_limits(ucfg):
+def get_delta_limits(ucfg: Dict) -> Tuple[timedelta, timedelta, timedelta, timedelta]:
     """
     Return config max/snooze limits as timedeltas. Everything comes from
     static config values and gets padded with seconds.
@@ -99,7 +124,7 @@ def get_delta_limits(ucfg):
     return day_max, day_limit, seat_max, seat_limit
 
 
-def get_state_icon(state, cfg):
+def get_state_icon(state: str, cfg: Dict) -> str:
     """
     Look up the state msg and return the icon name. Use builtin symbolic
     icons as fallback.
@@ -137,7 +162,9 @@ def get_state_icon(state, cfg):
     return state_dict.get(state, state_dict['INACTIVE'])
 
 
-def get_state_str(cmproc, count, cfg):
+def get_state_str(
+    cmproc: subprocess.CompletedProcess[bytes], count: TimeDelta, cfg: Dict
+) -> Tuple[str, str]:
     """
     Return timew state message and tracking state, ie, the key for dict
     with icons.
@@ -151,7 +178,7 @@ def get_state_str(cmproc, count, cfg):
 
     :return: tuple of state msg and state string
     """
-    DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT = get_delta_limits(cfg)
+    (DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT) = get_delta_limits(cfg)
 
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
@@ -176,20 +203,22 @@ def get_state_str(cmproc, count, cfg):
     return msg, state
 
 
-def get_status():
+def get_status() -> subprocess.CompletedProcess[bytes]:
     """
     Return timew tracking status (output of ``timew`` with no arguments).
 
     :param None:
     :return: timew output str or None
+    :raises RuntimeError: for timew not found error
     """
     try:
         return subprocess.run(["timew"], capture_output=True)
     except FileNotFoundError as exc:
         print(f'Timew status error: {exc}')
+        raise RuntimeError("Did you install timewarrior?") from exc
 
 
-def get_userdirs():
+def get_userdirs() -> Path:
     """
     Get XDG user configuration path defined as ``XDG_CONFIG_HOME`` plus
     application name. This may grow if needed.
@@ -205,7 +234,7 @@ def get_userdirs():
     return configdir
 
 
-def parse_for_tag(text):
+def parse_for_tag(text: str) -> str:
     """
     Parse the output of timew start/stop commands for the tag string.
 
@@ -215,25 +244,31 @@ def parse_for_tag(text):
     for line in text.splitlines():
         if line.startswith(("Tracking", "Recorded")):
             return line.split('"')[1]
+    return "Tag extraction error"
 
 
-def run_cmd(action='status', tag=None):
+def run_cmd(
+    cfg: Dict, action: str = 'status', tag: Optional[str] = None
+) -> Tuple[subprocess.CompletedProcess[bytes], str]:
     """
     Run timew command subject to the given action.
 
     :param action: one of <start|stop|status>
     :return: completed proc obj and result msg
+    :raises RuntimeError: for timew action error
     """
-
+    timew_cmd = check_for_timew()
+    extension = cfg["extension_script"]
     actions = ['start', 'stop', 'status']
-    svc_list = ['timew']
-    sts_list = [CFG["extension_script"], "today"]
+    svc_list = [timew_cmd]
+    sts_list = [extension, "today"]
     cmd = svc_list
     act_list = [action]
 
     if action not in actions:
-        print(f'Invalid action: {action}')
-        return
+        msg = f'Invalid action: {action}'
+        print(msg)
+        raise RuntimeError(msg)
     if action == 'start' and tag:
         act_list.append(tag)
     if action != 'status':
@@ -257,14 +292,15 @@ def run_cmd(action='status', tag=None):
 
     except Exception as exc:
         print(f'run_cmd exception: {exc}')
+        raise RuntimeError(f"Timew {action} error") from exc
 
 
-def to_td(hms):
+def to_td(hms: str) -> timedelta:
     """
     Convert a time string in HH:MM:SS format to a timedelta object.
 
     :param hms: time string
-    :return: timedelta obj
+    :return: timedelta
     """
     hrs, mins, secs = hms.split(':')
     return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))

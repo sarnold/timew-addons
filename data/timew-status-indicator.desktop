@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Timew Status Tool
+Name=Timew Status Indicator
 Comment=Control and status tool for timew
 Exec=timew-status-indicator
 Icon=timew
