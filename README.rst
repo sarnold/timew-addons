@@ -65,9 +65,10 @@ and package overlays for Gentoo_ and Ubuntu.
 
 Installing using system package manager is currently only supported on
 Gentoo_ and requires `this portage overlay`_. Use one of the overlay
-install methods shown in the readme_ file and sync the overlay; following
-the overlay sync, install the package and dependencies::
+install methods shown in the overlay readme_ file and sync the overlay;
+following the overlay sync, install the package and dependencies::
 
+  $ sudo emaint sync -r embedded-overlay
   $ sudo emerge timew-addons -v --ask
 
 When available, use the following `Ubuntu PPA`_ to install on at least
@@ -81,6 +82,16 @@ installed and then add the PPA:
   $ sudo apt-get install timew-addons
 
 See `Adding this PPA to your system`_ for more info.
+
+A somewhat manual approach using pre-built packages is available for debian
+*bookworm*, *trixie*, and *sid*. First install the timew package::
+
+  $ sudo apt install timewarrior
+
+Then install the ``.deb`` packages for timew-report and timew-addons from
+GitHub::
+
+  $
 
 .. _Adding this PPA to your system:
 .. _this PPA:

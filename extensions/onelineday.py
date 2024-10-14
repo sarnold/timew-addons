@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
     Modified from upstream example; extract a job-tag from the first
     comma-separated split of the full tag string and produce subtotals
