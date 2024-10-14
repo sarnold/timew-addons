@@ -65,8 +65,8 @@ jobs:
 
       - name: Fetch debian files
         run: |
-          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.1.1-1ubuntu1.22.04.1/timew-addons_0.1.1-1ubuntu1.22.04.1.debian.tar.xz
-          tar xf timew-addons_0.1.1-1ubuntu1.22.04.1.debian.tar.xz && rm *debian.tar.xz
+          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.3.0-1ubuntu1.20.04.1/timew-addons_0.3.0-1ubuntu1.20.04.1.debian.tar.xz
+          tar xf timew-addons_0.3.0-1ubuntu1.20.04.1.debian.tar.xz && rm *debian.tar.xz
           ls
 
       - name: Install deps and update debian changelog
