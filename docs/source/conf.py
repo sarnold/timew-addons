@@ -39,6 +39,7 @@ version = '.'.join(release.split('.')[:2])
 extensions = [
     'rst2pdf.pdfbuilder',
     'sphinxcontrib.apidoc',
+    'sphinx.ext.napoleon',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',

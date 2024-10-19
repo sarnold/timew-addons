@@ -84,14 +84,26 @@ installed and then add the PPA:
 See `Adding this PPA to your system`_ for more info.
 
 A somewhat manual approach using pre-built packages is available for debian
-*bookworm*, *trixie*, and *sid*. First install the timew package::
+*bookworm*, *trixie*, and *sid*. First install the ``gdebi`` package::
 
-  $ sudo apt install timewarrior
+  $ sudo apt install gdebi
+
+Next download the ``.deb`` packages for timew-report and timew-addons from
+GitHub for your Debian version, eg, for bookworm do::
+
+  $ wget https://github.com/sarnold/timew-addons/releases/download/0.3.0/timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+  $ wget https://github.com/sarnold/timew-report/releases/download/v1.4.0/timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
 
 Then install the ``.deb`` packages for timew-report and timew-addons from
-GitHub::
+GitHub using gdebi::
 
-  $
+  $ sudo gedbi timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+  $ sudo gedbi timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+
+.. important:: The exact package names and Debian release will be different.
+               Substitute the name of your Debian release and use the most
+               recent Github release page available.
+
 
 .. _Adding this PPA to your system:
 .. _this PPA:
