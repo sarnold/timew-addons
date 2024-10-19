@@ -65,9 +65,10 @@ and package overlays for Gentoo_ and Ubuntu.
 
 Installing using system package manager is currently only supported on
 Gentoo_ and requires `this portage overlay`_. Use one of the overlay
-install methods shown in the readme_ file and sync the overlay; following
-the overlay sync, install the package and dependencies::
+install methods shown in the overlay readme_ file and sync the overlay;
+following the overlay sync, install the package and dependencies::
 
+  $ sudo emaint sync -r embedded-overlay
   $ sudo emerge timew-addons -v --ask
 
 When available, use the following `Ubuntu PPA`_ to install on at least
@@ -81,6 +82,28 @@ installed and then add the PPA:
   $ sudo apt-get install timew-addons
 
 See `Adding this PPA to your system`_ for more info.
+
+A somewhat manual approach using pre-built packages is available for debian
+*bookworm*, *trixie*, and *sid*. First install the ``gdebi`` package::
+
+  $ sudo apt install gdebi
+
+Next download the ``.deb`` packages for timew-report and timew-addons from
+GitHub for your Debian version, eg, for bookworm do::
+
+  $ wget https://github.com/sarnold/timew-addons/releases/download/0.3.0/timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+  $ wget https://github.com/sarnold/timew-report/releases/download/v1.4.0/timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+
+Then install the ``.deb`` packages for timew-report and timew-addons from
+GitHub using gdebi::
+
+  $ sudo gedbi timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+  $ sudo gedbi timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+
+.. important:: The exact package names and Debian release will be different.
+               Substitute the name of your Debian release and use the most
+               recent Github release page available.
+
 
 .. _Adding this PPA to your system:
 .. _this PPA:

@@ -9,7 +9,7 @@ import subprocess
 import time
 import typing
 from collections import Counter
-from datetime import timedelta
+from datetime import datetime, timedelta
 from decimal import Decimal
 from threading import Thread
 from typing import cast
@@ -180,11 +180,13 @@ class Indicator:
         return menu
 
     def about(self, source):
+        year = datetime.now().year
+        cpr_str = f'© {year} Stephen L Arnold'
         dlg = Gtk.AboutDialog()
         dlg.set_name('About...')
         dlg.set_program_name('Timew Status Indicator')
         dlg.set_version(APP_VERSION)
-        dlg.set_copyright('© 2024 Stephen L Arnold')
+        dlg.set_copyright(cpr_str)
         dlg.set_license_type(Gtk.License.GPL_3_0)
         dlg.set_logo_icon_name(get_state_icon('APP', CFG))
         dlg.set_website('https://github.com/sarnold/timew-addons')
