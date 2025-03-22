@@ -13,8 +13,8 @@ readme = "README.rst"
 
 # legacy bits and new both fail in different versions
 # need workaround until PEP639 has more backend support
-license = "GPLv3+"
-license_expression = "GPL-3.0-or-later"
+#license = "GPLv3+"
+license = "GPL-3.0-or-later"
 
 authors = [
     {name = "Stephen Arnold"},
@@ -41,9 +41,10 @@ classifiers = [
 
 dependencies = [
     'importlib-metadata>=4.6; python_version < "3.8"',
+    'PyGObject==v3.50.0; python_version < "3.13"',
+    'PyGObject>=v3.52.1; python_version > "3.12"',
     "munch[yaml]",
     "pycairo",
-    "PyGObject",
     "timew-report",
 ]
 requires-python = ">=3.8"
@@ -102,10 +103,6 @@ Changelog = "https://github.com/sarnold/timew-addons/blob/master/CHANGELOG.rst"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-
-license-files = [
-    "LICENSE",
-]
 
 script-files = [
     "scripts/timew-status-indicator",
