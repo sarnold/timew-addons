@@ -13,7 +13,6 @@ readme = "README.rst"
 
 # legacy bits and new both fail in different versions
 # need workaround until PEP639 has more backend support
-#license = "GPLv3+"
 license = "GPL-3.0-or-later"
 
 authors = [
@@ -63,10 +62,12 @@ cov = [
     "coverage_python_version",
 ]
 doc = [
-    "sphinx>=8.2.0",
+    "sphinx",
     "sphinx_git",
     "recommonmark",
     "sphinx_rtd_theme",
+    "sphinxcontrib-apidoc",
+    "rst2pdf[svgsupport]",
 ]
 test = [
     "pytest",

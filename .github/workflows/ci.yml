@@ -10,7 +10,7 @@ on:
 jobs:
   build_wheels:
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.ubuntu-version }}
     permissions:
       contents: read
     defaults:
@@ -24,7 +24,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ubuntu-version: [ubuntu-22.04, ubuntu-24.04]
         python-version: [3.9, '3.10', '3.11', '3.12', '3.13']
         include:
           - python-version: '3.9'
@@ -34,7 +33,7 @@ jobs:
           - python-version: '3.11'
             ubuntu-version: ubuntu-22.04
           - python-version: '3.12'
-            ubuntu-version: ubuntu-24.04
+            ubuntu-version: ubuntu-22.04
           - python-version: '3.13'
             ubuntu-version: ubuntu-24.04
 
@@ -59,8 +58,8 @@ jobs:
         sudo apt-get install -yqq timew-report
 
     - name: Deps for system pkgs
-    # <sigh> we need to accomodate 2 versions of this depending on host env
-    - if: matrix.os == 'ubuntu-24.04'
+      # <sigh> we need to accomodate 2 versions of this depending on host env
+      if: matrix.ubuntu-version == 'ubuntu-24.04'
       run: |
         sudo apt-get install -yqq libgirepository-2.0-dev
 
@@ -85,7 +84,7 @@ jobs:
         tox -e build,check
 
     - name: Upload artifacts
-      if: matrix.python-version == 3.9 && runner.os == 'Linux'
+      if: matrix.python-version == 3.9
       uses: actions/upload-artifact@v4
       with:
         name: packages
