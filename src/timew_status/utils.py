@@ -211,8 +211,9 @@ def get_status() -> subprocess.CompletedProcess[bytes]:
     :return: timew output str or None
     :raises RuntimeError: for timew not found error
     """
+    timew_cmd = check_for_timew()
     try:
-        return subprocess.run(["timew"], capture_output=True)
+        return subprocess.run([timew_cmd], capture_output=True)
     except FileNotFoundError as exc:
         print(f'Timew status error: {exc}')
         raise RuntimeError("Did you install timewarrior?") from exc
