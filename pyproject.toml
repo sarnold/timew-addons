@@ -5,6 +5,112 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "timew-addons"
+description = "A collection of timewarrior extensions and experiments"
+dynamic = ["version"]
+readme = "README.rst"
+
+# legacy bits and new both fail in different versions
+# need workaround until PEP639 has more backend support
+license = "GPLv3+"
+license_expression = "GPL-3.0-or-later"
+
+authors = [
+    {name = "Stephen Arnold"},
+    {email = "stephen.arnold42@gmail.com"},
+]
+
+keywords = ["appindicator", "extensions", "timewarrior", "timew-report", "timew", "gnome"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development",
+    "Topic :: Utilities",
+    "Environment :: Console",
+    "Environment :: X11 Applications :: GTK",
+    "Environment :: X11 Applications :: Gnome",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    'importlib-metadata>=4.6; python_version < "3.8"',
+    "munch[yaml]",
+    "pycairo",
+    "PyGObject",
+    "timew-report",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "bandit",
+    "flake8",
+    "isort",
+    "mypy==0.990",
+    "black >= 22.3.0",
+    "pylint >= 3.1.0",
+]
+cov = [
+    "coverage[toml]",
+    "coverage_python_version",
+]
+doc = [
+    "sphinx>=8.2.0",
+    "sphinx_git",
+    "recommonmark",
+    "sphinx_rtd_theme",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+[project.urls]
+Homepage = "https://github.com/sarnold/timew-addons"
+Repository = "https://github.com/sarnold/timew-addons.git"
+Issues = "https://github.com/sarnold/timew-addons/issues"
+Changelog = "https://github.com/sarnold/timew-addons/blob/master/CHANGELOG.rst"
+
+[tool.setuptools.data-files]
+"share/applications" = [
+    "data/timew-status-indicator.desktop",
+]
+"share/icons/hicolor/48x48/apps" = [
+    "icons/hicolor/48x48/timew.png",
+]
+"share/icons/hicolor/scalable/apps" = [
+    "icons/hicolor/scalable/timew.svg",
+]
+"share/icons/hicolor/scalable/status" = [
+    "icons/hicolor/status/timew_info.svg",
+    "icons/hicolor/status/timew_error.svg",
+    "icons/hicolor/status/timew_warning.svg",
+    "icons/hicolor/status/timew_inactive.svg",
+]
+"share/timew-addons/extensions" = [
+    "extensions/onelineday.py",
+    "extensions/totals.py",
+    "extensions/csv_rpt.py",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+license-files = [
+    "LICENSE",
+]
+
+script-files = [
+    "scripts/timew-status-indicator",
+]
+
 [tool.setuptools_scm]
 
 [tool.pytest.ini_options]
