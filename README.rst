@@ -1,7 +1,7 @@
 Timewarrior addon bits
 ======================
 
-|CI| |release|
+|CI| |chk| |release|
 
 |pre|
 
@@ -482,6 +482,10 @@ separator if needed:
 .. |CI| image:: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg
     :target: https://github.com/sarnold/timew-addons/actions/workflows/ci.yml
     :alt: CI workflow status
+
+.. |chk| image:: https://github.com/sarnold/timew-addons/actions/workflows/check.yml/badge.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/check.yml
+    :alt: Pre-commit status
 
 .. |release| image:: https://github.com/sarnold/timew-addons/actions/workflows/release.yml/badge.svg
     :target: https://github.com/sarnold/timew-addons/actions/workflows/release.yml
