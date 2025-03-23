@@ -87,5 +87,5 @@ jobs:
       if: matrix.python-version == 3.9
       uses: actions/upload-artifact@v4
       with:
-        name: packages
+        name: timew-addons-packages
         path: dist
