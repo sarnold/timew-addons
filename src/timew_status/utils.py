@@ -213,7 +213,7 @@ def get_status() -> subprocess.CompletedProcess[bytes]:
     """
     timew_cmd = check_for_timew()
     try:
-        return subprocess.run([timew_cmd], capture_output=True)
+        return subprocess.run([timew_cmd], capture_output=True, check=False)
     except FileNotFoundError as exc:
         print(f'Timew status error: {exc}')
         raise RuntimeError("Did you install timewarrior?") from exc
@@ -279,7 +279,7 @@ def run_cmd(
     print(f'Running {cmd}')
 
     try:
-        result = subprocess.run(cmd, capture_output=True)
+        result = subprocess.run(cmd, capture_output=True, check=False)
         if action == 'stop':
             tag = parse_for_tag(result.stdout.decode())
             if DEBUG:

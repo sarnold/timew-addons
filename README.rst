@@ -3,7 +3,7 @@ Timewarrior addon bits
 
 |CI| |chk| |release|
 
-|pre|
+|pre| |pylint|
 
 |tag| |license|
 
@@ -490,6 +490,10 @@ separator if needed:
 .. |release| image:: https://github.com/sarnold/timew-addons/actions/workflows/release.yml/badge.svg
     :target: https://github.com/sarnold/timew-addons/actions/workflows/release.yml
     :alt: Release workflow status
+
+.. |pylint| image:: https://raw.githubusercontent.com/sarnold/timew-addons/badges/main/pylint-score.svg
+    :target: https://github.com/sarnold/timew-addons/actions/workflows/pylint.yml
+    :alt: Pylint Score
 
 .. |pre| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white
    :target: https://github.com/pre-commit/pre-commit
