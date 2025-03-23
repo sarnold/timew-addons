@@ -2,11 +2,15 @@ Changelog
 =========
 
 
-0.3.1-11-g34fedd6
------------------
+0.3.1 (2025-03-23)
+------------------
 
 Changes
 ~~~~~~~
+- (re)generate changelog after yet another config update. [Stephen L
+  Arnold]
+
+  * needs the right regex filters to restore missing commit info
 - Include debs in release workflow, add to release. [Stephen L Arnold]
 - Add tox lint cmd and cleanup some subprocess lint. [Stephen L Arnold]
 - Bump debian package files to jammy with metadata patch. [Stephen L
@@ -15,6 +19,8 @@ Changes
 
 Fixes
 ~~~~~
+- Make sure console cov report shows src path, update changelog.
+  [Stephen L Arnold]
 - Use the right (default) branch for push event. [Stephen L Arnold]
 - Add explicit read permissions to pre-commit check. [Stephen L Arnold]
 - Add ubuntu pkg deps to pylint workflow, restore bandit config.
