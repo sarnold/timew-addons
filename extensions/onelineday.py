@@ -1,30 +1,30 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
-    Modified from upstream example; extract a job-tag from the first
-    comma-separated split of the full tag string and produce subtotals
-    for each <jobname> where <jobname> is a short mnemonic for customer
-    and/or task, for example::
+Modified from upstream example; extract a job-tag from the first
+comma-separated split of the full tag string and produce subtotals
+for each <jobname> where <jobname> is a short mnemonic for customer
+and/or task, for example::
 
-        $ timew start xyz3D-sw,"factory reset patch"
+    $ timew start xyz3D-sw,"factory reset patch"
 
-    using a more specific task string in quotes following a comma.
-    Then run ``timew oneline march`` or some other time interval.
+using a more specific task string in quotes following a comma.
+Then run ``timew oneline march`` or some other time interval.
 
-    This report will output a oneline per day for each <jobname> format::
+This report will output a oneline per day for each <jobname> format::
 
-        -- xyz3D-cyber
-        3/1 1.5h review security controls for yocto
-        3/4 2.5h review security controls for yocto
-        3/8 1h security meeting
+    -- xyz3D-cyber
+    3/1 1.5h review security controls for yocto
+    3/4 2.5h review security controls for yocto
+    3/8 1h security meeting
 
-        -- xyz3D-sw
-        3/7 2h look for PCIe example project that works with Quartus 23
-        3/12 0.5h simple system diagram for internal use
+    -- xyz3D-sw
+    3/7 2h look for PCIe example project that works with Quartus 23
+    3/12 0.5h simple system diagram for internal use
 
-    Assumptions:
+Assumptions:
 
-    1. report will be driven by arbitrary duration, ie, day, week, month
-    2. a single timew interval should not span multiple days
+1. report will be driven by arbitrary duration, ie, day, week, month
+2. a single timew interval should not span multiple days
 '''
 
 import os

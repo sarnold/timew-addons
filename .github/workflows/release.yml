@@ -9,9 +9,11 @@ permissions:
   contents: write
 
 jobs:
-  wheels:
+  build_wheels:
 
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     defaults:
       run:
         shell: bash
@@ -21,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        python-version: [3.9, '3.10', '3.12']
+        python-version: [3.9, '3.10', '3.11', '3.12']
 
     steps:
     - name: Set git crlf/eol
@@ -67,6 +69,8 @@ jobs:
   get_version:
     name: Get version info
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     defaults:
       run:
         shell: bash
@@ -88,6 +92,8 @@ jobs:
   build_debs:
     name: ${{ matrix.name }}
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     needs: [get_version]
 
     strategy:
@@ -122,8 +128,8 @@ jobs:
 
       - name: Fetch debian files
         run: |
-          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.1.1-1ubuntu1.22.04.1/timew-addons_0.1.1-1ubuntu1.22.04.1.debian.tar.xz
-          tar xf timew-addons_0.1.1-1ubuntu1.22.04.1.debian.tar.xz && rm *debian.tar.xz
+          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.3.0-1ubuntu1.20.04.1/timew-addons_0.3.0-1ubuntu1.20.04.1.debian.tar.xz
+          tar xf timew-addons_0.3.0-1ubuntu1.20.04.1.debian.tar.xz && rm *debian.tar.xz
           ls
 
       - name: Install deps and update debian changelog
@@ -151,6 +157,8 @@ jobs:
     name: Create Release
     needs: [build_debs, wheels]
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
 
     steps:
       - name: Get version
@@ -193,6 +201,8 @@ jobs:
     name: Release docs
     needs: [create_release]
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4

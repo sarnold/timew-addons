@@ -2,14 +2,17 @@ name: Smoke
 
 on:
   workflow_dispatch:
+  workflow_call:
   pull_request:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  build_wheels:
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.ubuntu-version }}
+    permissions:
+      contents: read
     defaults:
       run:
         shell: bash
@@ -21,8 +24,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04]
-        python-version: [3.8, 3.9, '3.10', '3.11', '3.12']
+        python-version: [3.9, '3.10', '3.11', '3.12', '3.13']
+        include:
+          - python-version: '3.9'
+            ubuntu-version: ubuntu-22.04
+          - python-version: '3.10'
+            ubuntu-version: ubuntu-22.04
+          - python-version: '3.11'
+            ubuntu-version: ubuntu-22.04
+          - python-version: '3.12'
+            ubuntu-version: ubuntu-22.04
+          - python-version: '3.13'
+            ubuntu-version: ubuntu-24.04
 
     steps:
     - name: Set git crlf/eol
@@ -42,7 +55,13 @@ jobs:
         sudo apt-get install -yqq software-properties-common
         sudo add-apt-repository -y -s ppa:nerdboy/embedded
         sudo apt-get -qq update
-        sudo apt-get install -yqq timew-addons
+        sudo apt-get install -yqq timew-report
+
+    - name: Deps for system pkgs
+      # <sigh> we need to accomodate 2 versions of this depending on host env
+      if: matrix.ubuntu-version == 'ubuntu-24.04'
+      run: |
+        sudo apt-get install -yqq libgirepository-2.0-dev
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
@@ -65,7 +84,7 @@ jobs:
         tox -e build,check
 
     - name: Upload artifacts
-      if: matrix.python-version == 3.9 && runner.os == 'Linux'
+      if: matrix.python-version == 3.9
       uses: actions/upload-artifact@v4
       with:
         name: packages

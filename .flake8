@@ -1,0 +1,27 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    docs,
+    tests
+
+max-line-length = 100
+max-complexity = 10
+addons = file,open,basestring,xrange,unicode,long,cmp
+ignore =
+    # too many leading '#' for block comment
+    E266,
+    # do not assign a lambda expression, use a def
+    E731,
+    # whitespace before ':'
+    E203,
+    # multiple spaces before operator
+    E221,
+    # line break before binary operator
+    W503,
+    # imported but unused
+    F401,
+    # module level import not at top of file
+    E402,

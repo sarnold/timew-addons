@@ -44,6 +44,22 @@ for details.
 .. _Appindicator: https://lazka.github.io/pgi-docs/AyatanaAppIndicator3-0.1/index.html
 .. _Python binding: https://github.com/lauft/timew-report/
 
+March 2025: Python packaging and metadata patches
+-------------------------------------------------
+
+* setuptools not yet caught up with pyproject.toml rules
+  - requires patch for project.license TOML type (table vs string)
+
+* conflicting PyGObject version/dependency requirements depending on OS version
+  - Jammy requires ``libgirepository1.0-dev`` and ``PyGObject==v3.50.0``
+  - Noble requires ``libgirepository-2.0-dev`` and ``PyGObject>=v3.52.1``
+
+The current workaround uses platform patches to work around these wrinkles,
+eg, `this patch`_ in the Gentoo overlay.
+
+.. _this patch: https://github.com/VCTLabs/embedded-overlay/blob/master/app-misc/timew-addons/files/interim-for-setuptools-license-str-vs-table.patch
+
+
 Quick start install
 ~~~~~~~~~~~~~~~~~~~
 
@@ -57,22 +73,24 @@ run from local virtual environment, albeit with a fallback set of icons.
 * if on Gentoo, add `this portage overlay`_ and install ``timew-addons``
 * if on recent Ubuntu LTS, add `this PPA`_ and install ``timew-addons``
 
-Install with package manager
-----------------------------
+Install with OS package manager
+-------------------------------
 
 OS packages are deployed via multiple methods, including GH release pages
 and package overlays for Gentoo_ and Ubuntu.
 
-Installing using system package manager is currently only supported on
-Gentoo_ and requires `this portage overlay`_. Use one of the overlay
-install methods shown in the readme_ file and sync the overlay; following
-the overlay sync, install the package and dependencies::
+Installing using OS package manager is currently supported on Gentoo_
+and requires `this portage overlay`_. Use one of the overlay install
+methods shown in the overlay readme_ file and sync the overlay;
+following the overlay sync, install the package and dependencies::
 
+  $ sudo emaint sync -r embedded-overlay
   $ sudo emerge timew-addons -v --ask
 
-When available, use the following `Ubuntu PPA`_ to install on at least
-Focal and Jammy.  Make sure you have the ``add-apt-repository`` command
-installed and then add the PPA:
+OS package installation is also supported on the last few Ubuntu_ LTS
+releases using the following `Ubuntu PPA`_ to install on Focal, Jammy,
+or Noble.  Make sure you have the ``add-apt-repository`` command
+installed, then add the PPA and install ``timew-addons``:
 
 ::
 
@@ -82,10 +100,33 @@ installed and then add the PPA:
 
 See `Adding this PPA to your system`_ for more info.
 
+A somewhat manual approach using pre-built packages is available for debian
+*bookworm*, *trixie*, and *sid*. First install the ``gdebi`` package::
+
+  $ sudo apt install gdebi
+
+Next download the ``.deb`` packages for timew-report and timew-addons from
+GitHub for your Debian version, eg, for bookworm do::
+
+  $ wget https://github.com/sarnold/timew-addons/releases/download/0.3.0/timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+  $ wget https://github.com/sarnold/timew-report/releases/download/v1.4.0/timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+
+Then install the ``.deb`` packages for timew-report and timew-addons from
+GitHub using gdebi::
+
+  $ sudo gdebi timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+  $ sudo gdebi timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+
+.. important:: The exact package names and Debian release will be different.
+               Substitute the name of your Debian release and use the most
+               recent Github release page available.
+
+
 .. _Adding this PPA to your system:
 .. _this PPA:
 .. _Ubuntu PPA: https://launchpad.net/~nerdboy/+archive/ubuntu/embedded
 .. _Gentoo: https://www.gentoo.org/
+.. _Ubuntu: https://ubuntu.com/
 .. _readme:
 .. _this portage overlay: https://github.com/VCTLabs/embedded-overlay/
 
@@ -132,15 +173,15 @@ essentially the same, other than packaging-specific requirements and
 generated python byte-code. In the latter case, the list of installed
 files can be obtained with the following command::
 
-  $ python -m pip show -f timew-addons
+  $ python -m pip show -f timew_addons
   Name: timew-addons
-  Version: 0.2.2.dev0+g4659e21.d20240901
+  Version: 0.3.1.dev10+g8607982.d20250323
   Summary: A collection of timewarrior extensions and experiments
   Home-page: https://github.com/sarnold/timew-addons
-  Author: Stephen L Arnold
-  Author-email: nerdboy@gentoo.org
-  License: GPLv3+
-  Location: /home/nerdboy/src/timew-addons/.tox/py/lib/python3.11/site-packages
+  Author: Stephen Arnold
+  Author-email: stephen.arnold42@gmail.com
+  License-Expression: GPL-3.0-or-later
+  Location: /home/user/src/timew-addons/.tox/check/lib/python3.13/site-packages
   Requires: munch, pycairo, PyGObject, timew-report
   Required-by:
   Files:
@@ -152,22 +193,22 @@ files can be obtained with the following command::
     ../../../share/icons/hicolor/scalable/status/timew_inactive.svg
     ../../../share/icons/hicolor/scalable/status/timew_info.svg
     ../../../share/icons/hicolor/scalable/status/timew_warning.svg
-    ../../../share/timew-addons/extensions/__pycache__/csv_rpt.cpython-311.pyc
-    ../../../share/timew-addons/extensions/__pycache__/onelineday.cpython-311.pyc
-    ../../../share/timew-addons/extensions/__pycache__/totals.cpython-311.pyc
+    ../../../share/timew-addons/extensions/__pycache__/csv_rpt.cpython-313.pyc
+    ../../../share/timew-addons/extensions/__pycache__/onelineday.cpython-313.pyc
+    ../../../share/timew-addons/extensions/__pycache__/totals.cpython-313.pyc
     ../../../share/timew-addons/extensions/csv_rpt.py
     ../../../share/timew-addons/extensions/onelineday.py
     ../../../share/timew-addons/extensions/totals.py
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/INSTALLER
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/METADATA
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/RECORD
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/REQUESTED
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/WHEEL
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/direct_url.json
-    timew_addons-0.2.2.dev0+g4659e21.d20240901.dist-info/top_level.txt
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/INSTALLER
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/METADATA
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/RECORD
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/REQUESTED
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/WHEEL
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/licenses/LICENSE
+    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/top_level.txt
     timew_status/__init__.py
-    timew_status/__pycache__/__init__.cpython-311.pyc
-    timew_status/__pycache__/utils.cpython-311.pyc
+    timew_status/__pycache__/__init__.cpython-313.pyc
+    timew_status/__pycache__/utils.cpython-313.pyc
     timew_status/utils.py
 
 Generated files
