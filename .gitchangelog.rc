@@ -59,14 +59,13 @@
 ##
 #ignore_regexps = []
 ignore_regexps = [
+    r'^([cC]i)\s*:',
     r'dependabot',
     r'@minor', r'!minor',
     r'@cosmetic', r'!cosmetic',
     r'@refactor', r'!refactor',
     r'@wip', r'!wip',
     r'^([cC]hg|[fF]ix|[nN]ew)\s*:\s*[p|P]kg:',
-    r'^([cC]hg|[fF]ix|[nN]ew)\s*:\s*[d|D]ev:',
-    r'^([cC]i)\s*:',
     r'^(.{3,3}\s*:)?\s*[fF]irst commit.?\s*$',
     r'^$',  ## ignore commits with empty messages
 ]
@@ -167,9 +166,8 @@ subject_process = (strip |
 ##
 ## Tags that will be used for the changelog must match this regexp.
 ##
-#tag_filter_regexp = r'^v?[0-9]+\.[0-9]+(\.[0-9]+)?$'
-tag_filter_regexp = r'^[0-9]+\.[0-9]+(\.[0-9]+)?$'
-
+tag_filter_regexp = r'^v?[0-9]+\.[0-9]+(\.[0-9]+)?$'
+#tag_filter_regexp = r"^.*$"
 
 ## ``unreleased_version_label`` is a string or a callable that outputs a string
 ##
