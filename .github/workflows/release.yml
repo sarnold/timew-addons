@@ -1,164 +1,30 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
     # release on tag push
     tags:
       - '*'
+
 permissions:
   contents: write
 
 jobs:
   build_wheels:
-
-    runs-on: ${{ matrix.os }}
+    name: Build wheels
     permissions:
       contents: read
-    defaults:
-      run:
-        shell: bash
-    env:
-      PYTHONIOENCODING: utf-8
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-22.04]
-        python-version: [3.9, '3.10', '3.11', '3.12']
+    uses: ./.github/workflows/wheels.yml
 
-    steps:
-    - name: Set git crlf/eol
-      run: |
-        git config --global core.autocrlf false
-        git config --global core.eol lf
-
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Deps for system pkgs
-      run: |
-        sudo apt-get -qq update
-        sudo apt-get install -yqq python3-gi python3-gi-cairo gir1.2-gtk-3.0
-        sudo apt-get install -yqq libgirepository1.0-dev libappindicator3-dev
-        sudo apt-get install -yqq software-properties-common
-        sudo add-apt-repository -y -s ppa:nerdboy/embedded
-        sudo apt-get -qq update
-        sudo apt-get install -yqq timew-report
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip wheel
-        pip install tox tox-gh-actions
-
-    - name: Build dist pkgs
-      run: |
-        tox -e build
-
-    - name: Upload artifacts
-      if: matrix.python-version == 3.9 && runner.os == 'Linux'
-      uses: actions/upload-artifact@v4
-      with:
-        name: packages
-        path: dist
-
-  get_version:
-    name: Get version info
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: read
-    defaults:
-      run:
-        shell: bash
-    outputs:
-      version: ${{ steps.git_ver.outputs.version }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Get package version
-        id: git_ver
-        run: |
-          version=$(git describe --tags | sed -e "s|-g|+g|")
-          echo "Version from git: ${version}"
-          echo "version=${version}" >> $GITHUB_OUTPUT
-
-  build_debs:
-    name: ${{ matrix.name }}
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: read
-    needs: [get_version]
-
-    strategy:
-      fail-fast: false
-      matrix:
-        name: [
-          x64_bookworm,
-          x64_trixie,
-          x64_sid,
-        ]
-
-        include:
-          - name: x64_bookworm
-            dist: bookworm
-
-          - name: x64_trixie
-            dist: trixie
-
-          - name: x64_sid
-            dist: sid
-
-    steps:
-      - name: Check github variables
-        env:
-          VERSION: ${{ needs.get_version.outputs.version }}
-        run: |
-          echo "Package version from git: ${VERSION}"
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Fetch debian files
-        run: |
-          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.3.0-1ubuntu1.20.04.1/timew-addons_0.3.0-1ubuntu1.20.04.1.debian.tar.xz
-          tar xf timew-addons_0.3.0-1ubuntu1.20.04.1.debian.tar.xz && rm *debian.tar.xz
-          ls
-
-      - name: Install deps and update debian changelog
-        run: |
-          sudo apt-get update
-          sudo apt-get install devscripts
-          debchange -v ${{ needs.get_version.outputs.version }}-${{ matrix.dist }} -b -M --distribution ${{ matrix.dist }} "ci build"
-
-      - name: Build deb packages
-        uses: jtdor/build-deb-action@v1
-        env:
-          DEB_BUILD_OPTIONS: noautodbgsym
-        with:
-          docker-image: "debian:${{ matrix.dist }}-slim"
-          buildpackage-opts: --build=binary --no-sign
-          extra-build-deps: git
-
-      - name: Upload deb files
-        uses: actions/upload-artifact@v4
-        with:
-          name: "timew-addons_${{ needs.get_version.outputs.version }}-${{ matrix.dist }}"
-          path: ./debian/artifacts/*.deb
+  build_docs:
+    name: Build docs
+    uses: ./.github/workflows/sphinx.yml
 
   create_release:
     name: Create Release
-    needs: [build_debs, wheels]
+    needs: [build_wheels, build_docs]
     runs-on: ubuntu-22.04
-    permissions:
-      contents: write
 
     steps:
       - name: Get version
@@ -179,13 +45,14 @@ jobs:
           ls -l packages/
 
       - name: Generate changes file
-        uses: sarnold/gitchangelog-action@v1
+        uses: sarnold/gitchangelog-action@915234f151ceffb7a8c4f76de77e4ae321087b8f  # v1.1.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
 
       - name: Create release
         id: create_release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda  # v2.2.1
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -195,57 +62,5 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            packages/timew*
-
-  docs:
-    name: Release docs
-    needs: [create_release]
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    # sphinx really does need the GObject package deps
-    - name: Deps for system pkgs
-      run: |
-        sudo apt-get -qq update
-        sudo apt-get install -yqq python3-gi python3-gi-cairo gir1.2-gtk-3.0
-        sudo apt-get install -yqq libgirepository1.0-dev libappindicator3-dev
-        sudo apt-get install -yqq software-properties-common
-        sudo add-apt-repository -y -s ppa:nerdboy/embedded
-        sudo apt-get -qq update
-        sudo apt-get install -yqq timew-report
-
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.9'
-
-    - name: Add python requirements
-      run: |
-        python -m pip install --upgrade pip
-        pip install tox
-
-    - name: Build docs
-      run: |
-        tox -e ldocs,docs
-
-    - uses: actions/upload-artifact@v4
-      with:
-        name: ApiDocsHTML
-        path: "docs/_build/html/"
-
-    - name: set nojekyll for github
-      run: |
-        sudo touch docs/_build/html/.nojekyll
-
-    - name: Deploy docs to gh-pages
-      if: ${{ github.event_name == 'push' }}
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages
-        folder: docs/_build/html/
-        single-commit: true
+            packages/*.whl
+            packages/*.tar.gz

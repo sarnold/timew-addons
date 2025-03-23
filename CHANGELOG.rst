@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+0.3.1 (2025-03-22)
+------------------
+
+Changes
+~~~~~~~
+- Update about() and update debian install in readme, update .gitignore.
+  [Stephen Arnold]
+- Update release workflow with deb package artifacts. [Stephen Arnold]
+
+  * also enable deb package builds on push to main
+
+Fixes
+~~~~~
+- Update debian files in pkging workflow and extension shebangs.
+  [Stephen Arnold]
+
+  * start some readme refactoring
+
+
 0.3.0 (2024-10-13)
 ------------------
 
