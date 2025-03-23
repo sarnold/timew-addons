@@ -2,19 +2,68 @@ Changelog
 =========
 
 
-0.3.1 (2025-03-22)
+0.3.1-11-g34fedd6
+-----------------
+
+Changes
+~~~~~~~
+- Include debs in release workflow, add to release. [Stephen L Arnold]
+- Add tox lint cmd and cleanup some subprocess lint. [Stephen L Arnold]
+- Bump debian package files to jammy with metadata patch. [Stephen L
+  Arnold]
+- Start more cleanup. [Stephen L Arnold]
+
+Fixes
+~~~~~
+- Use the right (default) branch for push event. [Stephen L Arnold]
+- Add explicit read permissions to pre-commit check. [Stephen L Arnold]
+- Add ubuntu pkg deps to pylint workflow, restore bandit config.
+  [Stephen L Arnold]
+
+
+0.3.1 (2025-03-23)
 ------------------
 
 Changes
 ~~~~~~~
+- Apply reusable workflows to release.yml, update changelog. [Stephen L
+  Arnold]
+- Still tweaking the exact project.license and ci bits. [Stephen L
+  Arnold]
+
+  * relax sphinx version requirement, restore sphinxcontrib-apidoc for now
+  * update readme with patch blurb, add pre-commit check workflow
+  * update pre-commit-config, apply formatting update
+- Split PyGObject version depss across python versions. [Stephen L
+  Arnold]
+
+  * in pyproject.toml PyGObject==v3.50.0 up to 3.12 and in ubuntu CI
+    install libgirepository-2.0-dev for ubuntu 24.04+
+  * this will break some CI bits until new PPA packages with their
+    own version-specific patches are available
+- Migrate package metadata yo pyproject.toml, move flake8 cfg. [Stephen
+  L Arnold]
+
+  * flake8 gets its own config file, setup.py goes away
 - Update about() and update debian install in readme, update .gitignore.
   [Stephen Arnold]
+- Set larger max for pre-commit large file check. [Stephen Arnold]
 - Update release workflow with deb package artifacts. [Stephen Arnold]
 
   * also enable deb package builds on push to main
 
 Fixes
 ~~~~~
+- Use correct indentation in updated workflows. [Stephen L Arnold]
+- Eliminate bandit warning about partial path. [Stephen L Arnold]
+- Update python and action versions, add workflow permissions. [Stephen
+  L Arnold]
+
+  * also sync new python versions and cleanup tox file
+- Remove License classifiers to silence setuptools error. [Stephen L
+  Arnold]
+
+  * certain old-style metadata becomes a hard error in python 3.13
 - Update debian files in pkging workflow and extension shebangs.
   [Stephen Arnold]
 
@@ -26,6 +75,7 @@ Fixes
 
 Changes
 ~~~~~~~
+- Add more tests, cleanup readme, build some debs. [Stephen Arnold]
 - Use future annotations workaround on python 3.8. [Stephen Arnold]
 
   * the above import trick is correct for ``get_state_str()`` signature
@@ -90,12 +140,17 @@ Changes
   * add symlinks so icons are available for both sphinx and GH rendering
   * optionally disable seat-timer by setting params to 00:00
 
+Fixes
+~~~~~
+- Make sure release docs have all the package deps. [Steve Arnold]
+
 
 0.1.1 (2024-08-20)
 ------------------
 
 New
 ~~~
+- Add vendoring bits for stand-alone sum repo. [Steve Arnold]
 - Update readme, add sphinx docs build, cleanup docstrings. [Stephen L
   Arnold]
 
@@ -107,6 +162,7 @@ New
 
   * abstract out delta_limits, hide some prints behind DEBUG
 - Wire up seat-time counter and related value checks. [Stephen L Arnold]
+- Add basic CI workflow for github and update readme. [Stephen L Arnold]
 - Add tag editing widget for start cmd plus a simple test. [Stephen L
   Arnold]
 
@@ -125,19 +181,35 @@ Changes
   * update changelog and get ready for release version, cleanup
     docs CI workflows
 - Still more readme updates and a docstring tweak. [Stephen L Arnold]
+- (re)enable sphinx builds in github ci, push to gh-pages. [Stephen L
+  Arnold]
+- Update ci workflow and add release workflow. [Stephen L Arnold]
 - Try setting position and gravity options, cleanup entry window bits.
   [Stephen L Arnold]
 - Try rounding a Decimal for timer status. [Stephen L Arnold]
 
   * revert app icon back to red
+- Simplify and remove a dep, use base config instead of file. [Stephen L
+  Arnold]
+
+  * pass one more env var to extension script, sanitize for mypy
 - Add menu option to reset seat timer, string and extensions cleanup.
   [Stephen L Arnold]
 
   * add extension scripts to package data, install to pfx/lib/name
+- Refactor config handling, add another test, big readme update.
+  [Stephen L Arnold]
+- Cleanup tag handling, split last tag from widget string. [Stephen L
+  Arnold]
+
+  * use separate dict for passing TAG string instead of mangling CFG
+  * select tag string via config option where tag is actually applied
 - Remove geoip menu option and rename indicator status icons. [Stephen L
   Arnold]
 - Cleanup menu and doc strings, add icon for inactive state. [Stephen L
   Arnold]
+- Cleanup and sync flake8 config, add extra opt for pep8speaks. [Stephen
+  L Arnold]
 - Cleanup icon names and expand tox file. [Stephen L Arnold]
 - Cleanup state mechanism, compare timedeltas not strings. [Stephen L
   Arnold]
@@ -154,6 +226,10 @@ Fixes
   Arnold]
 
   * use permissions instead of the older github token setting
+- Add directory keepers to required sphinx dirs, change to _build.
+  [Steve Arnold]
+
+  * update .gitignore (again) after this commit
 - Even more docstring and readme/rst doc cleanup. [Stephen L Arnold]
 - Cleanup some oddball link anchors flagged by sphinx check. [Stephen L
   Arnold]
