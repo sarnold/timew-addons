@@ -11,6 +11,8 @@ jobs:
   pre-commit:
     name: pre-commit
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
