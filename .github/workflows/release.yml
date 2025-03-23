@@ -17,6 +17,12 @@ jobs:
       contents: read
     uses: ./.github/workflows/ci.yml
 
+  build_debs:
+    name: Build deb packages
+    permissions:
+      contents: read
+    uses: ./.github/workflows/debs.yml
+
   build_docs:
     name: Build docs
     uses: ./.github/workflows/sphinx.yml
@@ -39,10 +45,14 @@ jobs:
 
       # download all artifacts to project dir
       - uses: actions/download-artifact@v4
+        with:
+          path: packages
+          pattern: timew*
+          merge-multiple: true
 
       - name: check artifacts
         run: |
-          ls -l packages/
+          ls -l packages
 
       - name: Generate changes file
         uses: sarnold/gitchangelog-action@915234f151ceffb7a8c4f76de77e4ae321087b8f  # v1.1.1
@@ -64,3 +74,4 @@ jobs:
           files: |
             packages/*.whl
             packages/*.tar.gz
+            packages/*.deb
