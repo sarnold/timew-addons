@@ -6,8 +6,6 @@ on:
   push:
     branches:
       - main
-permissions:
-  contents: write
 
 jobs:
   build:
@@ -54,7 +52,7 @@ jobs:
 
     - name: Deploy docs to gh-pages
       if: ${{ github.event_name == 'push' }}
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: JamesIves/github-pages-deploy-action@6c2d9db40f9296374acc17b90404b6e8864128c8  # v4.7.3
       with:
         branch: gh-pages
         folder: docs/_build/html/

@@ -1,6 +1,6 @@
 # -*- coding: utf-8; mode: python -*-
 ##
-## Format
+## Message Format
 ##
 ##   ACTION: [AUDIENCE:] COMMIT_MSG [!TAG ...]
 ##
@@ -57,7 +57,9 @@
 ## Any commit having its full commit message matching any regexp listed here
 ## will be ignored and won't be reported in the changelog.
 ##
+#ignore_regexps = []
 ignore_regexps = [
+    r'dependabot',
     r'@minor', r'!minor',
     r'@cosmetic', r'!cosmetic',
     r'@refactor', r'!refactor',
@@ -95,6 +97,7 @@ section_regexps = [
     ('Fixes', [
         r'^[fF]ix\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
      ]),
+
     ('Other', None ## Match all lines
      ),
 ]
@@ -134,7 +137,19 @@ section_regexps = [
 #body_process = Wrap(regexp=r'\n(?=\w+\s*:)') | Indent(chars="  ")
 #body_process = Wrap(regexp=r'\n(?=\w+\s*:)')
 #body_process = noop
-body_process = ReSub(r'((^|\n)[A-Z]\w+(-\w+)*: .*(\n\s+.*)*)+$', r'') | strip
+# yes, this is a bit ugly...
+# change '------' and '======' into mixed '-======-'
+# to avoid having them look like rst sections
+# (but also avoid turning 'A == B' into 'A =- B')
+body_process = (ReSub(r'((^|\n)[A-Z]\w+(-\w+)*: .*(\n\s+.*)*)+$', r'') |
+                ReSub(r'---', r'===') |
+                ReSub(r'=--', r'===') |
+                ReSub(r'(^|\s)===', r'\1-==') |
+                ReSub(r'===($|\s)', r'==-\1') |
+                ReSub(r'-==($|\s)', r'-=-\1') |
+                strip)
+#body_process = lambda text: ""
+#body_process = ReSub(r'.*', '')
 
 
 ## ``subject_process`` is a callable
@@ -160,11 +175,12 @@ tag_filter_regexp = r'^[0-9]+\.[0-9]+(\.[0-9]+)?$'
 ##
 ## This label will be used as the changelog Title of the last set of changes
 ## between last valid tag and HEAD if any.
-#unreleased_version_label = "(unreleased)"
+# custom template (.tpl file below) overrides this setting
 unreleased_version_label = lambda: swrap(
     ["git", "describe", "--tags"],
     shell=False,
 )
+#unreleased_version_label = "(unreleased)"
 
 
 ## ``output_engine`` is a callable
@@ -247,11 +263,12 @@ include_merge = False
 ##        take care of everything and might be more complex. Check the README
 ##        for a complete copy-pastable example.
 ##
-# publish = FileInsertAtFirstRegexMatch(
+# publish = FileInsertIntoFirstRegexMatch(
 #     "CHANGELOG.rst",
 #     r'/(?P<rev>[0-9]+\.[0-9]+(\.[0-9]+)?)\s+\([0-9]+-[0-9]{2}-[0-9]{2}\)\n--+\n/',
 #     idx=lambda m: m.start(1)
 # )
+
 #publish = stdout
 
 
