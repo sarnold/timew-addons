@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>timew_status package &mdash; timew-addons 0.3.3.dev4+g4ecb6d8 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2dd83190"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="timew_status.utils module" href="timew_status.utils.html" />
+    <link rel="prev" title="timew_status" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            timew-addons
+              <img src="../_static/timew.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Timewarrior addon bits</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">timew_status</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">timew_status package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="timew_status.utils.html">timew_status.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-timew_status">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.do_install"><code class="docutils literal notranslate"><span class="pre">do_install()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.get_config"><code class="docutils literal notranslate"><span class="pre">get_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.get_delta_limits"><code class="docutils literal notranslate"><span class="pre">get_delta_limits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.get_state_icon"><code class="docutils literal notranslate"><span class="pre">get_state_icon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.get_state_str"><code class="docutils literal notranslate"><span class="pre">get_state_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.get_status"><code class="docutils literal notranslate"><span class="pre">get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.run_cmd"><code class="docutils literal notranslate"><span class="pre">run_cmd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timew_status.to_td"><code class="docutils literal notranslate"><span class="pre">to_td()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">timew-addons</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">timew_status</a></li>
+      <li class="breadcrumb-item active">timew_status package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/timew_status.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="timew-status-package">
+<h1>timew_status package<a class="headerlink" href="#timew-status-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="timew_status.utils.html">timew_status.utils module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.check_for_timew"><code class="docutils literal notranslate"><span class="pre">check_for_timew()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.do_install"><code class="docutils literal notranslate"><span class="pre">do_install()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.get_config"><code class="docutils literal notranslate"><span class="pre">get_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.get_delta_limits"><code class="docutils literal notranslate"><span class="pre">get_delta_limits()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.get_state_icon"><code class="docutils literal notranslate"><span class="pre">get_state_icon()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.get_state_str"><code class="docutils literal notranslate"><span class="pre">get_state_str()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.get_status"><code class="docutils literal notranslate"><span class="pre">get_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.get_userdirs"><code class="docutils literal notranslate"><span class="pre">get_userdirs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.parse_for_tag"><code class="docutils literal notranslate"><span class="pre">parse_for_tag()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.run_cmd"><code class="docutils literal notranslate"><span class="pre">run_cmd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timew_status.utils.html#timew_status.utils.to_td"><code class="docutils literal notranslate"><span class="pre">to_td()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-timew_status">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-timew_status" title="Link to this heading"></a></h2>
+<p>Monitoring and reporting tools for Timew tracking intervals with optional
+appindicator alerts for keyboard time and daily hours.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.do_install">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">do_install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#do_install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.do_install" title="Link to this definition"></a></dt>
+<dd><p>Install report extensions to timew extensions directory. The default src
+paths are preconfigured and should probably not be changed unless you
+know what you are doing, since <em>they are created during install or setup</em>.
+You should, however, adjust the destination path in <code class="docutils literal notranslate"><span class="pre">extensions_dir</span></code> if
+needed for your platform. Returns the destination path string for each
+installed extension script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cfg</strong> – runtime CFG dict</p>
+</dd>
+<dt class="field-even">Return files<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of strings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.get_config">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Munch</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#get_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.get_config" title="Link to this definition"></a></dt>
+<dd><p>Load configuration file and munchify the data. If local file is not
+found in config directory, the default will be loaded and saved to
+XDG config directory. Return a Munch cfg obj and corresponding Path
+obj.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_encoding</strong> (<em>str</em>) – file encoding of config file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of Munch and Path objs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.get_delta_limits">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">get_delta_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ucfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">timedelta</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#get_delta_limits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.get_delta_limits" title="Link to this definition"></a></dt>
+<dd><p>Return config max/snooze limits as timedeltas. Everything comes from
+static config values and gets padded with seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ucfg</strong> – runtime CFG dict</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of 4 timedeltas</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.get_state_icon">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">get_state_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#get_state_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.get_state_icon" title="Link to this definition"></a></dt>
+<dd><p>Look up the state msg and return the icon name. Use builtin symbolic
+icons as fallback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<em>str</em>) – name of state key</p></li>
+<li><p><strong>cfg</strong> – runtime CFG (dict)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>matching icon name (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.get_state_str">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">get_state_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmproc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CompletedProcess</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TimeDelta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#get_state_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.get_state_str" title="Link to this definition"></a></dt>
+<dd><p>Return timew state message and tracking state, ie, the key for dict
+with icons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmproc</strong> (<em>CompletedProcess</em>) – completed timew process obj</p></li>
+<li><p><strong>count</strong> (<em>timedelta</em>) – seat time counter value</p></li>
+<li><p><strong>cfg</strong> (<em>Dict</em>) – runtime CFG</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of state msg and state string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.get_status">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.get_status" title="Link to this definition"></a></dt>
+<dd><p>Return timew tracking status (output of <code class="docutils literal notranslate"><span class="pre">timew</span></code> with no arguments).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>timew output str or None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – for timew not found error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.run_cmd">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">run_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'status'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">CompletedProcess</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#run_cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.run_cmd" title="Link to this definition"></a></dt>
+<dd><p>Run timew command subject to the given action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>action</strong> – one of &lt;start|stop|status&gt;</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>completed proc obj and result msg</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – for timew action error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="timew_status.to_td">
+<span class="sig-prename descclassname"><span class="pre">timew_status.</span></span><span class="sig-name descname"><span class="pre">to_td</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">timedelta</span></span></span><a class="reference internal" href="../_modules/timew_status/utils.html#to_td"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#timew_status.to_td" title="Link to this definition"></a></dt>
+<dd><p>Convert a time string in HH:MM:SS format to a timedelta object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hms</strong> – time string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>timedelta</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="timew_status" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timew_status.utils.html" class="btn btn-neutral float-right" title="timew_status.utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Stephen L Arnold.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
