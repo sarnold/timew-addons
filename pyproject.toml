@@ -6,14 +6,15 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "timew-addons"
+name = "timew_addons"
 description = "A collection of timewarrior extensions and experiments"
 dynamic = ["version"]
 readme = "README.rst"
 
 # legacy bits and new both fail in different versions
 # need workaround until PEP639 has more backend support
-license = "GPL-3.0-or-later"
+# license = "GPL-3.0-or-later"
+license = {text = "GPL-3.0-or-later"}
 
 authors = [
     {name = "Stephen Arnold"},
@@ -46,7 +47,7 @@ dependencies = [
     "pycairo",
     "timew-report",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 
 [project.optional-dependencies]
 dev = [
@@ -118,6 +119,10 @@ log_cli =  false
 doctest_optionflags = ["ELLIPSIS", "NORMALIZE_WHITESPACE",]
 addopts = "--strict-markers"
 markers = "subscript"
+filterwarnings = [
+    "ignore:currentThread:DeprecationWarning",
+    "ignore:co_lnotab:DeprecationWarning",
+]
 
 [tool.coverage.run]
 branch = true

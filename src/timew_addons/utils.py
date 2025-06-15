@@ -4,18 +4,16 @@ Base configuration and app helper functions.
 
 from __future__ import annotations
 
-import datetime
 import os
 import subprocess
 import sys
 from datetime import timedelta
 from pathlib import Path
 from shutil import which
-from typing import Dict, List, NewType, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from munch import Munch
 
-TimeDelta = NewType("TimeDelta", datetime.timedelta)
 APP_NAME = 'timew_status_indicator'
 CFG = {
     # time strings are HH:MM (no seconds)
@@ -69,7 +67,7 @@ def do_install(cfg: Dict) -> List[str]:
     srcdir = Path(prefix) / cfg["install_dir"]
     destdir = Path.home() / cfg["extensions_dir"]
     extensions = ['totals.py', 'onelineday.py']
-    files = []
+    files: List = []
 
     for file in extensions:
         dest = destdir / file
@@ -98,8 +96,8 @@ def get_config(file_encoding: str = 'utf-8') -> Tuple[Munch, Path]:
     cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
         print(f"Saving initial config data to {cfgfile}")  # fmt: off
-        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)  # type: ignore[attr-defined]
-    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))  # type: ignore[attr-defined]
+        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)  # type: ignore
+    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
     # fmt: on
     return cfgobj, cfgfile
 
@@ -163,7 +161,7 @@ def get_state_icon(state: str, cfg: Dict) -> str:
 
 
 def get_state_str(
-    cmproc: subprocess.CompletedProcess[bytes], count: TimeDelta, cfg: Dict
+    cmproc: subprocess.CompletedProcess[bytes], count: timedelta, cfg: Dict
 ) -> Tuple[str, str]:
     """
     Return timew state message and tracking state, ie, the key for dict
@@ -178,7 +176,7 @@ def get_state_str(
 
     :return: tuple of state msg and state string
     """
-    (DAY_MAX, DAY_LIMIT, SEAT_MAX, SEAT_LIMIT) = get_delta_limits(cfg)
+    (day_max, day_limit, seat_max, seat_limit) = get_delta_limits(cfg)
 
     state = 'INACTIVE' if cmproc.returncode == 1 else 'ACTIVE'
     msg = cmproc.stdout.decode('utf8')
@@ -187,19 +185,19 @@ def get_state_str(
 
     for x in [x for x in lines if x.split(';')[0] == 'total']:
         day_total = x.split(';')[1]
-    if DAY_MAX < to_td(day_total) < DAY_LIMIT:
+    if day_max < to_td(day_total) < day_limit:
         state = 'WARNING'
-        msg = f'WARNING: day max of {DAY_MAX} has been exceeded\n' + msg
-    if to_td(day_total) > DAY_LIMIT:
+        msg = f'WARNING: day max of {day_max} has been exceeded\n' + msg
+    if to_td(day_total) > day_limit:
         state = 'ERROR'
-        msg = f'ERROR: day limit of {DAY_LIMIT} has been exceeded\n' + msg
+        msg = f'ERROR: day limit of {day_limit} has been exceeded\n' + msg
     if cfg["seat_max"] != "00:00" and cfg["seat_snooze"] != "00:00":
-        if SEAT_MAX < count < SEAT_LIMIT:
+        if seat_max < count < seat_limit:
             state = 'WARNING'
-            msg = f'WARNING: seat max of {SEAT_MAX} has been exceeded\n' + msg
-        if count > SEAT_LIMIT:
+            msg = f'WARNING: seat max of {seat_max} has been exceeded\n' + msg
+        if count > seat_limit:
             state = 'ERROR'
-            msg = f'ERROR: seat limit of {SEAT_LIMIT} has been exceeded\n' + msg
+            msg = f'ERROR: seat limit of {seat_limit} has been exceeded\n' + msg
     return msg, state
 
 
@@ -304,7 +302,8 @@ def to_td(hms: str) -> timedelta:
     :return: timedelta
     """
     hrs, mins, secs = hms.split(':')
-    return timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
+    td: timedelta = timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
+    return td
 
 
 DEBUG = os.getenv('DEBUG', default=None)

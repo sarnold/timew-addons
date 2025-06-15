@@ -46,7 +46,7 @@ extensions = [
     'sphinx.ext.viewcode',
 ]
 
-apidoc_module_dir = '../../src/timew_status/'
+apidoc_module_dir = '../../src/timew_addons/'
 apidoc_output_dir = 'api'
 apidoc_excluded_paths = ['tests', 'scripts']
 apidoc_separate_modules = True
@@ -104,7 +104,7 @@ description = 'Timewarrior addons including an appindicator GUI and report exten
 
 pdf_documents = [
     #('filename', u'output filename', 'Title', 'author(s)'),
-    ('index', u'timew_status', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
+    ('index', u'timew_addons', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
 ]
 
 # A comma-separated list of custom stylesheets. Example:

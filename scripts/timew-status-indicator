@@ -24,7 +24,7 @@ gi.require_version('AyatanaAppIndicator3', '0.1')
 from gi.repository import AyatanaAppIndicator3 as appindicator
 from gi.repository import Gdk, Gtk, Notify
 
-from timew_status import (
+from timew_addons import (
     CFG,
     DEBUG,
     TAG,
@@ -40,7 +40,6 @@ from timew_status import (
 APP_VERSION = __version__
 APPINDICATOR_ID = 'timew_status_indicator'
 COUNT: typing.Counter[str] = Counter()
-SLEEP_SEC = CFG['loop_idle_seconds']
 
 
 class TextWindow(Gtk.Window):
@@ -110,6 +109,7 @@ class Indicator:
         old_state = 'INACTIVE'
         new_state = 'INACTIVE'
         guide = '99999999'
+        sleep_sec = CFG['loop_idle_seconds']
 
         while True:
             current_tick_count = timedelta(seconds=COUNT['SeatTick'])
@@ -129,11 +129,11 @@ class Indicator:
                     self.indicator.set_label(new_state.format().center(8), guide)
                 Notify.Notification.new("Timew state", msg, None).show()
             old_state = new_state
-            COUNT['SeatTick'] += SLEEP_SEC
+            COUNT['SeatTick'] += sleep_sec
             if DEBUG:
                 print(f'My tag text: {TAG["text"]}')
                 print(f'My tick count: {current_tick_count}')
-            time.sleep(SLEEP_SEC)
+            time.sleep(sleep_sec)
 
     def create_menu(self):
         menu = Gtk.Menu()
