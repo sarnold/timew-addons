@@ -1,5 +1,5 @@
-Developer/User Overview for Timew-Addons
-========================================
+Overview for Timew-Addons
+=========================
 
 The primary timewarrior_ addon bits included here are written in Python_:
 
@@ -24,3 +24,4 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
+* :ref:`search`

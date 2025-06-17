@@ -63,11 +63,14 @@ cov = [
     "coverage_python_version",
 ]
 doc = [
+    "semaver",
     "sphinx",
     "sphinx_git",
-    "recommonmark",
-    "sphinx_rtd_theme",
     "sphinxcontrib-apidoc",
+    "myst-parser",
+    "sphinx-nefertiti",
+    "sphinxcontrib.mermaid",
+    "sphinx_rtd_theme<3.0.0",
     "rst2pdf[svgsupport]",
 ]
 test = [

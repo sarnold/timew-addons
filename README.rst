@@ -426,10 +426,20 @@ tracking interval. The states and corresponding icons are shown below:
 :APP: |app| While not a state, we use this to retrieve the app icon.
 
 .. |app| image:: gh/images/timew.svg
+   :align: top
+   :width: 20 px
 .. |inactive| image:: gh/images/timew_inactive.svg
+   :align: top
+   :width: 20 px
 .. |info| image:: gh/images/timew_info.svg
+   :align: top
+   :width: 20 px
 .. |warn| image:: gh/images/timew_warning.svg
+   :align: top
+   :width: 20 px
 .. |err| image:: gh/images/timew_error.svg
+   :align: top
+   :width: 20 px
 
 
 PyGObject references

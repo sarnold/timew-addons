@@ -41,8 +41,7 @@ def check_for_timew() -> str:
     Make sure we can find the ``timew`` binary in the user environment
     and return a path string.
 
-    :return timew_path: program path strings
-    :rtype str: path to program if found, else None
+    :returns: program path string
     """
     timew_path = which('timew')
     if not timew_path:
@@ -60,8 +59,8 @@ def do_install(cfg: Dict) -> List[str]:
     needed for your platform. Returns the destination path string for each
     installed extension script.
 
-    :param cfg: runtime CFG dict
-    :return files: list of strings
+    :param cfg: runtime CFG
+    :returns: list of path strings
     """
     prefix = cfg["install_prefix"]
     srcdir = Path(prefix) / cfg["install_dir"]
@@ -89,8 +88,7 @@ def get_config(file_encoding: str = 'utf-8') -> Tuple[Munch, Path]:
     obj.
 
     :param file_encoding: file encoding of config file
-    :type file_encoding: str
-    :return: tuple of Munch and Path objs
+    :returns: tuple of Munch and Path objs
     """
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
@@ -108,7 +106,7 @@ def get_delta_limits(ucfg: Dict) -> Tuple[timedelta, timedelta, timedelta, timed
     static config values and gets padded with seconds.
 
     :param ucfg: runtime CFG dict
-    :return: tuple of 4 timedeltas
+    :returns: tuple of 4 timedeltas
     """
     cfg = Munch.fromDict(ucfg)
     pad = ':00'
@@ -128,10 +126,8 @@ def get_state_icon(state: str, cfg: Dict) -> str:
     icons as fallback.
 
     :param state: name of state key
-    :type state: str
-    :param cfg: runtime CFG (dict)
-
-    :return: matching icon name (str)
+    :param cfg: runtime CFG
+    :returns: matching icon name
     """
     install_path = '/usr/share/icons/hicolor/scalable/apps'
     icon_name = 'timew.svg'
@@ -168,13 +164,9 @@ def get_state_str(
     with icons.
 
     :param cmproc: completed timew process obj
-    :type cmproc: CompletedProcess
     :param count: seat time counter value
-    :type count: timedelta
     :param cfg: runtime CFG
-    :type cfg: Dict
-
-    :return: tuple of state msg and state string
+    :returns: tuple of state msg and state string
     """
     (day_max, day_limit, seat_max, seat_limit) = get_delta_limits(cfg)
 
@@ -206,7 +198,7 @@ def get_status() -> subprocess.CompletedProcess[bytes]:
     Return timew tracking status (output of ``timew`` with no arguments).
 
     :param None:
-    :return: timew output str or None
+    :returns: timew output str or None
     :raises RuntimeError: for timew not found error
     """
     timew_cmd = check_for_timew()
@@ -223,7 +215,7 @@ def get_userdirs() -> Path:
     application name. This may grow if needed.
 
     :param None:
-    :return: XDG Path obj
+    :returns: XDG Path obj
     """
     xdg_path = os.getenv('XDG_CONFIG_HOME')
     config_home = Path(xdg_path) if xdg_path else Path.home().joinpath('.config')
@@ -238,7 +230,7 @@ def parse_for_tag(text: str) -> str:
     Parse the output of timew start/stop commands for the tag string.
 
     :param text: start or stop output from ``timew`` (via run_cmd)
-    :return: timew tag string
+    :returns: timew tag string
     """
     for line in text.splitlines():
         if line.startswith(("Tracking", "Recorded")):
@@ -253,7 +245,7 @@ def run_cmd(
     Run timew command subject to the given action.
 
     :param action: one of <start|stop|status>
-    :return: completed proc obj and result msg
+    :returns: completed proc obj and result msg
     :raises RuntimeError: for timew action error
     """
     timew_cmd = check_for_timew()
@@ -299,7 +291,7 @@ def to_td(hms: str) -> timedelta:
     Convert a time string in HH:MM:SS format to a timedelta object.
 
     :param hms: time string
-    :return: timedelta
+    :returns: timedelta
     """
     hrs, mins, secs = hms.split(':')
     td: timedelta = timedelta(hours=int(hrs), minutes=int(mins), seconds=int(secs))
