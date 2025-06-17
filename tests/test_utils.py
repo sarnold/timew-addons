@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from munch import Munch
 
-from timew_status.utils import (
+from timew_addons.utils import (
     check_for_timew,
     do_install,
     get_config,
