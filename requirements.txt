@@ -1,6 +1,5 @@
-importlib-metadata; python_version < '3.8'
 munch[yaml]
 timew-report
 pycairo
-PyGObject==v3.50.0; python_version < "3.13"
+PyGObject<=v3.50.0; python_version < "3.13"
 PyGObject>=v3.52.1; python_version > "3.12"

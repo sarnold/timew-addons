@@ -13,8 +13,8 @@ readme = "README.rst"
 
 # legacy bits and new both fail in different versions
 # need workaround until PEP639 has more backend support
-# license = "GPL-3.0-or-later"
-license = {text = "GPL-3.0-or-later"}
+license = "GPL-3.0-or-later"
+# license = {text = "GPL-3.0-or-later"}
 
 authors = [
     {name = "Stephen Arnold"},
@@ -31,7 +31,6 @@ classifiers = [
     "Environment :: X11 Applications :: GTK",
     "Environment :: X11 Applications :: Gnome",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -40,8 +39,7 @@ classifiers = [
 ]
 
 dependencies = [
-    'importlib-metadata>=4.6; python_version < "3.8"',
-    'PyGObject==v3.50.0; python_version < "3.13"',
+    'PyGObject<=v3.50.0; python_version < "3.13"',
     'PyGObject>=v3.52.1; python_version > "3.12"',
     "munch[yaml]",
     "pycairo",
@@ -54,7 +52,7 @@ dev = [
     "bandit",
     "flake8",
     "isort",
-    "mypy==0.990",
+    "mypy >= 0.990",
     "black >= 22.3.0",
     "pylint >= 3.1.0",
 ]
@@ -71,7 +69,6 @@ doc = [
     "sphinx-nefertiti",
     "sphinxcontrib.mermaid",
     "sphinx_rtd_theme<3.0.0",
-    "rst2pdf[svgsupport]",
 ]
 test = [
     "pytest",
@@ -114,6 +111,7 @@ script-files = [
 ]
 
 [tool.setuptools_scm]
+version_scheme = "post-release"
 
 [tool.pytest.ini_options]
 minversion = "6.0"

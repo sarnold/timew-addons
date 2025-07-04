@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import os
 import subprocess
-import sys
 from datetime import timedelta
 from pathlib import Path
 from shutil import which
@@ -46,7 +45,7 @@ def check_for_timew() -> str:
     timew_path = which('timew')
     if not timew_path:
         print('Cannot continue, no path found for timew')
-        sys.exit(1)
+        raise FileNotFoundError("timew not found in PATH")
     return timew_path
 
 

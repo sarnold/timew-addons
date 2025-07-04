@@ -80,6 +80,11 @@ jobs:
           sudo apt-get install devscripts
           debchange -v ${{ needs.get_version.outputs.version }}-${{ matrix.dist }} -b -M --distribution ${{ matrix.dist }} "ci build"
 
+      - name: Sed the license string
+        if: matrix.dist == 'bookworm'
+        run: |
+          sed -i -e "s|^license|#license|" -e "s|# license|license|" pyproject.toml
+
       - name: Build deb packages
         uses: jtdor/build-deb-action@v1
         env:

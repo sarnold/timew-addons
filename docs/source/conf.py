@@ -12,11 +12,7 @@
 import os
 import sys
 from datetime import datetime
-
-if sys.version_info < (3, 8):
-    from importlib_metadata import version
-else:
-    from importlib.metadata import version
+from importlib.metadata import version
 
 from semaver import Version
 import sphinx_nefertiti
@@ -55,8 +51,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'myst_parser',
     'sphinx_nefertiti',
-    'sphinxcontrib.mermaid',
-    'rst2pdf.pdfbuilder',
+    #'sphinxcontrib.mermaid',
+    #'rst2pdf.pdfbuilder',
 ]
 
 myst_enable_extensions = [
@@ -70,8 +66,8 @@ myst_enable_extensions = [
     'substitution',
 ]
 
+#myst_fence_as_directive = ["mermaid"]
 myst_suppress_warnings = ["myst.header"]
-myst_fence_as_directive = ["mermaid"]
 
 apidoc_module_dir = '../../src/timew_addons'
 apidoc_output_dir = 'api'

@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+import pytest
 from munch import Munch
 
 from timew_addons.utils import (
@@ -45,12 +46,20 @@ Recorded "vct-sw,refactor timew indicator config to yaml"
 """
 
 
-def test_timew_check():
+def test_check_for_timew():
     timew = check_for_timew()
     print(timew)
     assert 'timew' in timew
     assert 'bin' in timew
     assert isinstance(timew, str)
+
+
+def test_check_for_timew_bogus(monkeypatch, capfd):
+    monkeypatch.setenv("PATH", "/usr/local/bin")
+    with pytest.raises(FileNotFoundError) as excinfo:
+        check_for_timew()
+    print(str(excinfo.value))
+    assert "timew not found in PATH" in str(excinfo.value)
 
 
 def test_do_install(script_loc, tmpdir_session):
