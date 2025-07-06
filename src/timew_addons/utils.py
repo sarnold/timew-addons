@@ -12,6 +12,7 @@ from shutil import which
 from typing import Dict, List, Optional, Tuple
 
 from munch import Munch
+from ruamel.yaml import YAML
 
 APP_NAME = 'timew_status_indicator'
 CFG = {
@@ -33,6 +34,21 @@ CFG = {
     "install_dir": "share/timew-addons/extensions",
     "install_prefix": "/usr",
 }
+
+
+class FmtYAML(YAML):
+    """
+    Simple formatted YAML subclass with default indenting. Particularly
+    useful in old RHEL environments with ``ruamel.yaml==0.16.6``.
+    """
+
+    def __init__(self, **kwargs):
+        """
+        Init with specific indenting and quote preservation.
+        """
+        super().__init__(**kwargs)
+        self.preserve_quotes = True
+        self.indent(mapping=2, sequence=4, offset=2)
 
 
 def check_for_timew() -> str:
@@ -79,23 +95,21 @@ def do_install(cfg: Dict) -> List[str]:
     return files
 
 
-def get_config(file_encoding: str = 'utf-8') -> Tuple[Munch, Path]:
+def get_config() -> Tuple[Munch, Path]:
     """
     Load configuration file and munchify the data. If local file is not
     found in config directory, the default will be loaded and saved to
     XDG config directory. Return a Munch cfg obj and corresponding Path
     obj.
 
-    :param file_encoding: file encoding of config file
     :returns: tuple of Munch and Path objs
     """
     cfgdir = get_userdirs()
     cfgfile = cfgdir.joinpath('config.yaml')
     if not cfgfile.exists():
-        print(f"Saving initial config data to {cfgfile}")  # fmt: off
-        cfgfile.write_text(Munch.toYAML(CFG), encoding=file_encoding)  # type: ignore
-    cfgobj = Munch.fromYAML(cfgfile.read_text(encoding=file_encoding))
-    # fmt: on
+        print(f"Saving initial config data to {cfgfile}")
+        FmtYAML().dump(CFG, cfgfile)
+    cfgobj = Munch.fromDict(FmtYAML().load(cfgfile))
     return cfgobj, cfgfile
 
 

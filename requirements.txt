@@ -1,4 +1,5 @@
-munch[yaml]
+munch
+ruamel.yaml>=0.16.6
 timew-report
 pycairo
 PyGObject<=v3.50.0; python_version < "3.13"

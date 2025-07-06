@@ -39,7 +39,7 @@ jobs:
 
     - name: Build docs
       run: |
-        #tox -e ldocs
+        tox -e ldocs
         tox -e docs
 
     - uses: actions/upload-artifact@v4

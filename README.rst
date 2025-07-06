@@ -515,5 +515,5 @@ separator if needed:
     :alt: GitHub tag
 
 .. |license| image:: https://img.shields.io/github/license/sarnold/timew-addons
-    :target: https://github.com/sarnold/timew-addons/blob/master/LICENSE
+    :target: https://github.com/sarnold/timew-addons/blob/main/LICENSE
     :alt: License

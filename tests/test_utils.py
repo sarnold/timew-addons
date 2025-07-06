@@ -1,4 +1,5 @@
 from datetime import timedelta
+from pathlib import Path
 
 import pytest
 from munch import Munch
@@ -79,7 +80,8 @@ def test_do_install(script_loc, tmpdir_session):
 
 def test_get_config():
     cfgobj, cfgfile = get_config()
-    assert repr(cfgobj).startswith("Munch({'")
+    assert isinstance(cfgobj, Munch)
+    assert isinstance(cfgfile, Path)
     assert cfgfile.name == 'config.yaml'
     print(f'\n{cfgfile.name}')
     print(cfgobj)
