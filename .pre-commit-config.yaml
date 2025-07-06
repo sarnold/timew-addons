@@ -53,7 +53,7 @@ repos:
       additional_dependencies:
         - "PyYAML"
         - "munch"
-        - "munch-stubs"
+        - "munch-stubs @ git+https://github.com/VCTLabs/munch-stubs.git@main"
         - "PyGObject"
         - "PyGObject-stubs"
       files: src/

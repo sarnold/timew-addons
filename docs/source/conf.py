@@ -12,51 +12,77 @@
 import os
 import sys
 from datetime import datetime
+from importlib.metadata import version
 
-if sys.version_info < (3, 8):
-    from importlib_metadata import version
-else:
-    from importlib.metadata import version
+from semaver import Version
+import sphinx_nefertiti
 
-sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../src'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'timew-addons'
-year = datetime.now().year
-copyright = f"{year}, Stephen L Arnold"
-author = 'Stephen L Arnold'
-# The full version, including alpha/beta/rc tags
-release = version('timew_addons')
-# The short X.Y version.
-version = '.'.join(release.split('.')[:2])
+author = 'Stephen Arnold'
+copyright = '2024 - ' + str(datetime.now().year) + f' {author}'
+
+_ver_list = version('timew_addons').split(".")
+
+# The X.Y number.
+version = ".".join(_ver_list[:2])
+# The X.Y.Z number.
+release = ".".join(_ver_list[:3])
+
+_ver_last = str(Version(release) - Version('0.0.1'))
+if _ver_last.endswith('99'):
+    _ver_last = _ver_last[:-2]
+
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'rst2pdf.pdfbuilder',
     'sphinxcontrib.apidoc',
-    'sphinx.ext.napoleon',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autodoc.typehints',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
+    'myst_parser',
+    'sphinx_nefertiti',
+    #'sphinxcontrib.mermaid',
+    #'rst2pdf.pdfbuilder',
 ]
 
-apidoc_module_dir = '../../src/timew_status/'
+myst_enable_extensions = [
+    'amsmath',
+    'attrs_block',
+    'colon_fence',
+    'deflist',
+    'dollarmath',
+    'fieldlist',
+    'tasklist',
+    'substitution',
+]
+
+#myst_fence_as_directive = ["mermaid"]
+myst_suppress_warnings = ["myst.header"]
+
+apidoc_module_dir = '../../src/timew_addons'
 apidoc_output_dir = 'api'
 apidoc_excluded_paths = ['tests', 'scripts']
+apidoc_include_private = True
 apidoc_separate_modules = True
+
+autodoc_typehints = 'description'
 
 templates_path = ['_templates']
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+#pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
@@ -64,27 +90,56 @@ todo_include_todos = True
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
-html_logo = 'gh/images/timew.png'
-#html_static_path = ['_static']
-html_sidebars = {
-    '**': [
-        'relations.html',  # needs 'show_related': True theme option to display
-        'searchbox.html',
-    ]
+#html_theme = 'sphinx_rtd_theme'
+#html_logo = 'gh/images/timew.png'
+
+# The suffix(es) of source filenames.
+# You can specify multiple suffix as a list of string:
+#
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
 }
 
-html_theme_options = {
-    # Toc options
-    'collapse_navigation': True,
-    'sticky_navigation': True,
-    'navigation_depth': 4,
-}
-
-source_suffix = {'.rst': 'restructuredtext'}
+# The master toctree document.
 master_doc = "index"
 
 description = 'Timewarrior addons including an appindicator GUI and report extensions.'
+
+# test nefertiti settings
+language = "en"
+today_fmt = '%A %d. %B %Y, %H:%M'
+
+html_theme = "sphinx_nefertiti"
+
+html_theme_options = {
+    "monospace_font_size": ".90rem",
+
+    "style": "blue",
+    "style_header_neutral": True,
+    "pygments_light_style": "pastie",
+    "pygments_dark_style": "dracula",
+
+    "logo": "timew.svg",
+    "logo_width": 36,
+    "logo_height": 36,
+    "logo_alt": "timew-addons",
+
+    "repository_url": f"https://github.com/sarnold/{project}",
+    "repository_name": f"{project}",
+
+    "current_version": "latest",
+    "versions": [
+        (f"v{release}", f"https://sarnold.github.io/{project}/"),
+        (f"v{_ver_last}", f"https://sarnold.github.io/{project}/"),
+    ],
+
+    "show_colorset_choices": True,
+    # Return user's to 'blue' after a day since color was picked.
+    "reset_colorset_choice_after_ms": 1000 * 60 * 60 * 24,
+}
+
+html_static_path = ['static',]
 
 # -- Options for PDF output --------------------------------------------------
 
@@ -104,7 +159,7 @@ description = 'Timewarrior addons including an appindicator GUI and report exten
 
 pdf_documents = [
     #('filename', u'output filename', 'Title', 'author(s)'),
-    ('index', u'timew_status', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
+    ('index', u'timew_addons', u'Timew Status Indicator and Report Extensions', u"Stephen L Arnold"),
 ]
 
 # A comma-separated list of custom stylesheets. Example:
