@@ -70,8 +70,8 @@ jobs:
 
       - name: Fetch debian files
         run: |
-          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.3.1-1ubuntu1.22.04.1/timew-addons_0.3.1-1ubuntu1.22.04.1.debian.tar.xz
-          tar xf timew-addons_0.3.1-1ubuntu1.22.04.1.debian.tar.xz && rm *debian.tar.xz
+          wget https://launchpad.net/~nerdboy/+archive/ubuntu/embedded/+sourcefiles/timew-addons/0.3.2-1ubuntu1.24.04.1/timew-addons_0.3.2-1ubuntu1.24.04.1.debian.tar.xz
+          tar xf timew-addons_0.3.2-1ubuntu1.24.04.1.debian.tar.xz && rm *debian.tar.xz
           ls
 
       - name: Install deps and update debian changelog
@@ -79,6 +79,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install devscripts
           debchange -v ${{ needs.get_version.outputs.version }}-${{ matrix.dist }} -b -M --distribution ${{ matrix.dist }} "ci build"
+
+      - name: Sed the license string
+        if: matrix.dist == 'bookworm'
+        run: |
+          sed -i -e "s|^license|#license|" -e "s|# license|license|" pyproject.toml
 
       - name: Build deb packages
         uses: jtdor/build-deb-action@v1

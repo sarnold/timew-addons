@@ -1,5 +1,6 @@
-importlib-metadata; python_version < '3.8'
-munch[yaml]
+munch
+ruamel.yaml>=0.16.6
 timew-report
 pycairo
-PyGObject
+PyGObject<=v3.50.0; python_version < "3.13"
+PyGObject>=v3.52.1; python_version > "3.12"

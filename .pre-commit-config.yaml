@@ -51,12 +51,12 @@ repos:
         - --non-interactive
         - --implicit-reexport
       additional_dependencies:
-        - "PyYAML"
+        - "ruamel.yaml>=0.16.6"
         - "munch"
         - "munch-stubs"
         - "PyGObject"
         - "PyGObject-stubs"
-      files: src/
+      exclude: '^(tests/)'
 
   - repo: "https://github.com/asottile/blacken-docs"
     rev: "1.19.1"

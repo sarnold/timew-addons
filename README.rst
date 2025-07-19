@@ -174,8 +174,8 @@ generated python byte-code. In the latter case, the list of installed
 files can be obtained with the following command::
 
   $ python -m pip show -f timew_addons
-  Name: timew-addons
-  Version: 0.3.1.dev10+g8607982.d20250323
+  Name: timew_addons
+  Version: 0.3.3.dev4+g4ecb6d8.d20250615
   Summary: A collection of timewarrior extensions and experiments
   Home-page: https://github.com/sarnold/timew-addons
   Author: Stephen Arnold
@@ -199,17 +199,18 @@ files can be obtained with the following command::
     ../../../share/timew-addons/extensions/csv_rpt.py
     ../../../share/timew-addons/extensions/onelineday.py
     ../../../share/timew-addons/extensions/totals.py
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/INSTALLER
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/METADATA
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/RECORD
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/REQUESTED
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/WHEEL
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/licenses/LICENSE
-    timew_addons-0.3.1.dev10+g8607982.d20250323.dist-info/top_level.txt
-    timew_status/__init__.py
-    timew_status/__pycache__/__init__.cpython-313.pyc
-    timew_status/__pycache__/utils.cpython-313.pyc
-    timew_status/utils.py
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/INSTALLER
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/METADATA
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/RECORD
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/REQUESTED
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/WHEEL
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/licenses/LICENSE
+    timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/top_level.txt
+    timew_addons/__init__.py
+    timew_addons/__pycache__/__init__.cpython-313.pyc
+    timew_addons/__pycache__/utils.cpython-313.pyc
+    timew_addons/py.typed
+    timew_addons/utils.py
 
 Generated files
 ---------------
@@ -425,10 +426,20 @@ tracking interval. The states and corresponding icons are shown below:
 :APP: |app| While not a state, we use this to retrieve the app icon.
 
 .. |app| image:: gh/images/timew.svg
+   :align: top
+   :width: 20 px
 .. |inactive| image:: gh/images/timew_inactive.svg
+   :align: top
+   :width: 20 px
 .. |info| image:: gh/images/timew_info.svg
+   :align: top
+   :width: 20 px
 .. |warn| image:: gh/images/timew_warning.svg
+   :align: top
+   :width: 20 px
 .. |err| image:: gh/images/timew_error.svg
+   :align: top
+   :width: 20 px
 
 
 PyGObject references
@@ -504,5 +515,5 @@ separator if needed:
     :alt: GitHub tag
 
 .. |license| image:: https://img.shields.io/github/license/sarnold/timew-addons
-    :target: https://github.com/sarnold/timew-addons/blob/master/LICENSE
+    :target: https://github.com/sarnold/timew-addons/blob/main/LICENSE
     :alt: License

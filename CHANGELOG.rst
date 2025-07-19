@@ -2,6 +2,41 @@ Changelog
 =========
 
 
+0.3.3 (2025-07-18)
+------------------
+
+Changes
+~~~~~~~
+- Refactor deps and versions, use fallback yaml class, update tests.
+  [Stephen L Arnold]
+
+  * ruamel.yaml is less problematic than pyyaml in older environments
+  * cleanup more nits and update changelog
+- Backport package metadata from toml to setup.cfg. [Stephen L Arnold]
+
+  * mainly for packaging/deployment environments with older setuptools
+- Cleanup imports and versions, update tests and readme. [Stephen L
+  Arnold]
+
+  * add sed hack to debs workflow for building with older setuptools
+  * cleanup more project files and changelog bits
+- Update doc sources and config, try new sphinx theme. [Stephen L
+  Arnold]
+
+  * cleanup extensions and docstrings, add version helper to conf.py
+  * set alignment and image width, add static path for docs logo
+  * disable docs link check in ci until upstream theme fix
+
+Fixes
+~~~~~
+- Update debs target, rename module to align with package. [Stephen L
+  Arnold]
+
+  * cleanup module refs and mypy config, cleanup some lint
+  * add more type stub deps for mypy, ignore some warnings in pytest cfg
+  * use fallback TOML license table for now
+
+
 0.3.2 (2025-03-23)
 ------------------
 
