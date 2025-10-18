@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -31,6 +32,17 @@ CFG = {
     "install_prefix": "/usr",
 }
 
+tag_strings = [
+    "vct-sw,implement skeleton timew indicator",
+    "vct-sw,refactor indicator",
+    "vct-sw,refactor timew",
+    "vct-sw,refactor config to yaml",
+    "vct-sw,implement skeleton",
+]
+
+TAG_SEP = os.getenv('JTAG_SEPARATOR', default=',')
+job_tags = []
+
 start_txt = """
 Note: '"vct-sw,refactor timew indicator config to yaml"' is a new tag.
 Tracking "vct-sw,refactor timew indicator config to yaml"
@@ -45,6 +57,25 @@ Recorded "vct-sw,refactor timew indicator config to yaml"
   Ended              12:44:48
   Total               2:33:12
 """
+
+
+def update_job_tags(tag):
+    '''
+    Extract job tags from full tag string
+    '''
+    job_tag = tag.split(f'{TAG_SEP}', maxsplit=1)
+    print(job_tag)
+    if job_tag[0] not in job_tags:
+        job_tags.append(job_tag[0])
+
+
+def test_update_job_tags():
+    print(tag_strings[0])
+    for tag in tag_strings:
+        update_job_tags(tag)
+    print(job_tags[0])
+    tags = [x.split(',', maxsplit=1)[1] for x in tag_strings]
+    print(tags)
 
 
 def test_check_for_timew():
