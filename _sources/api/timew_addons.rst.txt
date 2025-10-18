@@ -1,0 +1,18 @@
+timew\_addons package
+=====================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   timew_addons.utils
+
+Module contents
+---------------
+
+.. automodule:: timew_addons
+   :members:
+   :undoc-members:
+   :show-inheritance:
