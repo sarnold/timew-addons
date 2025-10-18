@@ -10,7 +10,7 @@ and/or task, for example::
 using a more specific task string in quotes following a comma.
 Then run ``timew oneline march`` or some other time interval.
 
-This report will output a oneline per day for each <jobname> format::
+This report will output a oneline per <jobday> for each <jobname> format::
 
     -- xyz3D-cyber
     3/1 1.5h review security controls for yocto
@@ -39,6 +39,7 @@ parser = TimeWarriorParser(sys.stdin)
 totals: Dict[str, timedelta] = dict()
 job_days: List[str] = list()
 job_tags: List[str] = list()
+job_tag_strs: List[str] = list()
 formatted = timedelta(0)
 final_total = timedelta(hours=0)
 
@@ -101,6 +102,7 @@ for job_tag in sorted(job_tags):
                 x for x in interval.get_tags() if x.split(',', maxsplit=1)[0] == job_tag
             ]  # fmt: on
             for tag in tags:
+                job_tag_strs.append(tag)
                 if tag in totals:
                     totals[tag] += tracked_hrs
                 else:
@@ -112,11 +114,15 @@ for job_tag in sorted(job_tags):
                 print(f'{job_day} {totals[tag]} {tag}')
         totals.clear()
     final_total += tracked_total
+    all_strings = [x.split(',', maxsplit=1)[1] for x in job_tag_strs if job_tag in x]
+    tag_list = list(dict.fromkeys(all_strings))
+    tag_strings = " ,".join(tag_list)
 
     if CSV_OUTPUT:
         print(f'{job_tag};{strf_delta(tracked_total)}')
     else:
         print(f'\nTotal for {job_tag}: {strf_delta(tracked_total)} hrs\n')
+        print(f'Tags for {job_tag}: {tag_strings}\n')
 
 if CSV_OUTPUT:
     # preserve this output format for timew-status-indicator, total in HH:MM::SS
