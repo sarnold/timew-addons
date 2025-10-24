@@ -1,0 +1,7 @@
+timew\_addons.utils module
+==========================
+
+.. automodule:: timew_addons.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,952 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="colorset-reset" content="86400000" />
+    <meta name="docsearch:name" content="timew-addons" />
+    <meta name="docsearch:package_type" content="" />
+    <meta name="docsearch:release" content="0.3.4" />
+    <meta name="docsearch:version" content="0.3" />
+    
+      <meta name="theme-color" content="#CFE2FF" media="(prefers-color-scheme: light)" />
+      <meta name="theme-color" content="#031633" media="(prefers-color-scheme: dark)" />
+    
+    
+      <title>Timewarrior addon bits &mdash; timew-addons 0.3.4 documentation</title>
+    
+    <link rel="canonical" href="README" />
+          <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="_static/sphinx-nefertiti-blue.min.css?v=e523baab" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="_static/fonts/nunito/stylesheet.css?v=abf98f06" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="_static/fonts/ubuntu-sans-mono/stylesheet.css?v=8616a587" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="_static/pygments-dark.css?v=f21207c5" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="_static/pygments-light.css?v=6c104457" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="_static/bootstrap-icons.min.css?v=44730005" /><!-- add (1) -->
+        <link rel="index" title="Index" href="genindex.html" />
+        <link rel="search" title="Search" href="search.html" />
+        <link rel="top" title="timew-addons 0.3.4 documentation" href="#" />
+        <link rel="next" title="timew_addons" href="api/modules.html" />
+        <link rel="prev" title="Overview for Timew-Addons" href="index.html" />
+    <style>
+      :root {
+        --nftt-body-font-family: "Nunito", var(--nftt-font-sans-serif) !important;
+        --nftt-font-monospace: "Ubuntu Sans Mono", var(--nftt-font-family-monospace) !important;
+        --nftt-project-name-font: var(--nftt-body-font-family);
+        --nftt-documentation-font: var(--nftt-body-font-family);
+        --nftt-doc-headers-font: "Georgia", var(--nftt-documentation-font);--nftt-monospace-font-size: .90rem;}
+
+      h1 *,
+      h2 *,
+      h3 *,
+      h4 *,
+      h5 *,
+      h6 * {
+        font-size: inherit;
+      }
+
+      .light pre,
+      .dark pre {
+        line-height: var(--nftt-pre-line-height, 140%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="back-to-top-container" class="position-fixed start-50 translate-middle-x">
+      <button id="back-to-top" type="button" class="d-none btn btn-neutral btn-sm shadow px-4" data-bs-toggle="button">Back to top</button>
+    </div>
+    <header id="snftt-nav-bar" class="navbar navbar-expand-xl neutral nftt-navbar flex-column fixed-top">
+      <div class="skip-links container-fluid visually-hidden-focusable overflow-hidden justify-content-start flex-grow-1">
+        <div class="border-bottom mb-2 pb-2 w-100">
+          <a class="d-none d-md-inline-flex p-2 m-1" href="#sidebar-filter">Skip to index filter</a>
+          <a class="d-inline-flex p-2 m-1" href="#content">Skip to main content</a>
+        </div>
+      </div>
+      <nav class="container-xxl nftt-gutter flex-nowrap" aria-label="Main navigation">
+        <div class="nftt-navbar-toggler">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Toggle documentation navigation">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+          <a
+            href="index.html"
+            class="navbar-brand"
+          >
+            <img src="_static/timew.svg" width="36" height="36" alt="timew-addons"
+              class="project-logo"
+            />
+            <span class="brand-text">timew-addons</span><span class="brand-short-text">timew-addons</span>
+          </a>
+        
+        
+        <div class="d-flex d-xl-none">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#nfttSearch" aria-controls="nfttSearch" aria-label="Search">
+            <i class="bi bi-search"></i>
+          </button>
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#nfttNavbar" aria-controls="nfttNavbar" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+        </div>
+        
+<div class="offcanvas-xl offcanvas-end flex-grow-1" tabindex="-1" id="nfttSearch" aria-labelledby="nfttSearchOffcanvasLabel" data-bs-scroll="true">
+  <div class="offcanvas-header px-4 pb-0">
+    <h5 class="offcanvas-title fw-bold" id="nfttSearchOffcanvasLabel">Search the documentation</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#nfttSearch"></button>
+  </div>
+  <div class="offcanvas-body p-4 pt-0 p-xl-0 ps-xl-4">
+    <hr class="d-xl-none text-white-50">
+    <ul class="navbar-nav flex-row align-items-center flex-wrap ms-md-auto">
+      <li class="nav-item col-12 col-xl-auto">
+        <form id="nftt-search-form" action="search.html" method="get">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control search-input" placeholder="Search" aria-label="Search" aria-describedby="button-search">
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+            <button class="btn btn-primary" type="submit" id="button-search" aria-label="Search"><i class="bi bi-search"></i></button>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+        <div class="offcanvas-xl offcanvas-end" tabindex="-1" id="nfttNavbar" aria-labelledby="nfttNavbarOffcanvasLabel" data-bs-scroll="true">
+          <div class="offcanvas-header px-4 pb-0">
+            <div class="offcanvas-title navbar-brand" id="nfttNavbarOffcanvasLabel"><span class="brand-short-text">timew-addons</span></div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#nfttNavbar"></button>
+          </div>
+          <div class="offcanvas-body p-4 pt-0 p-xl-0 px-xl-3">
+            <hr class="d-xl-none text-white-50">
+            <ul class="navbar-nav flex-row align-items-center flex-wrap ms-lg-auto">
+              
+              
+              <li class="nav-item col-12 col-xl-auto">
+                <a class="nav-link py-2 py-xl-0 px-0 px-xl-2" href="https://github.com/sarnold/timew-addons" target="_blank" rel="noopener">
+                  <div class="d-flex align-items-center">
+                    <div class="me-2">
+                      <i class="bi bi-git size-24"></i>
+                    </div>
+                    <div class="repo d-flex flex-column align-items-center" data-snftt-repo-url="https://github.com/sarnold/timew-addons">
+                      timew-addons
+                      <div class="d-flex justify-content-center" data-snftt-repo-metrics>
+                        <span class="pe-2 d-flex justify-content-center align-items-center">
+                          <i class="bi bi-tag size-14"></i>
+                          <span class="repo-metric" data-snftt-repo-tag></span>
+                        </span>
+                        <span class="pe-2 d-flex justify-content-center align-items-center">
+                          <i class="bi bi-star size-14"></i>
+                          <span class="repo-metric" data-snftt-repo-stars></span>
+                        </span>
+                        <span class="d-flex justify-content-center align-items-center">
+                          <i class="bi bi-diagram-2 size-14"></i>
+                          <span class="repo-metric" data-snftt-repo-forks></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item col-12 col-xl-auto h-100" aria-hidden="true">
+                <div class="vr d-none d-xl-flex h-100 mx-xl-2 text-white-50"></div>
+                <hr class="d-xl-none text-white-50">
+              </li>
+              
+              
+  <li class="nav-item dropdown">
+    <a class="nav-link d-flex py-2 px-0 px-xl-2 dropdown-toggle align-items-center" id="snftt-version" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Select version">
+      <span id="snftt-version-text" class="d-xl-none">timew-addons</span>
+      <span class="ms-2" data-snftt-version-active="latest">latest</span>
+    </a>
+    
+    <ul class="dropdown-menu dropdown-menu-end dropdown-limit-max-height" aria-labelledby="snftt-version-text" id="versions-dropdown-menu">
+      <li>
+        <h6 class="dropdown-header">Versions</h6>
+      </li>
+    </ul>
+  </li>
+  <li class="nav-item col-12 col-xl-auto h-100" aria-hidden="true">
+    <div class="vr d-none d-xl-flex h-100 mx-xl-2 text-white-50"></div>
+    <hr class="d-xl-none text-white-50">
+  </li>
+
+              
+  <!-- colorssets-dropdown.html -->
+  <li class="nav-item dropdown">
+    <a class="nav-link d-flex py-2 px-0 px-xl-2 dropdown-toggle align-items-center" id="snftt-color" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" aria-label="Change base color">
+      <i class="bi bi-palette"></i>
+      <span id="snftt-color-text" class="d-xl-none ms-2">Change base color</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="snftt-color-text">
+      <li>
+        <h6 class="dropdown-header">Change base color</h6>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center active" data-snftt-colorset="blue" href="#" aria-pressed="false">
+          <span class="blue">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Blue</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="indigo" href="#" aria-pressed="false">
+          <span class="indigo">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Indigo</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="purple" href="#" aria-pressed="false">
+          <span class="purple">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Purple</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="pink" href="#" aria-pressed="false">
+          <span class="pink">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Pink</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="red" href="#" aria-pressed="false">
+          <span class="red">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Red</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="orange" href="#" aria-pressed="false">
+          <span class="orange">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Orange</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="yellow" href="#" aria-pressed="false">
+          <span class="yellow">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Yellow</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="green" href="#" aria-pressed="false">
+          <span class="green">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Green</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="teal" href="#" aria-pressed="false">
+          <span class="teal">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Teal</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="default" href="#" aria-pressed="false">
+          <span class="cyan">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Cyan</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li><hr class="dropdown-divider" /></li>
+      <li>
+        <h6 class="dropdown-header">Header style</h6>
+      </li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center active current" data-snftt-colorset-neutral="on" href="#" aria-pressed="false">
+          <i class="bi bi-noise-reduction"></i>
+          <span class="ms-3">Neutral</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav-item col-12 col-xl-auto h-100" aria-hidden="true">
+    <div class="vr d-none d-xl-flex h-100 mx-xl-2 text-white-50"></div>
+    <hr class="d-lg-none text-white-50">
+  </li>
+
+              
+              <!-- lightdark-dropdown.html -->
+<li class="nav-item dropdown">
+  <a class="nav-link d-flex py-2 px-0 px-xl-2 dropdown-toggle align-items-center" id="snftt-luz" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" aria-label="Change appearance">
+    <i class="bi bi-circle-half" data-snftt-luz-icon-active></i>
+    <span id="snftt-luz-text" class="d-xl-none ms-2">Change appearance</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="snftt-luz-text">
+    <li>
+      <h6 class="dropdown-header">Change appearance</h6>
+    </li>
+    <li>
+      <a class="dropdown-item d-flex align-items-center" data-snftt-luz="light" href="#" aria-pressed="false">
+        <span>
+          <i class="bi bi-sun" data-snftt-luz-icon="light"></i>
+        </span>
+        <span class="ms-3">Light</span>
+        <i class="bi bi-check ms-auto"></i>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item d-flex align-items-center" data-snftt-luz="dark" href="#" aria-pressed="false">
+        <span>
+          <i class="bi bi-moon-stars" data-snftt-luz-icon="dark"></i>
+        </span>
+        <span class="ms-3">Dark</span>
+        <i class="bi bi-check ms-auto"></i>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item current d-flex align-items-center" data-snftt-luz="default" href="#" aria-pressed="false">
+        <span>
+          <i class="bi bi-circle-half" data-snftt-luz-icon="default"></i>
+        </span>
+        <span class="ms-3">Automatic</span>
+        <i class="bi bi-check ms-auto"></i>
+      </a>
+    </li>
+  </ul>
+</li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+    </header>
+
+    <div class="container-fluid flex-grow-1">
+      <div class="nftt-gutter nftt-page">
+        <aside class="nftt-sidebar ">
+          <div class="nftt-sidebar-content">
+            
+            <div class="title d-none d-xl-none">
+              <i class="bi bi-book"></i>&nbsp;&nbsp;<span>Index</span>
+            </div>
+            <div id="sidebar" tabindex="-1" class="offcanvas-xl offcanvas-start" aria-labelledby="nfttSidebarOffcanvasLabel">
+                <!-- sidebartemplate: "globaltoc.html" --><div class="offcanvas-header border-bottom">
+  <h5 class="offcanvas-title fw-bold" id="nfttSidebarOffcanvasLabel">
+    Index
+  </h5>
+  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#sidebar"></button>
+</div>
+
+<div class="offcanvas-body">
+  <nav class="toc" aria-label="Main menu">
+    <div class="mb-3 p-1 pb-4 border-bottom">
+      <input id="sidebar-filter" type="text" name="filter" class="form-control form-control-sm" placeholder="index filter" aria-label="index filter">
+    </div>
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Timewarrior addon bits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">timew_addons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/timew_addons.html">timew_addons package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/timew_addons.utils.html">timew_addons.utils module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+</ul>
+
+  </nav>
+  <template data-toggle-item-template>
+    <button class="btn btn-sm btn-link toctree-expand" type="button">
+      <i class="bi bi-caret-right"></i>
+      <span class="visually-hidden">Toggle menu contents</span>
+    </button>
+  </template>
+</div>
+            </div>
+            
+          </div>
+        </aside>
+        <article id="content" class="nftt-content" role="main">
+          <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">Start</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Timewarrior addon bits</li>
+  </ol>
+</nav>
+    <section id="timewarrior-addon-bits">
+<h1>Timewarrior addon bits<a class="headerlink" href="#timewarrior-addon-bits" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://github.com/sarnold/timew-addons/actions/workflows/ci.yml"><img alt="CI workflow status" src="https://github.com/sarnold/timew-addons/actions/workflows/ci.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/sarnold/timew-addons/actions/workflows/check.yml"><img alt="Pre-commit status" src="https://github.com/sarnold/timew-addons/actions/workflows/check.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/sarnold/timew-addons/actions/workflows/release.yml"><img alt="Release workflow status" src="https://github.com/sarnold/timew-addons/actions/workflows/release.yml/badge.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;amp;logoColor=white" /></a> <a class="reference external" href="https://github.com/sarnold/timew-addons/actions/workflows/pylint.yml"><img alt="Pylint Score" src="https://raw.githubusercontent.com/sarnold/timew-addons/badges/main/pylint-score.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/sarnold/timew-addons/releases"><img alt="GitHub tag" src="https://img.shields.io/github/v/tag/sarnold/timew-addons?color=green&amp;include_prereleases&amp;label=latest%20release" /></a> <a class="reference external" href="https://github.com/sarnold/timew-addons/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/sarnold/timew-addons" /></a></p>
+<section id="what-is-timewarrior">
+<h2>What is timewarrior?<a class="headerlink" href="#what-is-timewarrior" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://timewarrior.net/docs/">Timewarrior</a> is a command line time tracking application, which allows
+you to record time spent on activities. You may be tracking your time
+for curiosity, or because your work requires it</p>
+<p>Timewarrior records time, and associates blocks of time with tags. The
+recorded data can be exposed as JSON for any app to consume.</p>
+<p>Built-in reports, as well as a set of extension reports, provides
+plenty of options, in addition to customizing the time reporting using
+any programming language.</p>
+</section>
+<section id="but-what-are-the-addons">
+<h2>But what are the addons?<a class="headerlink" href="#but-what-are-the-addons" title="Link to this heading">¶</a></h2>
+<p>This repository is mainly a place for some example report extensions (where
+in this case “example” means things actually used for reporting work hrs)
+and some experimental UI ideas.</p>
+<p>The report extensions here use an existing <a class="reference external" href="https://github.com/lauft/timew-report/">Python binding</a> that
+parses stdout from <code class="docutils literal notranslate"><span class="pre">timew</span></code> so the extension scripts must parse stdin
+using the timew-report classes. See <a class="reference internal" href="#reporting-examples">Reporting examples</a> for details.</p>
+<p>The current UI script uses the <a class="reference external" href="https://pygobject.gnome.org/index.html">PyGObject</a> introspection interface to
+import bindings for things like <a class="reference external" href="https://pygobject.gnome.org/tutorials/gtk3.html">Gtk</a>, <a class="reference external" href="https://lazka.github.io/pgi-docs/Notify-0.7/index.html">Notify</a>, and <a class="reference external" href="https://lazka.github.io/pgi-docs/AyatanaAppIndicator3-0.1/index.html">Appindicator</a> to render a
+simple tray icon/menu and send desktop notifications. See <a class="reference internal" href="#appindicator-gui">Appindicator GUI</a>
+for details.</p>
+<section id="march-2025-python-packaging-and-metadata-patches">
+<h3>March 2025: Python packaging and metadata patches<a class="headerlink" href="#march-2025-python-packaging-and-metadata-patches" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>setuptools not yet caught up with pyproject.toml rules
+- requires patch for project.license TOML type (table vs string)</p></li>
+<li><p>conflicting PyGObject version/dependency requirements depending on OS version
+- Jammy requires <code class="docutils literal notranslate"><span class="pre">libgirepository1.0-dev</span></code> and <code class="docutils literal notranslate"><span class="pre">PyGObject==v3.50.0</span></code>
+- Noble requires <code class="docutils literal notranslate"><span class="pre">libgirepository-2.0-dev</span></code> and <code class="docutils literal notranslate"><span class="pre">PyGObject&gt;=v3.52.1</span></code></p></li>
+</ul>
+<p>The current workaround uses platform patches to work around these wrinkles,
+eg, <a class="reference external" href="https://github.com/VCTLabs/embedded-overlay/blob/master/app-misc/timew-addons/files/interim-for-setuptools-license-str-vs-table.patch">this patch</a> in the Gentoo overlay.</p>
+</section>
+</section>
+<section id="quick-start-install">
+<h2>Quick start install<a class="headerlink" href="#quick-start-install" title="Link to this heading">¶</a></h2>
+<p>The appindicator GUI prefers OS package manager over virtual environment
+install due to the icon/desktop file integration with an XDG-compliant
+desktop, eg, Gnome or XFCE.  While the extension scripts should work
+anywhere <code class="docutils literal notranslate"><span class="pre">timew</span></code> can be installed, running the appindicator GUI requires
+a real Linux desktop environment.  That said, the GUI script should still
+run from local virtual environment, albeit with a fallback set of icons.</p>
+<ul class="simple">
+<li><p>if on Gentoo, add <a class="reference external" href="https://github.com/VCTLabs/embedded-overlay/">this portage overlay</a> and install <code class="docutils literal notranslate"><span class="pre">timew-addons</span></code></p></li>
+<li><p>if on recent Ubuntu LTS, add <a class="reference external" href="https://launchpad.net/~nerdboy/+archive/ubuntu/embedded">this PPA</a> and install <code class="docutils literal notranslate"><span class="pre">timew-addons</span></code></p></li>
+</ul>
+<section id="install-with-os-package-manager">
+<h3>Install with OS package manager<a class="headerlink" href="#install-with-os-package-manager" title="Link to this heading">¶</a></h3>
+<p>OS packages are deployed via multiple methods, including GH release pages
+and package overlays for <a class="reference external" href="https://www.gentoo.org/">Gentoo</a> and Ubuntu.</p>
+<p>Installing using OS package manager is currently supported on <a class="reference external" href="https://www.gentoo.org/">Gentoo</a>
+and requires <a class="reference external" href="https://github.com/VCTLabs/embedded-overlay/">this portage overlay</a>. Use one of the overlay install
+methods shown in the overlay <a class="reference external" href="https://github.com/VCTLabs/embedded-overlay/">readme</a> file and sync the overlay;
+following the overlay sync, install the package and dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo emaint sync -r embedded-overlay
+$ sudo emerge timew-addons -v --ask
+</pre></div>
+</div>
+<p>OS package installation is also supported on the last few <a class="reference external" href="https://ubuntu.com/">Ubuntu</a> LTS
+releases using the following <a class="reference external" href="https://launchpad.net/~nerdboy/+archive/ubuntu/embedded">Ubuntu PPA</a> to install on Focal, Jammy,
+or Noble.  Make sure you have the <code class="docutils literal notranslate"><span class="pre">add-apt-repository</span></code> command
+installed, then add the PPA and install <code class="docutils literal notranslate"><span class="pre">timew-addons</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository -y -s ppa:nerdboy/embedded
+$ sudo apt-get install timew-addons
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://launchpad.net/~nerdboy/+archive/ubuntu/embedded">Adding this PPA to your system</a> for more info.</p>
+<p>A somewhat manual approach using pre-built packages is available for debian
+<em>bookworm</em>, <em>trixie</em>, and <em>sid</em>. First install the <code class="docutils literal notranslate"><span class="pre">gdebi</span></code> package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt install gdebi
+</pre></div>
+</div>
+<p>Next download the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> packages for timew-report and timew-addons from
+GitHub for your Debian version, eg, for bookworm do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://github.com/sarnold/timew-addons/releases/download/0.3.0/timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+$ wget https://github.com/sarnold/timew-report/releases/download/v1.4.0/timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+</pre></div>
+</div>
+<p>Then install the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> packages for timew-report and timew-addons from
+GitHub using gdebi:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo gdebi timew-report_1.4.0-10+gc66c7b7-bookworm_amd64.deb
+$ sudo gdebi timew-addons_0.3.0-3+g478e08a-bookworm_all.deb
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The exact package names and Debian release will be different.
+Substitute the name of your Debian release and use the most
+recent Github release page available.</p>
+</div>
+</section>
+<section id="install-with-pip">
+<h3>Install with pip<a class="headerlink" href="#install-with-pip" title="Link to this heading">¶</a></h3>
+<p>This project is <em>not</em> published on PyPI, thus use one of the
+following commands to install the latest version in a Python
+virtual environment.</p>
+<p>From source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv .venv
+$ source .venv/bin/activate
+(.venv) $ pip install git+https://github.com/sarnold/timew-addons.git
+</pre></div>
+</div>
+<p>The alternative to python venv is the <a class="reference external" href="https://github.com/tox-dev/tox">Tox</a> automation tool.  If you have it
+installed already, clone this repository and try the following commands
+from the top-level source directory.</p>
+<p>To create a “dev” environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tox -e dev
+</pre></div>
+</div>
+<p>To run the tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tox -e py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After installing in dev mode, use the environment created by
+Tox just like any other Python virtual environment.  The dev
+install mode of Pip allows you to edit the script and run it
+again while inside the virtual environment. By default Tox
+environments are created under <code class="docutils literal notranslate"><span class="pre">.tox/</span></code> and named after the
+env argument (eg, dev).</p>
+</div>
+</section>
+<section id="installed-files">
+<h3>Installed files<a class="headerlink" href="#installed-files" title="Link to this heading">¶</a></h3>
+<p>Whether installed via OS packages or <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the installed files are
+essentially the same, other than packaging-specific requirements and
+generated python byte-code. In the latter case, the list of installed
+files can be obtained with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip show -f timew_addons
+Name: timew_addons
+Version: 0.3.3.dev4+g4ecb6d8.d20250615
+Summary: A collection of timewarrior extensions and experiments
+Home-page: https://github.com/sarnold/timew-addons
+Author: Stephen Arnold
+Author-email: stephen.arnold42@gmail.com
+License-Expression: GPL-3.0-or-later
+Location: /home/user/src/timew-addons/.tox/check/lib/python3.13/site-packages
+Requires: munch, pycairo, PyGObject, timew-report
+Required-by:
+Files:
+  ../../../bin/timew-status-indicator
+  ../../../share/applications/timew-status-indicator.desktop
+  ../../../share/icons/hicolor/48x48/apps/timew.png
+  ../../../share/icons/hicolor/scalable/apps/timew.svg
+  ../../../share/icons/hicolor/scalable/status/timew_error.svg
+  ../../../share/icons/hicolor/scalable/status/timew_inactive.svg
+  ../../../share/icons/hicolor/scalable/status/timew_info.svg
+  ../../../share/icons/hicolor/scalable/status/timew_warning.svg
+  ../../../share/timew-addons/extensions/__pycache__/csv_rpt.cpython-313.pyc
+  ../../../share/timew-addons/extensions/__pycache__/onelineday.cpython-313.pyc
+  ../../../share/timew-addons/extensions/__pycache__/totals.cpython-313.pyc
+  ../../../share/timew-addons/extensions/csv_rpt.py
+  ../../../share/timew-addons/extensions/onelineday.py
+  ../../../share/timew-addons/extensions/totals.py
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/INSTALLER
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/METADATA
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/RECORD
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/REQUESTED
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/WHEEL
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/licenses/LICENSE
+  timew_addons-0.3.3.dev4+g4ecb6d8.d20250615.dist-info/top_level.txt
+  timew_addons/__init__.py
+  timew_addons/__pycache__/__init__.cpython-313.pyc
+  timew_addons/__pycache__/utils.cpython-313.pyc
+  timew_addons/py.typed
+  timew_addons/utils.py
+</pre></div>
+</div>
+</section>
+<section id="generated-files">
+<h3>Generated files<a class="headerlink" href="#generated-files" title="Link to this heading">¶</a></h3>
+<p>On first run, the <code class="docutils literal notranslate"><span class="pre">timew-status-indicator</span></code> script will create its YAML
+configuration file in the standard XDG location:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$HOME/.config/timew_status_indicator/config.yaml
+</pre></div>
+</div>
+<p>with the following contents:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">day_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">08:00</span>
+<span class="nt">day_snooze</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">01:00</span>
+<span class="nt">seat_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">01:30</span>
+<span class="nt">seat_snooze</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:40</span>
+<span class="nt">seat_reset_on_stop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">use_last_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">use_symbolic_icons</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">extension_script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onelineday</span>
+<span class="nt">default_jtag_str</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vct-sw,implement skeleton timew indicator</span>
+<span class="nt">jtag_separator</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="nt">loop_idle_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="nt">show_state_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">terminal_emulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gnome-terminal</span>
+</pre></div>
+</div>
+<p>Edit the above file to set your preferred values. Note the default value
+of <code class="docutils literal notranslate"><span class="pre">loop_idle_seconds</span></code> seems to be a happy medium between update rate
+and wasted CPU cycles.</p>
+</section>
+<section id="uninstalling">
+<h3>Uninstalling<a class="headerlink" href="#uninstalling" title="Link to this heading">¶</a></h3>
+<p>Depending on how it was installed, use on or more of the following:</p>
+<ul class="simple">
+<li><p>delete the cloned directory, eg, <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">path/to/timew-addons</span></code></p></li>
+<li><p>delete the virtual environment, eg, <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">``.venv</span></code></p></li>
+</ul>
+<p>If you installed into a local env via <code class="docutils literal notranslate"><span class="pre">pip</span></code> then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip uninstall timew-addons
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>or, remove the OS package, eg, on Ubuntu:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt remove timew-addons
+$ sudo apt autoremove
+</pre></div>
+</div>
+<p>Finally, delete the configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rm $HOME/.config/timew_status_indicator/config.yaml
+</pre></div>
+</div>
+</section>
+</section>
+<section id="reporting-examples">
+<h2>Reporting examples<a class="headerlink" href="#reporting-examples" title="Link to this heading">¶</a></h2>
+<p>The following extension examples can be found in the <code class="docutils literal notranslate"><span class="pre">extensions</span></code> folder
+in the top-level of the sdist or repository:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">onelineday.py</span></code> - a real-world custom report example</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">totals.py</span></code> - a totals-by-tag report based on the <a class="reference external" href="https://github.com/lauft/timew-report/blob/master/README.md">upstream example</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">csv_rpt.py</span></code> - a simple CSV report also based on the <a class="reference external" href="https://github.com/lauft/timew-report/blob/master/README.md">upstream example</a></p></li>
+</ul>
+<p>They must be manually installed to the location shown below.</p>
+<section id="extension-usage">
+<h3>Extension usage<a class="headerlink" href="#extension-usage" title="Link to this heading">¶</a></h3>
+<p>In general, report extension scripts are installed under <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> in the
+timewarrior extensions folder, which on Linux equates to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls ~/.timewarrior/extensions
+csv_rpt.py  onelineday.py totals.py
+</pre></div>
+</div>
+<p>To use the report extensions, first install timewarrior <a class="reference external" href="https://timewarrior.net/docs/install/">on your platform</a>
+and run the command from a console prompt, then find the extensions directory,
+something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo emerge app-misc/timew --ask
+$ timew -h
+$ find $HOME -maxdepth 1 -name .timewarrior -type d
+/home/user/.timewarrior
+$ ls /home/user/.timewarrior
+data  extensions  timewarrior.cfg
+</pre></div>
+</div>
+<p>Finally, copy the desired extension(s) into the extensions folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp /usr/lib/timew-addons/extensions/onelineday.py ~/.timewarrior/extensions/
+</pre></div>
+</div>
+<p>When using OS packages, extensions should be installed to the above path.</p>
+<p>Run the extension by substituting the extension name for the usual “summary”
+command, eg, instead of <code class="docutils literal notranslate"><span class="pre">timew</span> <span class="pre">summary</span> <span class="pre">june</span></code>, use something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ timew onelineday june
+</pre></div>
+</div>
+<p>Extension names can also be aliases of the full extension filename, so
+using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ timew one today
+</pre></div>
+</div>
+<p>should also work.</p>
+</section>
+<section id="environment">
+<h3>Environment<a class="headerlink" href="#environment" title="Link to this heading">¶</a></h3>
+<p>The report extensions used by the <a class="reference internal" href="#appindicator-gui">Appindicator GUI</a> have 2 output formats:</p>
+<ul class="simple">
+<li><p>the default verbose mode is “human” report output</p></li>
+<li><p>the optional terse mode is consumed and displayed by the GUI</p></li>
+</ul>
+<p>The output mode and job-tag separator are exported as shell environment
+variables by the GUI script on startup, which affects <em>only the internal</em>
+runtime environment of the GUI. However, this means the variables are set
+in the shell environment of the terminal launched by the menu option, so
+running <code class="docutils literal notranslate"><span class="pre">timew</span></code> commands from this terminal instance will use the “terse”
+output mode unless the environment variable is unset, eg, after launching
+a terminal from the GUI menu, run the following in that terminal window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ timew one yesterday
+xyz-test;08:39:36
+vctlabs;00:36:20
+total;09:15:56
+$ unset INDICATOR_FMT
+$ timew one yesterday
+Duration has 1 days and 2 total job tags:
+[&#39;xyz-test&#39;, &#39;vctlabs&#39;]
+
+-- xyz-test
+2024-08-23 3:58:47 xyz-test,continue test case document structure
+2024-08-23 2:38:37 xyz-test,test doc development
+2024-08-23 0:18:55 xyz-test,test doc development discussion
+2024-08-23 1:43:17 xyz-test,test status mtg
+
+Total for xyz-test: 08:39:36 hrs
+
+-- vctlabs
+2024-08-23 0:36:20 vctlabs,project status/planning mtg
+
+Total for vctlabs: 00:36:20 hrs
+
+Final total for all jobs in duration: 09:15:56 hrs
+</pre></div>
+</div>
+</section>
+</section>
+<section id="appindicator-gui">
+<h2>Appindicator GUI<a class="headerlink" href="#appindicator-gui" title="Link to this heading">¶</a></h2>
+<p>timew-status-indicator is a control and status application for timew that
+runs from the system tray on XDG-compliant Linux desktops.</p>
+<p>And by “application” we mean a simple appindicator-based GUI which is
+basically just an icon with a menu. It loads in the indicator area or the
+system tray (whatever is available in your desktop environment). The icon’s
+menu allows you to start and stop time tracking, as well as get status
+and edit the timew tag string. The tray icon appearance will
+update to show the current state of timew vs configurable limits.</p>
+<section id="gui-usage">
+<h3>GUI usage<a class="headerlink" href="#gui-usage" title="Link to this heading">¶</a></h3>
+<p>Select Timew Status Tool from the Applications View or the Utils menu in
+your desktop of choice, eg, Gnome, Unity, Xfce, etc.  You can also add it to
+your session startup or run it from an X terminal to get some debug output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ timew-status-indicator
+</pre></div>
+</div>
+<section id="what-exactly-are-we-tracking">
+<h4>What exactly are we tracking?<a class="headerlink" href="#what-exactly-are-we-tracking" title="Link to this heading">¶</a></h4>
+<p>Simply put, we want to track work hours and seat time in the context of
+the daily hours tracked via the <code class="docutils literal notranslate"><span class="pre">timew</span></code> command. The configuration file
+contains 2 parameters each for setting desired limits, the base max value,
+and an optional “snooze” period:</p>
+<dl class="field-list simple">
+<dt class="field-odd">day_max<span class="colon">:</span></dt>
+<dd class="field-odd"><p>target number of daily work hours</p>
+</dd>
+<dt class="field-even">day_snooze<span class="colon">:</span></dt>
+<dd class="field-even"><p>additional snooze period appended to daily max</p>
+</dd>
+<dt class="field-odd">seat_max<span class="colon">:</span></dt>
+<dd class="field-odd"><p>max number of minutes to stay seated</p>
+</dd>
+<dt class="field-even">seat_snooze<span class="colon">:</span></dt>
+<dd class="field-even"><p>additional snooze period appended to seat max</p>
+</dd>
+</dl>
+<p>Values for the above are given in hours and minutes formatted
+as “time” strings, eg, the following sets an 8-hour max:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">day_max</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;08:00&quot;</span>
+</pre></div>
+</div>
+<p>The seat timer can be disabled by setting both <em>max</em> and <em>snooze</em> to
+zeros, ie, set both values like so:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">seat_max</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;00:00&quot;</span>
+<span class="nt">seat_snooze</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;00:00&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="status-indicator-gui">
+<h4>Status indicator GUI<a class="headerlink" href="#status-indicator-gui" title="Link to this heading">¶</a></h4>
+<p>It would not be an <a class="reference external" href="https://lazka.github.io/pgi-docs/AyatanaAppIndicator3-0.1/index.html">Appindicator</a> without icons, so we use icons as one way
+to show current state. This has nothing to do with application state; in
+this case we only care about the state of our <em>timew tracking interval</em>;
+note this includes the seat timer warnings when there is an active timew
+tracking interval. The states and corresponding icons are shown below:</p>
+<dl class="field-list simple">
+<dt class="field-odd">INACTIVE<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="_images/timew_inactive.svg"><img alt="inactive" class="align-top" src="_images/timew_inactive.svg" style="width: 20px;" /></a> The state when there is no active tracking interval.</p>
+</dd>
+<dt class="field-even">INFO<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="_images/timew_info.svg"><img alt="info" class="align-top" src="_images/timew_info.svg" style="width: 20px;" /></a> The default active state when tracking interval is open.</p>
+</dd>
+<dt class="field-odd">WARNING<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="_images/timew_warning.svg"><img alt="warn" class="align-top" src="_images/timew_warning.svg" style="width: 20px;" /></a> The state when either timer has reached the snooze period.</p>
+</dd>
+<dt class="field-even">ERROR<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="_images/timew_error.svg"><img alt="err" class="align-top" src="_images/timew_error.svg" style="width: 20px;" /></a> The state when either snooze period has expired.</p>
+</dd>
+<dt class="field-odd">APP<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="_images/timew.svg"><img alt="app" class="align-top" src="_images/timew.svg" style="width: 20px;" /></a> While not a state, we use this to retrieve the app icon.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="pygobject-references">
+<h3>PyGObject references<a class="headerlink" href="#pygobject-references" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://lazka.github.io/pgi-docs/">https://lazka.github.io/pgi-docs/</a>  PyGObject API Reference</p></li>
+<li><p><a class="reference external" href="https://pygobject-tutorial.readthedocs.io/en/latest/index.html">https://pygobject-tutorial.readthedocs.io/en/latest/index.html</a>  Tutorial</p></li>
+<li><p><a class="reference external" href="https://github.com/candidtim/vagrant-appindicator">https://github.com/candidtim/vagrant-appindicator</a>  (old)</p></li>
+</ul>
+</section>
+</section>
+<section id="operating-system-support">
+<h2>Operating System Support<a class="headerlink" href="#operating-system-support" title="Link to this heading">¶</a></h2>
+<p>The extension scripts require a basic console environment with both
+timewarrior and the timew-report packages installed (usually via system
+package manager). Running the indicator GUI script requires both
+<a class="reference external" href="https://docs.python.org/3/contents.html">Python</a> and a modern Gtk+ windowing environment with <a class="reference external" href="https://pygobject.gnome.org/tutorials/gtk3.html">Gtk3</a> and
+<a class="reference external" href="https://pygobject.gnome.org/index.html">PyGObject</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The GUI script requires one of the following extensions to
+to parse the current time total from the <code class="docutils literal notranslate"><span class="pre">timew</span></code> output.
+They have been modified to check an environment variable
+and output a summary CSV format.</p>
+</div>
+<p>Install either <code class="docutils literal notranslate"><span class="pre">onelineday.py</span></code> or <code class="docutils literal notranslate"><span class="pre">totals.py</span></code> as shown above, depending
+on preferred tag format:</p>
+<dl class="simple">
+<dt>onelineday</dt><dd><p>Use for job-tag prefix format with sub-totals. See the docstring in
+<code class="docutils literal notranslate"><span class="pre">onelineday.py</span></code> for more details.</p>
+</dd>
+<dt>totals</dt><dd><p>Use for free-form tag format <em>without</em> a job-tag prefix.</p>
+</dd>
+</dl>
+<p>Set the extension script in the config file with the following key, using
+either “onelineday” or “totals” for the value. Similarly set the job-tag
+separator if needed:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">extension_script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onelineday</span>
+<span class="nt">jtag_separator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;;&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+</article>
+        <aside class="nftt-toc my-3">
+          
+          <div class="my-sm-1 my-lg-0 ps-xl-3 text-muted">
+            <button class="btn btn-link p-lg-0 mb-2 mb-lg-0 text-decoration-none nftt-toc-toggle d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents"
+            >On this page <i class="ms-2 bi bi-chevron-expand"></i></button>
+            <div class="title d-none d-lg-block">
+              <i class="bi bi-file-earmark-text"></i>&nbsp;&nbsp;<span class="small">On this page</span>
+            </div>
+            <div class="collapse nftt-toc-collapse" id="tocContents">
+              <nav id="TableOfContents">
+                <ul>
+<li><a class="reference internal" href="#">Timewarrior addon bits</a><ul>
+<li><a class="reference internal" href="#what-is-timewarrior">What is timewarrior?</a></li>
+<li><a class="reference internal" href="#but-what-are-the-addons">But what are the addons?</a><ul>
+<li><a class="reference internal" href="#march-2025-python-packaging-and-metadata-patches">March 2025: Python packaging and metadata patches</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#quick-start-install">Quick start install</a><ul>
+<li><a class="reference internal" href="#install-with-os-package-manager">Install with OS package manager</a></li>
+<li><a class="reference internal" href="#install-with-pip">Install with pip</a></li>
+<li><a class="reference internal" href="#installed-files">Installed files</a></li>
+<li><a class="reference internal" href="#generated-files">Generated files</a></li>
+<li><a class="reference internal" href="#uninstalling">Uninstalling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reporting-examples">Reporting examples</a><ul>
+<li><a class="reference internal" href="#extension-usage">Extension usage</a></li>
+<li><a class="reference internal" href="#environment">Environment</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#appindicator-gui">Appindicator GUI</a><ul>
+<li><a class="reference internal" href="#gui-usage">GUI usage</a><ul>
+<li><a class="reference internal" href="#what-exactly-are-we-tracking">What exactly are we tracking?</a></li>
+<li><a class="reference internal" href="#status-indicator-gui">Status indicator GUI</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pygobject-references">PyGObject references</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#operating-system-support">Operating System Support</a></li>
+</ul>
+</li>
+</ul>
+
+              </nav>
+            </div>
+          </div>
+          
+        </aside>
+      </div>
+    </div>
+
+    <footer class="nftt-footer">
+      <nav id="paginator" class="py-4" aria-label="Documentation navigation">
+    <div class="container">
+      <ul class="pagination justify-content-between mb-0"><li class="d-flex page-item">
+            <a href="index.html" class="d-flex px-5 align-items-end" rel="prev" aria-label="Previous page: Overview for Timew-Addons">
+              <span class="prev-page"><i class="bi bi-caret-left"></i></span>
+              <div class="d-none d-sm-flex flex-column">
+                <span class="text-small text-start text-muted">Previous</span>
+                <span class="underline">Overview for Timew-Addons</span>
+              </div>
+            </a>
+          </li>
+        <li class="d-flex page-item ms-auto">
+            <a href="api/modules.html" class="d-flex px-5 align-items-end" rel="next" aria-label="Next page: timew_addons">
+              <div class="d-flex flex-column">
+                <span class="text-small text-end text-start text-muted">Next</span>
+                <span class="underline">timew_addons</span>
+              </div>
+              <span class="next-page"><i class="bi bi-caret-right"></i></span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+      <div class="py-5 px-4 px-md-3">
+  <div class="container">
+    
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <a class="brand-text d-inline-flex align-items-center mb-2 text-decoration-none" href="/" aria-label="timew-addons">
+          <span class="fs-6 fw-bold">timew-addons</span>
+        </a>
+        
+          <ul class="list-unstyled small text-muted">
+            <li>2024 - 2025 Stephen Arnold</li>
+          </ul>
+        
+        
+        <div class="built-with pt-2">
+          Built with <a href="http://sphinx-doc.org">Sphinx 7.4.7</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.8.9</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+    </footer>
+    <script src="_static/documentation_options.js?v=1e28cc32"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/colorsets.js?v=58f89e02"></script>
+    <script src="_static/docs-versions.js?v=869098fc"></script>
+    <script src="_static/sphinx-nefertiti.min.js?v=cd4e68e4"></script>
+    <script src="_static/bootstrap.bundle.min.js?v=647f0dd8"></script>
+  </body>
+</html>

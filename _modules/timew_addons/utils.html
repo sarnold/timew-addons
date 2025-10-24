@@ -1,0 +1,800 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="colorset-reset" content="86400000" />
+    <meta name="docsearch:name" content="timew-addons" />
+    <meta name="docsearch:package_type" content="" />
+    <meta name="docsearch:release" content="0.3.4" />
+    <meta name="docsearch:version" content="0.3" />
+    
+      <meta name="theme-color" content="#CFE2FF" media="(prefers-color-scheme: light)" />
+      <meta name="theme-color" content="#031633" media="(prefers-color-scheme: dark)" />
+    
+    
+      <title>timew_addons.utils &mdash; timew-addons 0.3.4 documentation</title>
+    
+    <link rel="canonical" href="_modules/timew_addons/utils" />
+          <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8e8a900e" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="../../_static/sphinx-nefertiti-blue.min.css?v=e523baab" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="../../_static/fonts/nunito/stylesheet.css?v=abf98f06" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="../../_static/fonts/ubuntu-sans-mono/stylesheet.css?v=8616a587" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="../../_static/pygments-dark.css?v=f21207c5" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="../../_static/pygments-light.css?v=6c104457" /><!-- add (1) -->
+          <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-icons.min.css?v=44730005" /><!-- add (1) -->
+        <link rel="index" title="Index" href="../../genindex.html" />
+        <link rel="search" title="Search" href="../../search.html" />
+        <link rel="top" title="timew-addons 0.3.4 documentation" href="#" />
+        <link rel="up" title="Module code" href="../index.html" />
+    <style>
+      :root {
+        --nftt-body-font-family: "Nunito", var(--nftt-font-sans-serif) !important;
+        --nftt-font-monospace: "Ubuntu Sans Mono", var(--nftt-font-family-monospace) !important;
+        --nftt-project-name-font: var(--nftt-body-font-family);
+        --nftt-documentation-font: var(--nftt-body-font-family);
+        --nftt-doc-headers-font: "Georgia", var(--nftt-documentation-font);--nftt-monospace-font-size: .90rem;}
+
+      h1 *,
+      h2 *,
+      h3 *,
+      h4 *,
+      h5 *,
+      h6 * {
+        font-size: inherit;
+      }
+
+      .light pre,
+      .dark pre {
+        line-height: var(--nftt-pre-line-height, 140%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="back-to-top-container" class="position-fixed start-50 translate-middle-x">
+      <button id="back-to-top" type="button" class="d-none btn btn-neutral btn-sm shadow px-4" data-bs-toggle="button">Back to top</button>
+    </div>
+    <header id="snftt-nav-bar" class="navbar navbar-expand-xl neutral nftt-navbar flex-column fixed-top">
+      <div class="skip-links container-fluid visually-hidden-focusable overflow-hidden justify-content-start flex-grow-1">
+        <div class="border-bottom mb-2 pb-2 w-100">
+          <a class="d-none d-md-inline-flex p-2 m-1" href="#sidebar-filter">Skip to index filter</a>
+          <a class="d-inline-flex p-2 m-1" href="#content">Skip to main content</a>
+        </div>
+      </div>
+      <nav class="container-xxl nftt-gutter flex-nowrap" aria-label="Main navigation">
+        <div class="nftt-navbar-toggler">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Toggle documentation navigation">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+          <a
+            href="../../index.html"
+            class="navbar-brand"
+          >
+            <img src="../../_static/timew.svg" width="36" height="36" alt="timew-addons"
+              class="project-logo"
+            />
+            <span class="brand-text">timew-addons</span><span class="brand-short-text">timew-addons</span>
+          </a>
+        
+        
+        <div class="d-flex d-xl-none">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#nfttSearch" aria-controls="nfttSearch" aria-label="Search">
+            <i class="bi bi-search"></i>
+          </button>
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#nfttNavbar" aria-controls="nfttNavbar" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+        </div>
+        
+<div class="offcanvas-xl offcanvas-end flex-grow-1" tabindex="-1" id="nfttSearch" aria-labelledby="nfttSearchOffcanvasLabel" data-bs-scroll="true">
+  <div class="offcanvas-header px-4 pb-0">
+    <h5 class="offcanvas-title fw-bold" id="nfttSearchOffcanvasLabel">Search the documentation</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#nfttSearch"></button>
+  </div>
+  <div class="offcanvas-body p-4 pt-0 p-xl-0 ps-xl-4">
+    <hr class="d-xl-none text-white-50">
+    <ul class="navbar-nav flex-row align-items-center flex-wrap ms-md-auto">
+      <li class="nav-item col-12 col-xl-auto">
+        <form id="nftt-search-form" action="../../search.html" method="get">
+          <div class="input-group">
+            <input type="text" name="q" class="form-control search-input" placeholder="Search" aria-label="Search" aria-describedby="button-search">
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+            <button class="btn btn-primary" type="submit" id="button-search" aria-label="Search"><i class="bi bi-search"></i></button>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+        <div class="offcanvas-xl offcanvas-end" tabindex="-1" id="nfttNavbar" aria-labelledby="nfttNavbarOffcanvasLabel" data-bs-scroll="true">
+          <div class="offcanvas-header px-4 pb-0">
+            <div class="offcanvas-title navbar-brand" id="nfttNavbarOffcanvasLabel"><span class="brand-short-text">timew-addons</span></div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#nfttNavbar"></button>
+          </div>
+          <div class="offcanvas-body p-4 pt-0 p-xl-0 px-xl-3">
+            <hr class="d-xl-none text-white-50">
+            <ul class="navbar-nav flex-row align-items-center flex-wrap ms-lg-auto">
+              
+              
+              <li class="nav-item col-12 col-xl-auto">
+                <a class="nav-link py-2 py-xl-0 px-0 px-xl-2" href="https://github.com/sarnold/timew-addons" target="_blank" rel="noopener">
+                  <div class="d-flex align-items-center">
+                    <div class="me-2">
+                      <i class="bi bi-git size-24"></i>
+                    </div>
+                    <div class="repo d-flex flex-column align-items-center" data-snftt-repo-url="https://github.com/sarnold/timew-addons">
+                      timew-addons
+                      <div class="d-flex justify-content-center" data-snftt-repo-metrics>
+                        <span class="pe-2 d-flex justify-content-center align-items-center">
+                          <i class="bi bi-tag size-14"></i>
+                          <span class="repo-metric" data-snftt-repo-tag></span>
+                        </span>
+                        <span class="pe-2 d-flex justify-content-center align-items-center">
+                          <i class="bi bi-star size-14"></i>
+                          <span class="repo-metric" data-snftt-repo-stars></span>
+                        </span>
+                        <span class="d-flex justify-content-center align-items-center">
+                          <i class="bi bi-diagram-2 size-14"></i>
+                          <span class="repo-metric" data-snftt-repo-forks></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item col-12 col-xl-auto h-100" aria-hidden="true">
+                <div class="vr d-none d-xl-flex h-100 mx-xl-2 text-white-50"></div>
+                <hr class="d-xl-none text-white-50">
+              </li>
+              
+              
+  <li class="nav-item dropdown">
+    <a class="nav-link d-flex py-2 px-0 px-xl-2 dropdown-toggle align-items-center" id="snftt-version" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Select version">
+      <span id="snftt-version-text" class="d-xl-none">timew-addons</span>
+      <span class="ms-2" data-snftt-version-active="latest">latest</span>
+    </a>
+    
+    <ul class="dropdown-menu dropdown-menu-end dropdown-limit-max-height" aria-labelledby="snftt-version-text" id="versions-dropdown-menu">
+      <li>
+        <h6 class="dropdown-header">Versions</h6>
+      </li>
+    </ul>
+  </li>
+  <li class="nav-item col-12 col-xl-auto h-100" aria-hidden="true">
+    <div class="vr d-none d-xl-flex h-100 mx-xl-2 text-white-50"></div>
+    <hr class="d-xl-none text-white-50">
+  </li>
+
+              
+  <!-- colorssets-dropdown.html -->
+  <li class="nav-item dropdown">
+    <a class="nav-link d-flex py-2 px-0 px-xl-2 dropdown-toggle align-items-center" id="snftt-color" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" aria-label="Change base color">
+      <i class="bi bi-palette"></i>
+      <span id="snftt-color-text" class="d-xl-none ms-2">Change base color</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="snftt-color-text">
+      <li>
+        <h6 class="dropdown-header">Change base color</h6>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center active" data-snftt-colorset="blue" href="#" aria-pressed="false">
+          <span class="blue">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Blue</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="indigo" href="#" aria-pressed="false">
+          <span class="indigo">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Indigo</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="purple" href="#" aria-pressed="false">
+          <span class="purple">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Purple</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="pink" href="#" aria-pressed="false">
+          <span class="pink">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Pink</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="red" href="#" aria-pressed="false">
+          <span class="red">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Red</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="orange" href="#" aria-pressed="false">
+          <span class="orange">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Orange</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="yellow" href="#" aria-pressed="false">
+          <span class="yellow">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Yellow</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="green" href="#" aria-pressed="false">
+          <span class="green">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Green</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="teal" href="#" aria-pressed="false">
+          <span class="teal">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Teal</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item d-flex align-items-center " data-snftt-colorset="default" href="#" aria-pressed="false">
+          <span class="cyan">
+            <i class="bi bi-circle-fill"></i>
+          </span>
+          <span class="ms-3">Cyan</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+      
+      <li><hr class="dropdown-divider" /></li>
+      <li>
+        <h6 class="dropdown-header">Header style</h6>
+      </li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center active current" data-snftt-colorset-neutral="on" href="#" aria-pressed="false">
+          <i class="bi bi-noise-reduction"></i>
+          <span class="ms-3">Neutral</span>
+          <i class="bi bi-check ms-auto"></i>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav-item col-12 col-xl-auto h-100" aria-hidden="true">
+    <div class="vr d-none d-xl-flex h-100 mx-xl-2 text-white-50"></div>
+    <hr class="d-lg-none text-white-50">
+  </li>
+
+              
+              <!-- lightdark-dropdown.html -->
+<li class="nav-item dropdown">
+  <a class="nav-link d-flex py-2 px-0 px-xl-2 dropdown-toggle align-items-center" id="snftt-luz" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" aria-label="Change appearance">
+    <i class="bi bi-circle-half" data-snftt-luz-icon-active></i>
+    <span id="snftt-luz-text" class="d-xl-none ms-2">Change appearance</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="snftt-luz-text">
+    <li>
+      <h6 class="dropdown-header">Change appearance</h6>
+    </li>
+    <li>
+      <a class="dropdown-item d-flex align-items-center" data-snftt-luz="light" href="#" aria-pressed="false">
+        <span>
+          <i class="bi bi-sun" data-snftt-luz-icon="light"></i>
+        </span>
+        <span class="ms-3">Light</span>
+        <i class="bi bi-check ms-auto"></i>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item d-flex align-items-center" data-snftt-luz="dark" href="#" aria-pressed="false">
+        <span>
+          <i class="bi bi-moon-stars" data-snftt-luz-icon="dark"></i>
+        </span>
+        <span class="ms-3">Dark</span>
+        <i class="bi bi-check ms-auto"></i>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item current d-flex align-items-center" data-snftt-luz="default" href="#" aria-pressed="false">
+        <span>
+          <i class="bi bi-circle-half" data-snftt-luz-icon="default"></i>
+        </span>
+        <span class="ms-3">Automatic</span>
+        <i class="bi bi-check ms-auto"></i>
+      </a>
+    </li>
+  </ul>
+</li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+    </header>
+
+    <div class="container-fluid flex-grow-1">
+      <div class="nftt-gutter nftt-page">
+        <aside class="nftt-sidebar ">
+          <div class="nftt-sidebar-content">
+            
+            <div class="title d-none d-xl-none">
+              <i class="bi bi-book"></i>&nbsp;&nbsp;<span>Index</span>
+            </div>
+            <div id="sidebar" tabindex="-1" class="offcanvas-xl offcanvas-start" aria-labelledby="nfttSidebarOffcanvasLabel">
+                <!-- sidebartemplate: "globaltoc.html" --><div class="offcanvas-header border-bottom">
+  <h5 class="offcanvas-title fw-bold" id="nfttSidebarOffcanvasLabel">
+    Index
+  </h5>
+  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#sidebar"></button>
+</div>
+
+<div class="offcanvas-body">
+  <nav class="toc" aria-label="Main menu">
+    <div class="mb-3 p-1 pb-4 border-bottom">
+      <input id="sidebar-filter" type="text" name="filter" class="form-control form-control-sm" placeholder="index filter" aria-label="index filter">
+    </div>
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">Timewarrior addon bits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">timew_addons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/timew_addons.html">timew_addons package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/timew_addons.utils.html">timew_addons.utils module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a></li>
+</ul>
+
+  </nav>
+  <template data-toggle-item-template>
+    <button class="btn btn-sm btn-link toctree-expand" type="button">
+      <i class="bi bi-caret-right"></i>
+      <span class="visually-hidden">Toggle menu contents</span>
+    </button>
+  </template>
+</div>
+            </div>
+            
+          </div>
+        </aside>
+        <article id="content" class="nftt-content" role="main">
+          <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../../index.html">Start</a></li>
+      <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+    <li class="breadcrumb-item active" aria-current="page">timew_addons.utils</li>
+  </ol>
+</nav>
+    <h1>Source code for timew_addons.utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Base configuration and app helper functions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shutil</span><span class="w"> </span><span class="kn">import</span> <span class="n">which</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">munch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Munch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ruamel.yaml</span><span class="w"> </span><span class="kn">import</span> <span class="n">YAML</span>
+
+<span class="n">APP_NAME</span> <span class="o">=</span> <span class="s1">&#39;timew_status_indicator&#39;</span>
+<span class="n">CFG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># time strings are HH:MM (no seconds)</span>
+    <span class="s2">&quot;day_max&quot;</span><span class="p">:</span> <span class="s2">&quot;08:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;day_snooze&quot;</span><span class="p">:</span> <span class="s2">&quot;01:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;seat_max&quot;</span><span class="p">:</span> <span class="s2">&quot;01:30&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;seat_snooze&quot;</span><span class="p">:</span> <span class="s2">&quot;00:40&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;seat_reset_on_stop&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;use_last_tag&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;use_symbolic_icons&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;extension_script&quot;</span><span class="p">:</span> <span class="s2">&quot;onelineday&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;default_jtag_str&quot;</span><span class="p">:</span> <span class="s2">&quot;vct-sw,implement skeleton timew indicator&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;jtag_separator&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;loop_idle_seconds&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;show_state_label&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;terminal_emulator&quot;</span><span class="p">:</span> <span class="s2">&quot;gnome-terminal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extensions_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;.timewarrior/extensions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;install_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;share/timew-addons/extensions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;install_prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="FmtYAML">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.FmtYAML">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FmtYAML</span><span class="p">(</span><span class="n">YAML</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple formatted YAML subclass with default indenting. Particularly</span>
+<span class="sd">    useful in old RHEL environments with ``ruamel.yaml==0.16.6``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Init with specific indenting and quote preservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preserve_quotes</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="check_for_timew">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.check_for_timew">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_for_timew</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make sure we can find the ``timew`` binary in the user environment</span>
+<span class="sd">    and return a path string.</span>
+
+<span class="sd">    :returns: program path string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timew_path</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s1">&#39;timew&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">timew_path</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cannot continue, no path found for timew&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;timew not found in PATH&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">timew_path</span></div>
+
+
+
+<div class="viewcode-block" id="do_install">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.do_install">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">do_install</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Install report extensions to timew extensions directory. The default src</span>
+<span class="sd">    paths are preconfigured and should probably not be changed unless you</span>
+<span class="sd">    know what you are doing, since *they are created during install or setup*.</span>
+<span class="sd">    You should, however, adjust the destination path in ``extensions_dir`` if</span>
+<span class="sd">    needed for your platform. Returns the destination path string for each</span>
+<span class="sd">    installed extension script.</span>
+
+<span class="sd">    :param cfg: runtime CFG</span>
+<span class="sd">    :returns: list of path strings</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;install_prefix&quot;</span><span class="p">]</span>
+    <span class="n">srcdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">/</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;install_dir&quot;</span><span class="p">]</span>
+    <span class="n">destdir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;extensions_dir&quot;</span><span class="p">]</span>
+    <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;totals.py&#39;</span><span class="p">,</span> <span class="s1">&#39;onelineday.py&#39;</span><span class="p">]</span>
+    <span class="n">files</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">:</span>
+        <span class="n">dest</span> <span class="o">=</span> <span class="n">destdir</span> <span class="o">/</span> <span class="n">file</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">srcdir</span> <span class="o">/</span> <span class="n">file</span>
+        <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;do_install: src is </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;do_install: dest is </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">dest</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="si">}</span><span class="s2"> written successfully&quot;</span><span class="p">)</span>
+        <span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">files</span></div>
+
+
+
+<div class="viewcode-block" id="get_config">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.get_config">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Munch</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load configuration file and munchify the data. If local file is not</span>
+<span class="sd">    found in config directory, the default will be loaded and saved to</span>
+<span class="sd">    XDG config directory. Return a Munch cfg obj and corresponding Path</span>
+<span class="sd">    obj.</span>
+
+<span class="sd">    :returns: tuple of Munch and Path objs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfgdir</span> <span class="o">=</span> <span class="n">get_userdirs</span><span class="p">()</span>
+    <span class="n">cfgfile</span> <span class="o">=</span> <span class="n">cfgdir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cfgfile</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving initial config data to </span><span class="si">{</span><span class="n">cfgfile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">FmtYAML</span><span class="p">()</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">CFG</span><span class="p">,</span> <span class="n">cfgfile</span><span class="p">)</span>
+    <span class="n">cfgobj</span> <span class="o">=</span> <span class="n">Munch</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">FmtYAML</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfgfile</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">cfgobj</span><span class="p">,</span> <span class="n">cfgfile</span></div>
+
+
+
+<div class="viewcode-block" id="get_delta_limits">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.get_delta_limits">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_delta_limits</span><span class="p">(</span><span class="n">ucfg</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">timedelta</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return config max/snooze limits as timedeltas. Everything comes from</span>
+<span class="sd">    static config values and gets padded with seconds.</span>
+
+<span class="sd">    :param ucfg: runtime CFG dict</span>
+<span class="sd">    :returns: tuple of 4 timedeltas</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">Munch</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">ucfg</span><span class="p">)</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="s1">&#39;:00&#39;</span>
+    <span class="n">day_sum</span> <span class="o">=</span> <span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">day_max</span> <span class="o">+</span> <span class="n">pad</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">day_snooze</span> <span class="o">+</span> <span class="n">pad</span><span class="p">]</span>
+    <span class="n">seat_sum</span> <span class="o">=</span> <span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">seat_max</span> <span class="o">+</span> <span class="n">pad</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">seat_snooze</span> <span class="o">+</span> <span class="n">pad</span><span class="p">]</span>
+    <span class="n">day_limit</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">to_td</span><span class="p">,</span> <span class="n">day_sum</span><span class="p">),</span> <span class="n">timedelta</span><span class="p">())</span>  <span class="c1"># noqa:</span>
+    <span class="n">seat_limit</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">to_td</span><span class="p">,</span> <span class="n">seat_sum</span><span class="p">),</span> <span class="n">timedelta</span><span class="p">())</span>  <span class="c1"># noqa:</span>
+    <span class="n">day_max</span> <span class="o">=</span> <span class="n">to_td</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">day_max</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+    <span class="n">seat_max</span> <span class="o">=</span> <span class="n">to_td</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">seat_max</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">day_max</span><span class="p">,</span> <span class="n">day_limit</span><span class="p">,</span> <span class="n">seat_max</span><span class="p">,</span> <span class="n">seat_limit</span></div>
+
+
+
+<div class="viewcode-block" id="get_state_icon">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.get_state_icon">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_state_icon</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Look up the state msg and return the icon name. Use builtin symbolic</span>
+<span class="sd">    icons as fallback.</span>
+
+<span class="sd">    :param state: name of state key</span>
+<span class="sd">    :param cfg: runtime CFG</span>
+<span class="sd">    :returns: matching icon name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">install_path</span> <span class="o">=</span> <span class="s1">&#39;/usr/share/icons/hicolor/scalable/apps&#39;</span>
+    <span class="n">icon_name</span> <span class="o">=</span> <span class="s1">&#39;timew.svg&#39;</span>
+
+    <span class="n">fallback_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;APP&#39;</span><span class="p">:</span> <span class="s1">&#39;dialog-information-symbolic&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;INACTIVE&#39;</span><span class="p">:</span> <span class="s1">&#39;dialog-question-symbolic&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ACTIVE&#39;</span><span class="p">:</span> <span class="s1">&#39;dialog-information-symbolic&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;WARNING&#39;</span><span class="p">:</span> <span class="s1">&#39;dialog-warning-symbolic&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ERROR&#39;</span><span class="p">:</span> <span class="s1">&#39;dialog-error-symbolic&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">timew_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;APP&#39;</span><span class="p">:</span> <span class="s1">&#39;timew&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;INACTIVE&#39;</span><span class="p">:</span> <span class="s1">&#39;timew_inactive&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ACTIVE&#39;</span><span class="p">:</span> <span class="s1">&#39;timew_info&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;WARNING&#39;</span><span class="p">:</span> <span class="s1">&#39;timew_warning&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ERROR&#39;</span><span class="p">:</span> <span class="s1">&#39;timew_error&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">state_dict</span> <span class="o">=</span> <span class="n">timew_dict</span>
+    <span class="n">app_icon</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">install_path</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">icon_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;use_symbolic_icons&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_icon</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">state_dict</span> <span class="o">=</span> <span class="n">fallback_dict</span>
+
+    <span class="k">return</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">[</span><span class="s1">&#39;INACTIVE&#39;</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="get_state_str">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.get_state_str">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_state_str</span><span class="p">(</span>
+    <span class="n">cmproc</span><span class="p">:</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">count</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">Dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return timew state message and tracking state, ie, the key for dict</span>
+<span class="sd">    with icons.</span>
+
+<span class="sd">    :param cmproc: completed timew process obj</span>
+<span class="sd">    :param count: seat time counter value</span>
+<span class="sd">    :param cfg: runtime CFG</span>
+<span class="sd">    :returns: tuple of state msg and state string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">(</span><span class="n">day_max</span><span class="p">,</span> <span class="n">day_limit</span><span class="p">,</span> <span class="n">seat_max</span><span class="p">,</span> <span class="n">seat_limit</span><span class="p">)</span> <span class="o">=</span> <span class="n">get_delta_limits</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;INACTIVE&#39;</span> <span class="k">if</span> <span class="n">cmproc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;ACTIVE&#39;</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">cmproc</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="n">day_total</span> <span class="o">=</span> <span class="s1">&#39;00:00:00&#39;</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;total&#39;</span><span class="p">]:</span>
+        <span class="n">day_total</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">day_max</span> <span class="o">&lt;</span> <span class="n">to_td</span><span class="p">(</span><span class="n">day_total</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">day_limit</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;WARNING&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;WARNING: day max of </span><span class="si">{</span><span class="n">day_max</span><span class="si">}</span><span class="s1"> has been exceeded</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">msg</span>
+    <span class="k">if</span> <span class="n">to_td</span><span class="p">(</span><span class="n">day_total</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">day_limit</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;ERROR&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;ERROR: day limit of </span><span class="si">{</span><span class="n">day_limit</span><span class="si">}</span><span class="s1"> has been exceeded</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">msg</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;seat_max&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;00:00&quot;</span> <span class="ow">and</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;seat_snooze&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;00:00&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">seat_max</span> <span class="o">&lt;</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">seat_limit</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;WARNING&#39;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;WARNING: seat max of </span><span class="si">{</span><span class="n">seat_max</span><span class="si">}</span><span class="s1"> has been exceeded</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">msg</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="n">seat_limit</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;ERROR&#39;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;ERROR: seat limit of </span><span class="si">{</span><span class="n">seat_limit</span><span class="si">}</span><span class="s1"> has been exceeded</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">msg</span>
+    <span class="k">return</span> <span class="n">msg</span><span class="p">,</span> <span class="n">state</span></div>
+
+
+
+<div class="viewcode-block" id="get_status">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.get_status">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_status</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return timew tracking status (output of ``timew`` with no arguments).</span>
+
+<span class="sd">    :param None:</span>
+<span class="sd">    :returns: timew output str or None</span>
+<span class="sd">    :raises RuntimeError: for timew not found error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timew_cmd</span> <span class="o">=</span> <span class="n">check_for_timew</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">timew_cmd</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timew status error: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Did you install timewarrior?&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span></div>
+
+
+
+<div class="viewcode-block" id="get_userdirs">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.get_userdirs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_userdirs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get XDG user configuration path defined as ``XDG_CONFIG_HOME`` plus</span>
+<span class="sd">    application name. This may grow if needed.</span>
+
+<span class="sd">    :param None:</span>
+<span class="sd">    :returns: XDG Path obj</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xdg_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;XDG_CONFIG_HOME&#39;</span><span class="p">)</span>
+    <span class="n">config_home</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">xdg_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">xdg_path</span> <span class="k">else</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;.config&#39;</span><span class="p">)</span>
+    <span class="n">configdir</span> <span class="o">=</span> <span class="n">config_home</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">APP_NAME</span><span class="p">)</span>
+    <span class="n">configdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">configdir</span></div>
+
+
+
+<div class="viewcode-block" id="parse_for_tag">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.parse_for_tag">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_for_tag</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the output of timew start/stop commands for the tag string.</span>
+
+<span class="sd">    :param text: start or stop output from ``timew`` (via run_cmd)</span>
+<span class="sd">    :returns: timew tag string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;Tracking&quot;</span><span class="p">,</span> <span class="s2">&quot;Recorded&quot;</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s2">&quot;Tag extraction error&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="run_cmd">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.run_cmd">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_cmd</span><span class="p">(</span>
+    <span class="n">cfg</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run timew command subject to the given action.</span>
+
+<span class="sd">    :param action: one of &lt;start|stop|status&gt;</span>
+<span class="sd">    :returns: completed proc obj and result msg</span>
+<span class="sd">    :raises RuntimeError: for timew action error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timew_cmd</span> <span class="o">=</span> <span class="n">check_for_timew</span><span class="p">()</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;extension_script&quot;</span><span class="p">]</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">]</span>
+    <span class="n">svc_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">timew_cmd</span><span class="p">]</span>
+    <span class="n">sts_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">extension</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">svc_list</span>
+    <span class="n">act_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">action</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Invalid action: </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;start&#39;</span> <span class="ow">and</span> <span class="n">tag</span><span class="p">:</span>
+        <span class="n">act_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">action</span> <span class="o">!=</span> <span class="s1">&#39;status&#39;</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">svc_list</span> <span class="o">+</span> <span class="n">act_list</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">sts_list</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;stop&#39;</span><span class="p">:</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">parse_for_tag</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;run_cmd </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s1"> result tag: </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">tag</span>
+        <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;run_cmd </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s1"> return code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;run_cmd </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s1"> result msg: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;run_cmd exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timew </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2"> error&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span></div>
+
+
+
+<div class="viewcode-block" id="to_td">
+<a class="viewcode-back" href="../../api/timew_addons.utils.html#timew_addons.to_td">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_td</span><span class="p">(</span><span class="n">hms</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">timedelta</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a time string in HH:MM:SS format to a timedelta object.</span>
+
+<span class="sd">    :param hms: time string</span>
+<span class="sd">    :returns: timedelta</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hrs</span><span class="p">,</span> <span class="n">mins</span><span class="p">,</span> <span class="n">secs</span> <span class="o">=</span> <span class="n">hms</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="n">td</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">hrs</span><span class="p">),</span> <span class="n">minutes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mins</span><span class="p">),</span> <span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">secs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">td</span></div>
+
+
+
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</article>
+        <aside class="nftt-toc my-3">
+          
+        </aside>
+      </div>
+    </div>
+
+    <footer class="nftt-footer">
+      
+<nav id="paginator"></nav>
+
+      <div class="py-5 px-4 px-md-3">
+  <div class="container">
+    
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <a class="brand-text d-inline-flex align-items-center mb-2 text-decoration-none" href="/" aria-label="timew-addons">
+          <span class="fs-6 fw-bold">timew-addons</span>
+        </a>
+        
+          <ul class="list-unstyled small text-muted">
+            <li>2024 - 2025 Stephen Arnold</li>
+          </ul>
+        
+        
+        <div class="built-with pt-2">
+          Built with <a href="http://sphinx-doc.org">Sphinx 7.4.7</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.8.9</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+    </footer>
+    <script src="../../_static/documentation_options.js?v=1e28cc32"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/colorsets.js?v=58f89e02"></script>
+    <script src="../../_static/docs-versions.js?v=869098fc"></script>
+    <script src="../../_static/sphinx-nefertiti.min.js?v=cd4e68e4"></script>
+    <script src="../../_static/bootstrap.bundle.min.js?v=647f0dd8"></script>
+  </body>
+</html>
