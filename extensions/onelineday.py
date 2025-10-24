@@ -116,7 +116,7 @@ for job_tag in sorted(job_tags):
     final_total += tracked_total
     all_strings = [x.split(',', maxsplit=1)[1] for x in job_tag_strs if job_tag in x]
     tag_list = list(dict.fromkeys(all_strings))
-    tag_strings = " ,".join(tag_list)
+    tag_strings = ", ".join(tag_list)
 
     if CSV_OUTPUT:
         print(f'{job_tag};{strf_delta(tracked_total)}')

@@ -2,7 +2,21 @@ Changelog
 =========
 
 
-0.3.3 (2025-07-18)
+0.3.4 (2025-10-23)
+------------------
+
+Changes
+~~~~~~~
+- Fix typo in tag string, update changelog for release. [Stephen L
+  Arnold]
+- Add csv tag list to onelineday report. [Stephen L Arnold]
+
+  * output deduplicated list of tags for report period, eg, today
+  * update pre-commit hooks and remove deprecated encoding pragma hook
+  * bump python version in check workflow
+
+
+0.3.3 (2025-07-19)
 ------------------
 
 Changes
